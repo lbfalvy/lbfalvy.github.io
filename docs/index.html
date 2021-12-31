@@ -1,22 +1,69 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Lawrence Bethlenfalvy</title>
 		<link rel="preconnect" href="https://fonts.gstatic.com">
-		<link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet"> 
+		<link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
 		<style>
 			html {
-				background: #150707;
+				/* background: #150707; */
 				color: white;
 				text-align: center;
-				font-family: 'Comfortaa', sans-serif; 
+				font-family: 'Comfortaa', sans-serif;
 			}
+
+			html::before {
+				content: "";
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100vw;
+				height: 100vh;
+				background:
+					radial-gradient(ellipse at top, #530d0d 0, #130000 70%);
+			}
+
 			a {
 				color: white;
 				display: block;
 				text-decoration: none;
 				padding-bottom: 4px;
 			}
+
+			a:hover * {
+				text-decoration: underline;
+			}
+
+			section {
+				border-width: 3px;
+				border-style: solid;
+				border-color: #aaa0;
+				border-top: none;
+				border-bottom: none;
+				padding: 0 15px;
+				transition: border-color .5s;
+			}
+
+			section:hover {
+				border-color: #aaaf;
+			}
+
+			h2 {
+				margin-top: 50px;
+			}
+
+			h3 {
+				font-style: italic;
+				color: #888;
+				margin-bottom: 0;
+			}
+
+			p {
+				text-align: justify;
+			}
+
 			body {
 				position: absolute;
 				top: 50%;
@@ -26,24 +73,55 @@
 			}
 		</style>
 	</head>
+
 	<body>
 		<h1>Lawrence Bethlenfalvy</h1>
+		<hr>
 		<p>
-			I make websites and web-based applications. I love open source snd mathematics.
+			I make websites and web-based applications primarily with React. I love open
+			source and mathematics, but I also like to see my work visually, which is why I
+			do so much frontend.
 		</p>
-		<h2>projects</h2>
-		<a href="https://arnyekegyetem.hu">
-			Árnyékegyetem
-		</a>
-		<a href="https://www.npmjs.com/package/@lbfalvy/react-await">
-			React Await
-		</a>
+		<h2>Projects</h2>
+		<hr>
+		<section>
+			<a href="https://arnyekegyetem.hu">
+				<h3>Árnyékegyetem</h3>
+			</a>
+			<p>
+				A complex SPA encompassing a simple blog engine, a wiki engine and a forum.
+				It's designed with mobile users in mind and it has a sophisticated token-based
+				auth system, so it really feels a lot like a mobile app that opens in a browser
+				window.
+			</p>
+		</section>
+		<section>
+			<a href="https://www.npmjs.com/package/@lbfalvy/react-await">
+				<h3>React Await</h3>
+			</a>
+			<p>
+				A React component for lazy-loading and extracting data fetching logic from the
+				parent component. It works with Promises so it doesn't require any further
+				effort from either the data fetching logic or the child, unlike Suspense.
+			</p>
+		</section>
+		<section>
+			<a href="https://www.npmjs.com/package/@lbfalvy/react-context-menu">
+				<h3>React Context Menu</h3>
+			</a>
+			<p>
+				A multilevel custom context menu for React. The API relies on React context
+				so that menus can be combined over nested containers
+			</p>
+		</section>
 		<h2>Contact</h2>
+		<hr>
 		<a href="mailto:lbfalvy@protonmail.com">
 			lbfalvy@protonmail.com
 		</a>
 		<a href="https://www.linkedin.com/in/lawrence-bethlenfalvy/">
-			 LinkedIn
-		 </a>
+			LinkedIn
+		</a>
 	</body>
+
 </html>
