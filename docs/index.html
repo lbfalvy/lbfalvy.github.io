@@ -8,10 +8,10 @@
 		<link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
 		<style>
 			html {
-				/* background: #150707; */
 				color: white;
 				text-align: center;
 				font-family: 'Comfortaa', sans-serif;
+				letter-spacing: 1px;
 			}
 
 			html::before {
@@ -22,7 +22,10 @@
 				width: 100vw;
 				height: 100vh;
 				background:
-					radial-gradient(ellipse at top, #530d0d 0, #130000 70%);
+					radial-gradient(circle at top,
+						hsl(235, 30%, 34%) 0,
+						hsl(236, 73%, 19%) 10%,
+						hsl(236, 100%, 4%) 70%);
 			}
 
 			a {
@@ -36,17 +39,20 @@
 				text-decoration: underline;
 			}
 
-			section {
-				border-width: 3px;
-				border-style: solid;
-				border-color: #aaa0;
-				border-top: none;
-				border-bottom: none;
-				transition: border-color .5s;
+			#projects {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(30ch, max-content));
+				justify-content: center;
 			}
 
-			section:hover {
-				border-color: #aaaf;
+			#projects article {
+				text-align: left;
+				width: 30ch;
+				box-sizing: border-box;
+			}
+
+			#projects article:hover {
+				background: #fff1;
 			}
 
 			h2 {
@@ -57,11 +63,18 @@
 				font-style: italic;
 				color: #888;
 				margin-bottom: 0;
+				text-align: center;
+			}
+
+			hr {
+				border: none
 			}
 
 			p {
-				text-align: justify;
-				margin: 0 15px;
+				/* text-align: justify; */
+				padding: 15px;
+				margin: auto;
+				max-width: 74ch;
 			}
 
 			body {
@@ -69,7 +82,7 @@
 				top: 50%;
 				left: 50%;
 				transform: translate(-50%, -50%);
-				max-width: 80ch;
+				max-width: 90ch;
 				max-height: 100%;
 				width: 100%;
 				margin: 0;
@@ -88,35 +101,38 @@
 		</p>
 		<h2>Projects</h2>
 		<hr>
-		<section>
-			<a href="https://arnyekegyetem.hu">
-				<h3>Árnyékegyetem</h3>
-			</a>
-			<p>
-				A complex SPA encompassing a simple blog engine, a wiki engine and a forum.
-				It's designed with mobile users in mind and it has a sophisticated token-based
-				auth system, so it really feels a lot like a mobile app that opens in a browser
-				window.
-			</p>
-		</section>
-		<section>
-			<a href="https://www.npmjs.com/package/@lbfalvy/react-await">
-				<h3>React Await</h3>
-			</a>
-			<p>
-				A React component for lazy-loading and extracting data fetching logic from the
-				parent component. It works with Promises so it doesn't require any further
-				effort from either the data fetching logic or the child, unlike Suspense.
-			</p>
-		</section>
-		<section>
-			<a href="https://www.npmjs.com/package/@lbfalvy/react-context-menu">
-				<h3>React Context Menu</h3>
-			</a>
-			<p>
-				A multilevel custom context menu for React. The API relies on React context
-				so that menus can be combined over nested containers
-			</p>
+		<section id='projects'>
+			<article>
+				<a href="https://arnyekegyetem.hu">
+					<h3>Árnyékegyetem</h3>
+				</a>
+				<p>
+					A complex SPA encompassing a simple blog engine, a wiki engine and a forum.
+					It's designed with mobile users in mind and it has a sophisticated token-based
+					auth system, so it really feels a lot like a mobile app that opens in a browser
+					window.
+				</p>
+			</article>
+			<article>
+				<a href="https://www.npmjs.com/package/@lbfalvy/react-await">
+					<h3>React Await</h3>
+				</a>
+				<p>
+					A React component for lazy-loading and extracting data fetching logic from the
+					parent component. It works with Promises so it doesn't require any further
+					effort from either the fetching library or the child, unlike Suspense which
+					requires everyone's special effort.
+				</p>
+			</article>
+			<article>
+				<a href="https://www.npmjs.com/package/@lbfalvy/react-context-menu">
+					<h3>React Context Menu</h3>
+				</a>
+				<p>
+					A multilevel custom context menu for React. The API relies on React context
+					so that menus can be combined over nested containers
+				</p>
+			</article>
 		</section>
 		<h2>Contact</h2>
 		<hr>
