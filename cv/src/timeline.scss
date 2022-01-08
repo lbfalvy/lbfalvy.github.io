@@ -1,0 +1,17 @@
+@mixin timeline($spacing, $linesize, $ballsize, $decor, $ball-top) {
+    position: relative;
+    margin-left: $spacing;
+    padding-left: $spacing;
+    border-left: $linesize solid;
+    border-color: $decor;
+    &::before {
+        content: "";
+        position: absolute;
+        top: calc($ball-top - $ballsize / 2);
+        left: calc(0px - $linesize / 2 - $ballsize / 2);
+        width: $ballsize;
+        height: $ballsize;
+        background-color: $decor;
+        border-radius: 100000px;
+    }
+}
