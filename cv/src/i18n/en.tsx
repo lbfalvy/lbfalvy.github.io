@@ -11,12 +11,12 @@ const en: I18n = {
 Solving problems with unfamiliar technologies, internationalising a MODX site
     `,
     remiz_duties: `
-Adding features to an enterprise-scale codebase, debugging, efficiently using an ORM
-(Entity Framework), refactoring
+Adding features to an enterprise-scale codebase, debugging, using an ORM efficiently,
+refactoring
     `,
     aegyetem_duties: `
 Managing and developing a webapp start to finish, discussing features and progress with
-clients, modern web technologies, time management.
+clients, modern web technologies, time management
     `,
     education: 'Education',
     matura: 'Hungarian Matura (EQF level 3)',
@@ -24,8 +24,8 @@ clients, modern web technologies, time management.
     fazekas_skills: `
 Basics of computer programming, C++, advanced mathematics
     `,
-    score: 'Score',
-    subject: 'Subject',
+    // score: 'Score',
+    // subject: 'Subject',
     avg: 'average',
     adv_math: 'Adv. Mathematics',
     adv_it: 'Adv. IT',
@@ -38,7 +38,12 @@ Object-oriented programming, project planning and documentation techniques.
     english: 'English',
     skills: 'Skills',
     linux_exp: 'Daily driver for 5 years',
-    current: 'Current'
+    current: 'Current',
+    foss: 'Open Source',
+    this_cv: 'This CV',
+    this_cv_1: 'This CV is written in React. The latest version is available online at ',
+    this_cv_2: '. The code, along with the code of my portfolio page, is on my github at ',
+    this_cv_3: '.'
 }
 
 export default en

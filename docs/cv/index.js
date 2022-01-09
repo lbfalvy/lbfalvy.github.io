@@ -2460,12 +2460,12 @@
 Solving problems with unfamiliar technologies, internationalising a MODX site
     `,
 	    remiz_duties: `
-Adding features to an enterprise-scale codebase, debugging, efficiently using an ORM
-(Entity Framework), refactoring
+Adding features to an enterprise-scale codebase, debugging, using an ORM efficiently,
+refactoring
     `,
 	    aegyetem_duties: `
 Managing and developing a webapp start to finish, discussing features and progress with
-clients, modern web technologies, time management.
+clients, modern web technologies, time management
     `,
 	    education: 'Education',
 	    matura: 'Hungarian Matura (EQF level 3)',
@@ -2473,8 +2473,8 @@ clients, modern web technologies, time management.
 	    fazekas_skills: `
 Basics of computer programming, C++, advanced mathematics
     `,
-	    score: 'Score',
-	    subject: 'Subject',
+	    // score: 'Score',
+	    // subject: 'Subject',
 	    avg: 'average',
 	    adv_math: 'Adv. Mathematics',
 	    adv_it: 'Adv. IT',
@@ -2487,10 +2487,61 @@ Object-oriented programming, project planning and documentation techniques.
 	    english: 'English',
 	    skills: 'Skills',
 	    linux_exp: 'Daily driver for 5 years',
-	    current: 'Current'
+	    current: 'Current',
+	    foss: 'Open Source',
+	    this_cv: 'This CV',
+	    this_cv_1: 'This CV is written in React. The latest version is available online at ',
+	    this_cv_2: '. The code, along with the code of my portfolio page, is on my github at ',
+	    this_cv_3: '.'
 	};
 
-	const translations = { en };
+	const hu = {
+	    name: 'Bethlenfalvy Lőrinc',
+	    dob: 'Született',
+	    nat: 'Nemzetiség',
+	    hun: 'Magyar',
+	    addr: 'Cím',
+	    experience: 'Tapasztalat',
+	    nware_duties: `
+Problémamegoldás ismeretlen technológiákkal, egy MODX oldal lokalizációja
+    `,
+	    remiz_duties: `
+Komplex vállalati szoftver bővitése, hibakeresés, hatékony adatkezelés ORM segitségével,
+refaktorálás
+    `,
+	    aegyetem_duties: `
+Webapp készitése egyedül tervezéstől üzembe helyezésig, ügyfélkezelés, modern webes
+eszközök, időgazdálkodás
+    `,
+	    education: 'Képzés',
+	    matura: 'Érettségi',
+	    fazekas: 'Fazekas Mihály gyakorló gimnázium',
+	    fazekas_skills: `
+A programozás alapjai, C++, matematika
+    `,
+	    // score: 'Score',
+	    // subject: 'Subject',
+	    avg: 'átlag',
+	    adv_math: 'Emelt matematika',
+	    adv_it: 'Emelt informatika',
+	    surrey_skills: `
+Objektumorientált programozás, projektmenedzsment és dokumentáció eszközei
+    `,
+	    languages: 'Nyelvek',
+	    hungarian: 'Magyar',
+	    native_tongue: 'anyanyelv',
+	    english: 'Angol',
+	    skills: 'Eszközök',
+	    linux_exp: '5 év hétköznapi használat',
+	    current: 'Jelenlegi',
+	    foss: 'Szabad szoftver',
+	    this_cv: 'Ez a dokumentum',
+	    this_cv_1: 'Ez az önéletrajz Reacttel készült, a legfrissebb verzió itt látható: ',
+	    this_cv_2: ' A kód, a weboldalam kódjával együtt Githubon található: ',
+	    this_cv_3: ''
+	};
+
+	const translations = { en, hu };
 	const search$1 = new URLSearchParams(window.location.search);
 	const country$1 = search$1.get('country');
 	const lang = search$1.get('lang') || (country$1 == 'uk' ? 'en' : 'hu');
@@ -2498,18 +2549,23 @@ Object-oriented programming, project planning and documentation techniques.
 	    return translations[lang][key];
 	}
 
-	___$insertStylesToHeader("@charset \"UTF-8\";\n@import url(\"https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap\");\nhtml {\n  width: 794px;\n  height: 1123px;\n}\n\nbody {\n  margin: 0;\n  padding: 0;\n  box-sizing: content-box;\n  border: 5px solid red;\n  width: 794px;\n  height: 1123px;\n}\nbody a {\n  color: inherit;\n  text-decoration: none;\n  font-style: unset;\n}\nbody h1, body h2 {\n  font-family: \"Oswald\", sans-serif;\n  text-transform: uppercase;\n  margin: 0;\n  padding: 0;\n  margin-left: 5px;\n}\nbody ul.tags {\n  margin: 0;\n  padding: 0;\n}\nbody ul.tags li {\n  list-style: none;\n  display: inline-block;\n  font-size: 0.9em;\n  padding: 2px 0.5em;\n  margin-right: 5px;\n  background-color: #79a;\n  color: white;\n  border-radius: 10000px;\n}\nbody p {\n  margin: 0;\n  margin-bottom: 0.5em;\n}\nbody .header {\n  padding: 10px 30px;\n  background: #333;\n  color: white;\n  text-align: right;\n}\nbody .header address {\n  display: inline-block;\n  font-style: normal;\n}\nbody .header address:not(:last-of-type) {\n  padding-right: 10px;\n}\nbody .header address:not(:first-of-type) {\n  padding-left: 10px;\n}\nbody .personal {\n  background: #eef;\n  padding: 10px 0;\n}\nbody .personal dl {\n  display: flex;\n  color: #333;\n  margin: 0;\n}\nbody .personal dl dt, body .personal dl dd, body .personal dl::after, body .personal dl::before {\n  display: inline-block;\n  border: 2px solid #eef;\n  border-left-width: 1px;\n  border-right-width: 1px;\n}\nbody .personal dl dt, body .personal dl::after {\n  break-after: avoid;\n  padding: 5px 0 5px 10px;\n  border-top-color: #333;\n  border-left-color: #333;\n  font-weight: 600;\n  font-style: italic;\n}\nbody .personal dl dt::after {\n  content: \": \";\n  display: inline;\n}\nbody .personal dl dd, body .personal dl::before {\n  display: inline-block;\n  padding: 5px 10px 5px 0px;\n  margin: 0;\n  border-right-color: #333;\n  border-bottom-color: #333;\n}\nbody .personal dl::after, body .personal dl::before {\n  content: \" \";\n  flex-grow: 1;\n}\nbody .experience {\n  background: #fff;\n}\nbody .experience article {\n  position: relative;\n  margin-left: 10px;\n  padding-left: 10px;\n  border-left: 2px solid;\n  border-color: #333;\n}\nbody .experience article::before {\n  content: \"\";\n  position: absolute;\n  top: calc(0.6em - 5px);\n  left: -6px;\n  width: 10px;\n  height: 10px;\n  background-color: #333;\n  border-radius: 100000px;\n}\nbody .experience article header {\n  display: inline-block;\n  background: #ddf;\n  position: relative;\n  margin-left: 0.6em;\n  padding-right: 1ch;\n  line-height: 1.2em;\n}\nbody .experience article header::before {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  left: 0;\n  background: inherit;\n  width: 0.8485281374em;\n  height: 0.8485281374em;\n  transform-origin: 0 0;\n  transform: rotate(45deg);\n  z-index: 0;\n}\nbody .experience article header > * {\n  z-index: 1;\n  position: relative;\n}\nbody .experience article header .details, body .experience article header .project, body .experience article header .role, body .experience article header .employer {\n  display: inline-block;\n  padding-right: 10px;\n}\nbody .experience article header .details:not(:first-child), body .experience article header .project:not(:first-child), body .experience article header .role:not(:first-child), body .experience article header .employer:not(:first-child) {\n  padding-left: 10px;\n  border-left: 1px solid black;\n}\nbody .experience article header .details {\n  color: #999;\n}\nbody .experience article header .project {\n  font-family: \"Oswald\", sans-serif;\n  font-size: 0.75em;\n  text-transform: uppercase;\n  color: black;\n  letter-spacing: 1px;\n  font-weight: 600;\n}\nbody .experience article header .role {\n  font-weight: 700;\n}\nbody .experience article header .employer {\n  font-style: italic;\n  color: #666;\n}\nbody .experience article .description {\n  padding-bottom: 10px;\n}\nbody .education {\n  background: #fbfbfb;\n}\nbody .education article {\n  position: relative;\n  margin-left: 10px;\n  padding-left: 10px;\n  border-left: 2px solid;\n  border-color: #333;\n}\nbody .education article::before {\n  content: \"\";\n  position: absolute;\n  top: calc(1.25em - 5px);\n  left: -6px;\n  width: 10px;\n  height: 10px;\n  background-color: #333;\n  border-radius: 100000px;\n}\nbody .education article header {\n  display: inline-block;\n  background-color: #ddf;\n  position: relative;\n  margin-left: 1.25em;\n  padding-right: 1ch;\n  height: 2.5em;\n}\nbody .education article header::before {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  left: 0;\n  background: inherit;\n  width: 1.767766953em;\n  height: 1.767766953em;\n  transform-origin: 0 0;\n  transform: rotate(45deg);\n  z-index: 0;\n}\nbody .education article header > * {\n  z-index: 1;\n  position: relative;\n}\nbody .education article header .details {\n  color: #999;\n}\nbody .education article header .details .location {\n  color: black;\n  font-style: oblique;\n}\nbody .education article header .award {\n  display: inline-block;\n  font-weight: 600;\n  padding-right: 10px;\n}\nbody .education article header .institute {\n  display: inline-block;\n  padding-left: 10px;\n  border-left: 1px solid black;\n  font-style: italic;\n  color: #666;\n}\nbody .education article header .institute a {\n  color: #559;\n}\nbody .education article .description {\n  padding-bottom: 5px;\n  padding-left: 1.25em;\n}\nbody .education article .description table.results {\n  border-collapse: collapse;\n}\nbody .education article .description table.results td {\n  padding: 0 1ch;\n  border-right: 1px solid black;\n}\nbody .education article .description table.results td:first-child {\n  border-left: 1px solid black;\n}\nbody .languages {\n  background: #eef;\n  padding: 10px;\n}\nbody .languages dl {\n  margin: 0;\n}\nbody .languages dl dt, body .languages dl dd {\n  display: inline;\n}\nbody .languages dl dt {\n  font-weight: 600;\n}\nbody .languages dl dt::after {\n  content: \": \";\n}\nbody .languages dl dd {\n  margin-left: 10px;\n}");
+	___$insertStylesToHeader("@charset \"UTF-8\";\n@import url(\"https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap\");\nhtml {\n  background-color: black;\n  overflow: scroll;\n  box-sizing: content-box;\n}\n\nbody {\n  position: relative;\n  background: white;\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n  overflow: hidden;\n}\n@media screen {\n  body {\n    width: 21cm;\n    height: 29.7cm;\n  }\n}\n@media print {\n  body {\n    width: 100vw;\n    height: 100vh;\n  }\n}\nbody a {\n  color: #559;\n  text-decoration: none;\n  font-style: unset;\n}\nbody h1, body h2 {\n  font-family: \"Oswald\", sans-serif;\n  text-transform: uppercase;\n  margin: 0;\n  padding: 0;\n  margin-left: 5px;\n}\nbody dl {\n  margin-top: 0px;\n  margin-bottom: 5px;\n}\nbody dl dd, body dl dt {\n  display: inline;\n}\nbody .tags {\n  margin: 0;\n  padding: 0;\n}\nbody .tags li, body .tags dt {\n  list-style: none;\n  display: inline;\n  font-size: 0.9em;\n  padding: 2px 0.5em;\n  margin-right: 5px;\n  background-color: #79a;\n  color: white;\n  border-radius: 10000px;\n}\nbody dl.tags dd {\n  margin: 0;\n}\nbody dl.tags dd::before {\n  content: \" -- \";\n}\nbody p {\n  margin: 0;\n  margin-bottom: 0.5em;\n}\nbody .header {\n  padding: 10px 30px;\n  background: #333;\n  color: white;\n  text-align: right;\n}\nbody .header address {\n  display: inline-block;\n  font-style: normal;\n}\nbody .header address:not(:last-of-type) {\n  padding-right: 10px;\n}\nbody .header address:not(:first-of-type) {\n  padding-left: 10px;\n}\nbody .header a {\n  color: inherit;\n}\nbody .personal {\n  background: #eef;\n  padding: 10px 0;\n}\nbody .personal dl {\n  display: flex;\n  color: #333;\n  margin: 0;\n}\nbody .personal dl dt, body .personal dl dd, body .personal dl::after, body .personal dl::before {\n  display: inline-block;\n  border: 2px solid #eef;\n  border-left-width: 1px;\n  border-right-width: 1px;\n}\nbody .personal dl dt, body .personal dl::after {\n  break-after: avoid;\n  padding: 5px 0 5px 10px;\n  border-top-color: #333;\n  border-left-color: #333;\n  font-weight: 600;\n  font-style: italic;\n}\nbody .personal dl dt::after {\n  content: \": \";\n  display: inline;\n}\nbody .personal dl dd, body .personal dl::before {\n  display: inline-block;\n  padding: 5px 10px 5px 0px;\n  margin: 0;\n  border-right-color: #333;\n  border-bottom-color: #333;\n}\nbody .personal dl::after, body .personal dl::before {\n  content: \" \";\n  flex-grow: 1;\n}\nbody .experience {\n  background: #fff;\n}\nbody .experience article {\n  position: relative;\n  margin-left: 10px;\n  padding-left: 10px;\n  border-left: 2px solid;\n  border-color: #333;\n}\nbody .experience article::before {\n  content: \"\";\n  position: absolute;\n  top: calc(0.6em - 5px);\n  left: -6px;\n  width: 10px;\n  height: 10px;\n  background-color: #333;\n  border-radius: 100000px;\n}\nbody .experience article header {\n  display: inline-block;\n  background: #ddf;\n  position: relative;\n  margin-left: 0.6em;\n  padding-right: 1ch;\n  line-height: 1.2em;\n}\nbody .experience article header::before {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  left: 0;\n  background: inherit;\n  width: 0.8485281374em;\n  height: 0.8485281374em;\n  transform-origin: 0 0;\n  transform: rotate(45deg);\n  z-index: 0;\n}\nbody .experience article header > * {\n  z-index: 1;\n  position: relative;\n}\nbody .experience article header .details, body .experience article header .project, body .experience article header .role, body .experience article header .employer {\n  display: inline-block;\n  padding-right: 10px;\n}\nbody .experience article header .details:not(:first-child), body .experience article header .project:not(:first-child), body .experience article header .role:not(:first-child), body .experience article header .employer:not(:first-child) {\n  padding-left: 10px;\n  border-left: 1px solid black;\n}\nbody .experience article header .details {\n  color: #666;\n}\nbody .experience article header .project {\n  font-family: \"Oswald\", sans-serif;\n  font-size: 0.75em;\n  text-transform: uppercase;\n  color: black;\n  letter-spacing: 1px;\n  font-weight: 600;\n}\nbody .experience article header .role {\n  font-weight: 700;\n}\nbody .experience article header .employer {\n  font-style: italic;\n  color: #666;\n}\nbody .experience article .description {\n  padding-bottom: 10px;\n}\nbody .education {\n  background: #fbfbfb;\n}\nbody .education article {\n  position: relative;\n  margin-left: 10px;\n  padding-left: 10px;\n  border-left: 2px solid;\n  border-color: #333;\n}\nbody .education article::before {\n  content: \"\";\n  position: absolute;\n  top: calc(1.25em - 5px);\n  left: -6px;\n  width: 10px;\n  height: 10px;\n  background-color: #333;\n  border-radius: 100000px;\n}\nbody .education article header {\n  display: inline-block;\n  background-color: #ddf;\n  position: relative;\n  margin-left: 1.25em;\n  padding-right: 1ch;\n  height: 2.5em;\n}\nbody .education article header::before {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  left: 0;\n  background: inherit;\n  width: 1.767766953em;\n  height: 1.767766953em;\n  transform-origin: 0 0;\n  transform: rotate(45deg);\n  z-index: 0;\n}\nbody .education article header > * {\n  z-index: 1;\n  position: relative;\n}\nbody .education article header .details {\n  color: #666;\n}\nbody .education article header .details .location {\n  color: black;\n  font-style: oblique;\n}\nbody .education article header .award {\n  display: inline-block;\n  font-weight: 600;\n  padding-right: 10px;\n}\nbody .education article header .institute {\n  display: inline-block;\n  padding-left: 10px;\n  border-left: 1px solid black;\n  font-style: italic;\n  color: #666;\n}\nbody .education article .description {\n  padding-bottom: 5px;\n  padding-left: 1.25em;\n}\nbody .education article .description table.results {\n  border-collapse: collapse;\n}\nbody .education article .description table.results td {\n  padding: 0 1ch;\n  border-right: 1px solid black;\n}\nbody .education article .description table.results td:first-child {\n  border-left: 1px solid black;\n}\nbody .languages, body .foss {\n  background: #eef;\n  padding: 10px;\n}\nbody .skills {\n  padding: 10px;\n}\nbody .this-cv {\n  padding: 10px 30px;\n  background-color: #333;\n  color: white;\n  position: absolute;\n  display: block;\n  left: 0;\n  bottom: 0;\n  width: inherit;\n  box-sizing: border-box;\n}\nbody .this-cv a {\n  color: #68f;\n}");
+
+	function Anchor({ to: to }) {
+	    return React.createElement("a", { href: `https://${to}` }, to);
+	}
 
 	const search = new URLSearchParams(window.location.search);
 	const country = search.get('country');
 	const uk = country == 'uk';
+	document.title = `${i18n('name')} CV`;
 	var Body = () => React.createElement(React.Fragment, null,
 	    React.createElement("header", { className: "header" },
 	        React.createElement("h1", null, i18n('name')),
 	        React.createElement("address", null, "lbfalvy@protonmail.com"),
 	        React.createElement("address", null, uk ? '(+44) 7444 416 038' : '(+36) 30 348 8850'),
 	        React.createElement("address", null,
-	            React.createElement("a", { href: 'https://lbfalvy.github.io' }, "lbfalvy.github.io"))),
+	            React.createElement(Anchor, { to: 'lbfalvy.github.io' }))),
 	    React.createElement("section", { className: 'personal' },
 	        React.createElement("dl", null,
 	            React.createElement("dt", null, i18n('dob')),
@@ -2527,7 +2583,7 @@ Object-oriented programming, project planning and documentation techniques.
 	                React.createElement("li", null, "C#"),
 	                React.createElement("li", null, "ASP.NET Core MVC"),
 	                React.createElement("li", null, "Entity Framework"))),
-	        React.createElement(Experience, { from: '2020-02', to: '2020-09-17', role: 'Web developer', project: '\u00C1rny\u00E9kegyetem', employer: 'ELTE (freelance)' },
+	        React.createElement(Experience, { from: '2020-02-01', to: '2020-09-17', role: 'Web developer', project: '\u00C1rny\u00E9kegyetem', employer: 'ELTE (freelance)' },
 	            React.createElement("p", null, i18n('aegyetem_duties')),
 	            React.createElement("ul", { className: 'tags' },
 	                React.createElement("li", null, "Docker"),
@@ -2554,12 +2610,12 @@ Object-oriented programming, project planning and documentation techniques.
 	    React.createElement("section", { className: 'languages' },
 	        React.createElement("h2", null, i18n('languages')),
 	        React.createElement("dl", null,
-	            React.createElement("dt", null, i18n('hungarian')),
-	            React.createElement("dd", null,
-	                i18n('native_tongue'),
-	                React.createElement("br", null)),
-	            React.createElement("dt", null, i18n('english')),
-	            React.createElement("dd", null, "C1 / IELTS 8.0 (2019-12)"))),
+	            React.createElement("div", null,
+	                React.createElement("dt", null, i18n('hungarian')),
+	                React.createElement("dd", null, i18n('native_tongue'))),
+	            React.createElement("div", null,
+	                React.createElement("dt", null, i18n('english')),
+	                React.createElement("dd", null, "C1 / IELTS 8.0 (2019-12)")))),
 	    React.createElement("section", { className: 'skills' },
 	        React.createElement("h2", null, i18n('skills')),
 	        React.createElement("ul", { className: 'tags' },
@@ -2568,9 +2624,28 @@ Object-oriented programming, project planning and documentation techniques.
 	            React.createElement("li", null, "SQL"),
 	            React.createElement("li", null, "Ruby"),
 	            React.createElement("li", null, "OOP")),
-	        React.createElement("dl", null,
+	        React.createElement("dl", { className: "tags" },
 	            React.createElement("dt", null, "Linux"),
-	            React.createElement("dd", null, i18n('linux_exp')))));
+	            React.createElement("dd", null, i18n('linux_exp')))),
+	    React.createElement("section", { className: 'foss' },
+	        React.createElement("h2", null, i18n('foss')),
+	        React.createElement("dl", null,
+	            React.createElement("div", null,
+	                React.createElement("dt", null, "Github"),
+	                React.createElement("dd", null,
+	                    React.createElement(Anchor, { to: 'github.com/lbfalvy' }))),
+	            React.createElement("div", null,
+	                React.createElement("dt", null, "NPM"),
+	                React.createElement("dd", null,
+	                    React.createElement(Anchor, { to: 'www.npmjs.com/~lbfalvy' }))))),
+	    React.createElement("section", { className: "this-cv" },
+	        React.createElement("h2", null, i18n('this_cv')),
+	        React.createElement("p", null,
+	            i18n('this_cv_1'),
+	            React.createElement(Anchor, { to: `lbfalvy.github.io/cv/index.html${location.search}` }),
+	            i18n('this_cv_2'),
+	            React.createElement(Anchor, { to: 'github.com/lbfalvy/lbfalvy.github.io' }),
+	            i18n('this_cv_3'))));
 	function Education({ from, to, location, award, institute, website, children }) {
 	    to ??= i18n('current');
 	    return React.createElement("article", null,
@@ -2586,7 +2661,7 @@ Object-oriented programming, project planning and documentation techniques.
 	            React.createElement("section", { className: 'institute' },
 	                institute,
 	                " - ",
-	                React.createElement("a", { href: `https://${website}` }, website))),
+	                React.createElement(Anchor, { to: website }))),
 	        React.createElement("section", { className: 'description' }, children));
 	}
 	function Experience({ from, to, project, role, employer, children }) {

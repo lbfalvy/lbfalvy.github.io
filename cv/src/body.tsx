@@ -1,17 +1,20 @@
 import React from "react";
 import i18n from "./i18n";
 import './body.scss';
+import Anchor from "./Anchor";
 
 const search = new URLSearchParams(window.location.search)
 const country = search.get('country')
 const uk = country == 'uk'
+
+document.title = `${i18n('name')} CV`
 
 export default () => <>
     <header className="header">
         <h1>{i18n('name')}</h1>
         <address>lbfalvy@protonmail.com</address>
         <address>{uk ? '(+44) 7444 416 038' : '(+36) 30 348 8850'}</address>
-        <address><a href='https://lbfalvy.github.io'>lbfalvy.github.io</a></address>
+        <address><Anchor to='lbfalvy.github.io'/></address>
     </header>
     <section className='personal'>
         <dl>
@@ -36,7 +39,7 @@ export default () => <>
                 <li>Entity Framework</li>
             </ul>
         </Experience>
-        <Experience from='2020-02' to='2020-09-17' role='Web developer'
+        <Experience from='2020-02-01' to='2020-09-17' role='Web developer'
             project='Árnyékegyetem' employer='ELTE (freelance)'
         >
             <p>{i18n('aegyetem_duties')}</p>
@@ -55,9 +58,6 @@ export default () => <>
         >
             <p>{i18n('fazekas_skills')}</p>
             <table className='results'>
-                {/* <thead>
-                    <tr><th>{i18n('score')}</th><th>{i18n('subject')}</th></tr>
-                </thead> */}
                 <tbody>
                     <tr><td>87%</td><td>{i18n('avg')}</td></tr>
                     <tr><td>94%</td><td>{i18n('adv_math')}</td></tr>
@@ -74,8 +74,8 @@ export default () => <>
     <section className='languages'>
         <h2>{i18n('languages')}</h2>
         <dl>
-            <dt>{i18n('hungarian')}</dt><dd>{i18n('native_tongue')}<br/></dd>
-            <dt>{i18n('english')}</dt><dd>C1 / IELTS 8.0 (2019-12)</dd>
+            <div><dt>{i18n('hungarian')}</dt><dd>{i18n('native_tongue')}</dd></div>
+            <div><dt>{i18n('english')}</dt><dd>C1 / IELTS 8.0 (2019-12)</dd></div>
         </dl>
     </section>
     <section className='skills'>
@@ -87,9 +87,26 @@ export default () => <>
             <li>Ruby</li>
             <li>OOP</li>
         </ul>
-        <dl>
+        <dl className="tags">
             <dt>Linux</dt><dd>{i18n('linux_exp')}</dd>
         </dl>
+    </section>
+    <section className='foss'>
+        <h2>{i18n('foss')}</h2>
+        <dl>
+            <div><dt>Github</dt><dd><Anchor to='github.com/lbfalvy' /></dd></div>
+            <div><dt>NPM</dt><dd><Anchor to='www.npmjs.com/~lbfalvy' /></dd></div>
+        </dl>
+    </section>
+    <section className="this-cv">
+        <h2>{i18n('this_cv')}</h2>
+        <p>
+            {i18n('this_cv_1')}
+            <Anchor to={`lbfalvy.github.io/cv/index.html${location.search}`} />
+            {i18n('this_cv_2')}
+            <Anchor to='github.com/lbfalvy/lbfalvy.github.io' />
+            {i18n('this_cv_3')}     
+        </p>
     </section>
 </>
 
@@ -115,7 +132,7 @@ function Education({
             </section>
             <section className='award'>{award}</section>
             <section className='institute'>
-                {institute} - <a href={`https://${website}`}>{website}</a>
+                {institute} - <Anchor to={website} />
             </section>
         </header>
         <section className='description'>

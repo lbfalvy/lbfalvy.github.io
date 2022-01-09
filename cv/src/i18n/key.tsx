@@ -12,8 +12,8 @@ interface I18n {
     matura: string
     fazekas: string
     fazekas_skills: string
-    score: string
-    subject: string
+    // score: string
+    // subject: string
     avg: string
     adv_math: string
     adv_it: string
@@ -25,6 +25,11 @@ interface I18n {
     skills: string
     linux_exp: string
     current: string
+    foss: string
+    this_cv: string
+    this_cv_1: string
+    this_cv_2: string
+    this_cv_3: string
 }
 
 export default I18n

@@ -19,7 +19,9 @@ export default {
             }
         }),
         ts(),
-        html(),
+        html({
+            title: 'CV'
+        }),
         resolve(),
         cjs(),
         scss({ insert: true })
