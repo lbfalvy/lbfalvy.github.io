@@ -20,9 +20,10 @@ export default () => <>
         <dl>
             <dt>{i18n('dob')}</dt><dd>2001-04-19</dd>
             <dt>{i18n('nat')}</dt><dd>{i18n('hun')}</dd>
-            <dt>{i18n('addr')}</dt>
-            <dd>
-                1027 Bp. Margit körút 12, Hungary
+            <dt>{i18n('addr')}</dt><dd>
+                {uk
+                    ? '14a Stocton Rd. Guildford, Surrey Cou., GU1 1HH, UK'
+                    : '1027 Bp. Margit körút 12, Hungary'}
             </dd>
         </dl>
     </section>
