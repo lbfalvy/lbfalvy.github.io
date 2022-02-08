@@ -1,6 +1,5 @@
-import { EvalSteps, evaluate, stringify, Token, tokenEq, tokenize } from "./expressions"
-import { addToStore, DefStore, SubDetails, trySub } from "./definitions"
-import React from "react"
+import { EvalSteps, evaluate, normalize, stringify, Token, tokenEq, tokenize, wrap } from "./expressions"
+import { addToStore, createStore, DefStore, SubDetails, trySub } from "./definitions"
 
 export type LogEntry = EvalSteps | SubDetails<Token[]>
 
@@ -12,7 +11,7 @@ function evalLoop(expression: Token[], store: DefStore<Token[]>, limit = 10): [b
             const subResult = trySub(result, store)
             if (!subResult) return [true, result, log]
             log.push(subResult)
-            expression = [...subResult.left, ...subResult.substitute, ...subResult.right]
+            expression = normalize([...subResult.left, ...wrap(subResult.substitute), ...subResult.right])
             continue
         }
         log.push(steps)
@@ -23,13 +22,20 @@ function evalLoop(expression: Token[], store: DefStore<Token[]>, limit = 10): [b
 
 export type State = DefStore<Token[]>
 
-export function execute(command: string, state: State): [boolean, string, LogEntry[], State] {
+export function createState(): State {
+    return createStore()
+}
+
+export function execute(state: State, command: string): [boolean, string, LogEntry[], State] {
+    if (command.includes('#'))
+        command = command.substring(0, command.indexOf('#'))
     const assign = /^([a-zA-Z0-9_]+)=/.exec(command)
     if (assign) {
         const name = assign[1]
         const expression = command.substring(assign[0].length)
-        const [halts, value, log] = evalLoop(tokenize(expression), state)
-        return [halts, stringify(value), log, addToStore(state, name, value)]
+        return [true, '', [], addToStore(state, name, tokenize(expression))]
+        // const [halts, value, log] = evalLoop(tokenize(expression), state)
+        // return [halts, stringify(value), log, addToStore(state, name, value)]
     }
     const [halts, value, log] = evalLoop(tokenize(command), state)
     return [halts, stringify(value), log, state]

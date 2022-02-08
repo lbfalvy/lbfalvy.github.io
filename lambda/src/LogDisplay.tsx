@@ -1,6 +1,8 @@
 import React, { ReactElement, ReactNode } from "react";
 import { LogEntry } from "./engine";
+import { Expression } from "./Expression";
 import { stringify, Token } from "./expressions";
+import './LogDisplay.scss'
 
 function Var({ children }: { children: ReactNode }): ReactElement {
     return <span className="Var">
@@ -15,22 +17,13 @@ function mapJoin<T, U>(arr: T[], map: (t: T, i: number) => U, join: () => U): Re
     </>)}</>
 }
 
-function Expression({ expr }: { expr: Token[] }): React.ReactElement {
-    return <span className="Expression">
-        {expr.map(tok => typeof tok == 'string'
-            ? <span className="token">{tok}</span>
-            : <span className="name">{tok[1]}</span>
-        )}
-    </span>
-}
-
-export function LogDisplay(entry: LogEntry): React.ReactElement {
+export function LogDisplay({ entry }: { entry: LogEntry }): React.ReactElement {
     return <div className="LogDisplay">
         {entry.type == 'EvalSteps' ? <>
-            <div>
+            <header>
                 <Expression expr={entry.expression} />
-            </div>
-            <div className="found-lambda">
+            </header>
+            <section className="found-lambda">
                 <span className="fade">{stringify(entry.lambda.prefix)}</span>
                 <span className="lambda">
                     \
@@ -38,35 +31,35 @@ export function LogDisplay(entry: LogEntry): React.ReactElement {
                     .
                     {mapJoin(
                         entry.bodySections, 
-                        v => <>{stringify(v)}</>,
+                        (v, i) => v.length? <span key={i}>{stringify(v)}</span> :null,
                         () => <Var>{entry.lambda.param}</Var>
                     )}
                 </span>
                 <span className="argument">{stringify(entry.lambda.argument)}</span>
                 <span className="fade">{stringify(entry.lambda.postfix)}</span>
-            </div>
-            <div className="evaluated-lambda">
+            </section>
+            <footer className="evaluated-lambda">
                 <span className="fade">{stringify(entry.lambda.prefix)}</span>
                 <span className="lambda">
                     {mapJoin(
                         entry.bodySections,
-                        v => <>{stringify(v)}</>,
+                        (v, i) => v.length? <span key={i}>{stringify(v)}</span> :null,
                         () => <Var>{stringify(entry.substitute)}</Var>
                     )}
                 </span>
                 <span className="fade">{stringify(entry.lambda.postfix)}</span>
-            </div>
+            </footer>
         </> : entry.type == 'SubDetails' ? <>
-            <div className="sub">
+            <header className="sub">
                 <Expression expr={entry.left} />
                 <Var>{entry.name}</Var>
                 <Expression expr={entry.right} />
-            </div>
-            <div className="sub-result">
+            </header>
+            <footer className="sub-result">
                 <Expression expr={entry.left} />
                 <Var>{stringify(entry.substitute)}</Var>
                 <Expression expr={entry.right} />
-            </div>
+            </footer>
         </> : null}
     </div>
 }

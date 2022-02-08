@@ -1,0 +1,18 @@
+.App {
+    display: flex;
+    & > .examples {
+        flex: 0 0 min-content;
+        background: #181818;
+        padding: 10px;
+        & > a {
+            display: block;
+            color: white;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+    }
+    & > .Repl {
+        flex: 1 1 auto;
+        height: 100%;
+    }
+}

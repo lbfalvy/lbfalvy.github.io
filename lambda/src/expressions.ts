@@ -18,6 +18,24 @@ export function stringify(data: Token[]): string {
     }).join('')
 }
 
+export function normalize(data: Token[]): Token[] {
+    for (let i = 0; i < data.length; i++) {
+        if (data[i] == '(') {
+            const pair = i + findParenPair(data.slice(i))
+            if (data[i - 1] == '(' && data[pair + 1] == ')') {
+                data = [
+                    ...data.slice(0, i),
+                    ...data.slice(i + 1, pair),
+                    ...data.slice(pair + 1)
+                ]
+                i--;
+                continue;
+            }
+        }
+    }
+    return data
+}
+
 export function tokenEq(a: Token[], b: Token[]): boolean {
     return a.length == b.length && a.every((x, i) => {
         const y = b[i]
@@ -25,6 +43,7 @@ export function tokenEq(a: Token[], b: Token[]): boolean {
     })
 }
 
+// The first token isn't tested
 export function findParenPair(data: Token[]): number {
     let i = 0;
     while (data[++i] != ')')
@@ -36,7 +55,12 @@ export function findParenPair(data: Token[]): number {
 }
 
 export function wrap(data: Token[]): Token[] {
-    if (data[0] == '(' && data[data.length - 1] == ')') return data
+    if (
+        data.length <= 1
+        || data[0] == '('
+        && data[data.length - 1] == ')'
+        && findParenPair(data) == data.length - 1
+    ) return data
     return ['(', ...data, ')']
 }
 
@@ -63,6 +87,9 @@ export function parseLambda(data: Token[]): LambdaResult {
         throw new Error('Malformed param name')
     const bodyEnd = lambdaPos + findParenPair(data.slice(lambdaPos))
     const afterBody = bodyEnd + 1
+    // If there's no argument, this lambda is the final value
+    if (data.length <= afterBody || data[afterBody] == ')')
+        return { ...defaultLres, prefix: data }
     const [argStart, argEnd] = data[afterBody] == '('
         ? [afterBody, afterBody + findParenPair(data.slice(afterBody)) + 1]
         : [afterBody, afterBody + 1]
@@ -97,7 +124,7 @@ export function evaluate(expression: Token[]): [Token[], EvalSteps] {
     const bodySections = sliceAt(body, param)
     const result = bodySections.reduce((l, r) => [...l, ...substitute, ...r])
     return [
-        [...prefix, ...result, ...postfix],
+        normalize([...prefix, ...wrap(result), ...postfix]),
         {
             type: 'EvalSteps',
             expression: expression,

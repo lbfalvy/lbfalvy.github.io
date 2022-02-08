@@ -1,0 +1,54 @@
+@use 'sass:math';
+
+.Repl {
+    display: grid;
+    grid-template-rows: auto min-content;
+    grid-template-columns: auto min-content;
+    grid-template-areas:
+        'log state'
+        'prompt state';
+    & > .log {
+        grid-area: log;
+        & > article {
+            border-bottom: 1px solid #777;
+            padding: 0 10px;
+            &.loops > .result {
+                background: #f806;
+            }
+            &.error > .result {
+                background: #f006;
+            }
+        }
+        overflow: auto;
+    }
+    & > .state {
+        grid-area: state;
+        padding: 10px;
+        min-width: 30ch;
+        height: 100%;
+        box-sizing: border-box;
+        background-color: #444;
+    }
+    & > form {
+        grid-area: prompt;
+        display: flex;
+        padding: 10px;
+        input {
+            color: inherit;
+            background: none;
+            font-family: inherit;
+            font-size: inherit;
+            border: none;
+            border-bottom: 2px solid #777;
+            flex: 1 1 auto;
+            padding: 0 10px;
+            &:focus {
+                outline: none;
+                border-bottom: 2px solid #66f;
+            }
+        }
+        button {
+            flex: 0 0 auto;
+        }
+    }
+}

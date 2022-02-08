@@ -1,0 +1,11 @@
+.Expression {
+    .token {
+        color: #999;
+    }
+    .name {
+        color: #eee;
+    }
+    .name + .name {
+        padding-left: 1ch;
+    }
+}

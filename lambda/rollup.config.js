@@ -20,7 +20,7 @@ export default {
         }),
         ts(),
         html({
-            title: 'CV'
+            title: 'Lambda'
         }),
         resolve(),
         cjs(),

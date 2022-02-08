@@ -1,6 +1,7 @@
-import Body from './body'
 import ReactDOM from 'react-dom'
 import React from 'react'
+import './index.scss'
+import { App } from './App'
 
 function getRoot() {
     const old = document.getElementById('root')
@@ -11,4 +12,4 @@ function getRoot() {
     return root
 }
 
-ReactDOM.render(<Body />, getRoot())
+ReactDOM.render(<App />, getRoot())
