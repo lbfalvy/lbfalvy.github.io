@@ -20,7 +20,7 @@ export default {
         }),
         ts(),
         html({
-            title: 'Lambda'
+            title: 'λf.engine'
         }),
         resolve(),
         cjs(),

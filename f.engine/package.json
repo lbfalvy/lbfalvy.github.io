@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rollup -c && mkdir -p ../docs/lambda && cp -r final/* ../docs/lambda",
+    "build": "rollup -c && mkdir -p ../docs/f.engine && cp -r final/* ../docs/f.engine",
     "watch": "rollup -c --watch"
   },
   "author": "",
