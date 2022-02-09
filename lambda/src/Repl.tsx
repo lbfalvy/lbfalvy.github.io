@@ -38,7 +38,7 @@ function Row({ row, rewind }: RowProps): React.ReactElement {
 
 export function Repl({ init, share }: ReplProps) {
     const [input, setInput] = React.useState('')
-    const [limit, setLimit] = useLocalStorage('executionLimit', '10')
+    const [limit, setLimit] = useLocalStorage('executionLimit', '1000')
     const lim = Number.parseInt(limit)
     const [output, state, exec, reset] = useExecutor(Number.isNaN(lim) ? 10 : lim)
     const logRef = React.useRef<HTMLElement>(null)
