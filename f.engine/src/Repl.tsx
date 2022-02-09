@@ -28,7 +28,9 @@ function Row({ row, rewind }: RowProps): React.ReactElement {
         </div>
         {visible && row.log && visible.length?
             <div className={classList('process', visible.length < row.log.length && 'truncated')}>
-                <RightButton onClick={toggleDetails}>Toggle</RightButton>
+                {5 < row.log.length?
+                    <RightButton onClick={toggleDetails}>Toggle</RightButton>
+                :null}
                 {visible.map((e, i) => <LogDisplay entry={e} key={i} />)}
             </div>
         :null}

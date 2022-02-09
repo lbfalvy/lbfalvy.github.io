@@ -30108,7 +30108,9 @@
 	            rewind ? React.createElement(RightButton, { onClick: rewind }, "Rewind") : null),
 	        visible && row.log && visible.length ?
 	            React.createElement("div", { className: classList('process', visible.length < row.log.length && 'truncated') },
-	                React.createElement(RightButton, { onClick: toggleDetails }, "Toggle"),
+	                5 < row.log.length ?
+	                    React.createElement(RightButton, { onClick: toggleDetails }, "Toggle")
+	                    : null,
 	                visible.map((e, i) => React.createElement(LogDisplay, { entry: e, key: i })))
 	            : null,
 	        React.createElement("div", { className: "result" }, row.result));
