@@ -114,11 +114,11 @@ export function parseLambda(data: Token[]): LambdaResult {
     }
 }
 
-export function sliceAt(data: Token[], name: string): Token[][] {
+/*export function sliceAt(data: Token[], name: string): Token[][] {
     const split = data.findIndex(l => Array.isArray(l) && l[1] == name)
     if (split == -1) return [data]
     return [data.slice(0, split), ...sliceAt(data.slice(split + 1), name)]
-}
+}*/
 
 export type EvalSteps = {
     type: 'EvalSteps'
@@ -126,13 +126,29 @@ export type EvalSteps = {
     lambda: LambdaResult
     bodySections: Token[][]
     substitute: Token[]
+    success: boolean
+}
+
+export function sliceAtName(expression: Token[], name: string): Token[][] {
+    for (let i = 0; i < expression.length; i++) {
+        if (Array.isArray(expression[i]) && expression[i][1] == name) return [
+            expression.slice(0, i),
+            ...sliceAtName(expression.slice(i+1), name)
+        ]
+        if (expression[i] == '\\' && Array.isArray(expression[i+1]) && expression[i+1][1] == name) {
+            try {
+                i += findParenPair(expression.slice(i))
+            } catch { break }
+        }
+    }
+    return [expression]
 }
 
 export function evaluate(expression: Token[]): [Token[], EvalSteps] {
     const lambda = parseLambda(expression)
     const { prefix, param, body, argument, postfix } = lambda
     const substitute = wrap(argument)
-    const bodySections = sliceAt(body, param)
+    const bodySections = sliceAtName(body, param)
     const result = bodySections.reduce((l, r) => [...l, ...substitute, ...r])
     return [
         normalize([...prefix, ...wrap(result), ...postfix]),
@@ -141,7 +157,8 @@ export function evaluate(expression: Token[]): [Token[], EvalSteps] {
             expression: expression,
             lambda, 
             bodySections, 
-            substitute
+            substitute,
+            success: lambda.param != ''
         }
     ]
 }

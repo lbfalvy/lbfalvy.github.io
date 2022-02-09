@@ -39,7 +39,6 @@ export function trySub<T>(expression: Token[], store: DefStore<T>): SubDetails<T
             const definition = inStore(store, token[1])
             if (!definition) continue
             const left = expression.slice(0, i)
-            // const substitute = toTokens(definition.value)
             const right = expression.slice(i + 1)
             return {
                 type: 'SubDetails',

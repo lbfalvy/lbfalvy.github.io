@@ -1,6 +1,7 @@
 import React from "react";
 import { State } from "./engine";
 import { Expression } from "./Expression";
+import './StateView.scss';
 
 export function StateView({ state }: { state: State }): React.ReactElement {
     const keys = Object.keys(state).sort()

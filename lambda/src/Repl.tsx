@@ -6,6 +6,7 @@ import { StateView } from "./StateView";
 import { Row, useExecutor } from "./hooks/useExecutor";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import { RightButton } from "./RightButton";
+import { Title } from "./Title";
 
 interface ReplProps {
     init?: string[]
@@ -53,10 +54,13 @@ export function Repl({ init, share }: ReplProps) {
     }, [output.length])
     return <div className="Repl">
         <section className="state">
+            <Title>Executor state</Title>
             <StateView state={state} />
             <div>
+                <Title>Max iterations</Title>
                 <input value={limit} onChange={e => setLimit(e.target.value)} />
             </div>
+            <Title>Actions</Title>
             {share? <>
                 <button onClick={() => share(output.map(row => row.command))}>
                     Share

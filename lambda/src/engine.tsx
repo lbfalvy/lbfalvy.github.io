@@ -6,16 +6,27 @@ export type LogEntry = EvalSteps | SubDetails<Token[]>
 function evalLoop(expression: Token[], store: DefStore<Token[]>, limit = 10): [boolean, Token[], LogEntry[]] {
     const log: LogEntry[] = []
     for (let i = 0; i < limit; i++) {
-        const [result, steps] = evaluate(expression)
-        if (tokenEq(result, expression)) {
-            const subResult = trySub(result, store)
-            if (!subResult) return [true, result, log]
-            log.push(subResult)
-            expression = normalize([...subResult.left, ...wrap(subResult.substitute), ...subResult.right])
-            continue
+        try {
+            const [evlResult, steps] = evaluate(expression)
+            const subResult = trySub(expression, store)
+            if (!subResult && !steps.success) return [true, expression, log]
+            const evlPos = steps.lambda.prefix.length
+            if (!subResult || evlPos < subResult.left.length) {
+                if (tokenEq(evlResult, expression))
+                    return [false, expression, log]
+                log.push(steps)
+                expression = evlResult
+            } else {
+                log.push(subResult)
+                expression = normalize([
+                    ...subResult.left, 
+                    ...wrap(subResult.substitute), 
+                    ...subResult.right
+                ])
+            }
+        } catch(e) {
+            throw new Error(`Failed to evaluate "${stringify(expression)}": ${(e as Error).toString()}`)
         }
-        log.push(steps)
-        expression = result
     }
     return [false, expression, log]
 }

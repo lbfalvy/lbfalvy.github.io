@@ -2,7 +2,7 @@
 
 .Repl {
     display: grid;
-    grid-template-rows: auto min-content;
+    grid-template-rows: 1fr min-content;
     grid-template-columns: auto min-content;
     grid-template-areas:
         'log state'
@@ -41,11 +41,14 @@
         height: 100%;
         box-sizing: border-box;
         background-color: #444;
+        display: flex;
+        flex-direction: column;
     }
     & > form {
         grid-area: prompt;
         display: flex;
         padding: 10px;
+        height: min-content;
         input {
             flex: 1 1 auto;
         }

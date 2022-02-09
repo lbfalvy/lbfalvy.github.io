@@ -29709,7 +29709,7 @@
 	    return classes.flat().filter(c => typeof c == 'string').join(' ');
 	}
 
-	___$insertStylesToHeader(".Repl {\n  display: grid;\n  grid-template-rows: auto min-content;\n  grid-template-columns: auto min-content;\n  grid-template-areas: \"log state\" \"prompt state\";\n}\n.Repl > .log {\n  grid-area: log;\n  overflow-y: scroll;\n}\n.Repl > .log > article {\n  max-width: 100%;\n  overflow-x: hidden;\n  border-bottom: 1px solid #777;\n  padding: 0 10px;\n}\n.Repl > .log > article.loops > .result {\n  background: #f806;\n}\n.Repl > .log > article.error > .result {\n  background: #f006;\n}\n.Repl > .log > article:not(:hover) button {\n  display: none;\n}\n.Repl > .log > article .process {\n  clear: both;\n  position: relative;\n}\n.Repl > .log > article .process.truncated::before {\n  content: \"\";\n  position: absolute;\n  height: 3em;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background: linear-gradient(to bottom, #2220 0%, #222f 100%);\n}\n.Repl > .state {\n  grid-area: state;\n  padding: 10px;\n  min-width: 30ch;\n  height: 100%;\n  box-sizing: border-box;\n  background-color: #444;\n}\n.Repl > form {\n  grid-area: prompt;\n  display: flex;\n  padding: 10px;\n}\n.Repl > form input {\n  flex: 1 1 auto;\n}\n.Repl > form button {\n  flex: 0 0 auto;\n}");
+	___$insertStylesToHeader(".Repl {\n  display: grid;\n  grid-template-rows: 1fr min-content;\n  grid-template-columns: auto min-content;\n  grid-template-areas: \"log state\" \"prompt state\";\n}\n.Repl > .log {\n  grid-area: log;\n  overflow-y: scroll;\n}\n.Repl > .log > article {\n  max-width: 100%;\n  overflow-x: hidden;\n  border-bottom: 1px solid #777;\n  padding: 0 10px;\n}\n.Repl > .log > article.loops > .result {\n  background: #f806;\n}\n.Repl > .log > article.error > .result {\n  background: #f006;\n}\n.Repl > .log > article:not(:hover) button {\n  display: none;\n}\n.Repl > .log > article .process {\n  clear: both;\n  position: relative;\n}\n.Repl > .log > article .process.truncated::before {\n  content: \"\";\n  position: absolute;\n  height: 3em;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background: linear-gradient(to bottom, #2220 0%, #222f 100%);\n}\n.Repl > .state {\n  grid-area: state;\n  padding: 10px;\n  min-width: 30ch;\n  height: 100%;\n  box-sizing: border-box;\n  background-color: #444;\n  display: flex;\n  flex-direction: column;\n}\n.Repl > form {\n  grid-area: prompt;\n  display: flex;\n  padding: 10px;\n  height: min-content;\n}\n.Repl > form input {\n  flex: 1 1 auto;\n}\n.Repl > form button {\n  flex: 0 0 auto;\n}");
 
 	___$insertStylesToHeader(".Expression .token {\n  color: #999;\n}\n.Expression .name {\n  color: #eee;\n}\n.Expression .name + .name {\n  padding-left: 1ch;\n}");
 
@@ -29840,17 +29840,29 @@
 	        postfix: data.slice(argEnd)
 	    };
 	}
-	function sliceAt(data, name) {
-	    const split = data.findIndex(l => Array.isArray(l) && l[1] == name);
-	    if (split == -1)
-	        return [data];
-	    return [data.slice(0, split), ...sliceAt(data.slice(split + 1), name)];
+	function sliceAtName(expression, name) {
+	    for (let i = 0; i < expression.length; i++) {
+	        if (Array.isArray(expression[i]) && expression[i][1] == name)
+	            return [
+	                expression.slice(0, i),
+	                ...sliceAtName(expression.slice(i + 1), name)
+	            ];
+	        if (expression[i] == '\\' && Array.isArray(expression[i + 1]) && expression[i + 1][1] == name) {
+	            try {
+	                i += findParenPair(expression.slice(i));
+	            }
+	            catch {
+	                break;
+	            }
+	        }
+	    }
+	    return [expression];
 	}
 	function evaluate(expression) {
 	    const lambda = parseLambda(expression);
 	    const { prefix, param, body, argument, postfix } = lambda;
 	    const substitute = wrap(argument);
-	    const bodySections = sliceAt(body, param);
+	    const bodySections = sliceAtName(body, param);
 	    const result = bodySections.reduce((l, r) => [...l, ...substitute, ...r]);
 	    return [
 	        normalize([...prefix, ...wrap(result), ...postfix]),
@@ -29859,7 +29871,8 @@
 	            expression: expression,
 	            lambda,
 	            bodySections,
-	            substitute
+	            substitute,
+	            success: lambda.param != ''
 	        }
 	    ];
 	}
@@ -29901,6 +29914,8 @@
 	            React.createElement(Expression, { expr: entry.right }))) : null);
 	}
 
+	___$insertStylesToHeader(".StateView {\n  flex: 0 1 auto;\n  overflow-y: auto;\n  overflow-wrap: break-word;\n}");
+
 	function StateView({ state }) {
 	    const keys = Object.keys(state).sort();
 	    return React.createElement("div", { className: "StateView" }, keys.map(k => React.createElement("article", { key: k },
@@ -29930,7 +29945,6 @@
 	            if (!definition)
 	                continue;
 	            const left = expression.slice(0, i);
-	            // const substitute = toTokens(definition.value)
 	            const right = expression.slice(i + 1);
 	            return {
 	                type: 'SubDetails',
@@ -29947,17 +29961,30 @@
 	function evalLoop(expression, store, limit = 10) {
 	    const log = [];
 	    for (let i = 0; i < limit; i++) {
-	        const [result, steps] = evaluate(expression);
-	        if (tokenEq(result, expression)) {
-	            const subResult = trySub(result, store);
-	            if (!subResult)
-	                return [true, result, log];
-	            log.push(subResult);
-	            expression = normalize([...subResult.left, ...wrap(subResult.substitute), ...subResult.right]);
-	            continue;
+	        try {
+	            const [evlResult, steps] = evaluate(expression);
+	            const subResult = trySub(expression, store);
+	            if (!subResult && !steps.success)
+	                return [true, expression, log];
+	            const evlPos = steps.lambda.prefix.length;
+	            if (!subResult || evlPos < subResult.left.length) {
+	                if (tokenEq(evlResult, expression))
+	                    return [false, expression, log];
+	                log.push(steps);
+	                expression = evlResult;
+	            }
+	            else {
+	                log.push(subResult);
+	                expression = normalize([
+	                    ...subResult.left,
+	                    ...wrap(subResult.substitute),
+	                    ...subResult.right
+	                ]);
+	            }
 	        }
-	        log.push(steps);
-	        expression = result;
+	        catch (e) {
+	            throw new Error(`Failed to evaluate "${stringify(expression)}": ${e.toString()}`);
+	        }
 	    }
 	    return [false, expression, log];
 	}
@@ -30064,6 +30091,14 @@
 	    return React.createElement("button", { className: "RightButton", onClick: onClick }, children);
 	}
 
+	___$insertStylesToHeader(".Title {\n  margin: 0px;\n  color: white;\n  display: flex;\n  font-family: Montserrat sans-serif;\n  font-weight: 300;\n}\n.Title .content {\n  flex: 0 0 auto;\n}\n.Title .filler {\n  flex: 1 1 auto;\n  align-self: center;\n  border: 1px solid #fff8;\n  margin-left: 5px;\n}");
+
+	function Title({ children }) {
+	    return React.createElement("h5", { className: "Title" },
+	        React.createElement("span", { className: "content" }, children),
+	        React.createElement("span", { className: "filler" }));
+	}
+
 	function Row({ row, rewind }) {
 	    const [details, toggleDetails] = React.useReducer(b => !b, row.log !== undefined && row.log.length < 20);
 	    const visible = details ? row.log : row.log?.slice(0, 5);
@@ -30097,9 +30132,12 @@
 	    }, [output.length]);
 	    return React.createElement("div", { className: "Repl" },
 	        React.createElement("section", { className: "state" },
+	            React.createElement(Title, null, "Executor state"),
 	            React.createElement(StateView, { state: state }),
 	            React.createElement("div", null,
+	                React.createElement(Title, null, "Max iterations"),
 	                React.createElement("input", { value: limit, onChange: e => setLimit(e.target.value) })),
+	            React.createElement(Title, null, "Actions"),
 	            share ? React.createElement(React.Fragment, null,
 	                React.createElement("button", { onClick: () => share(output.map(row => row.command)) }, "Share"),
 	                React.createElement("button", { onClick: () => share([]) }, "Clear")) : null),
@@ -30115,7 +30153,7 @@
 	            React.createElement("button", { type: 'submit' }, "Run")));
 	}
 
-	___$insertStylesToHeader(".App {\n  display: flex;\n}\n.App > .examples {\n  flex: 0 0 min-content;\n  background: #181818;\n  padding: 10px;\n}\n.App > .examples > a {\n  display: block;\n  color: white;\n  white-space: nowrap;\n  text-decoration: none;\n}\n.App > .Repl {\n  flex: 1 1 auto;\n  height: 100%;\n}");
+	___$insertStylesToHeader(".App {\n  display: flex;\n}\n.App > .menu {\n  font-family: Montserrat sans-serif;\n  flex: 0 0 min-content;\n  background: #181818;\n  padding: 10px;\n}\n.App > .menu > a {\n  display: block;\n  color: white;\n  white-space: nowrap;\n  text-decoration: none;\n}\n.App > .menu p {\n  font-style: italic;\n  color: #777;\n  font-size: 0.9em;\n}\n.App > .Repl {\n  flex: 1 1 auto;\n  height: 100%;\n}");
 
 	const examples = [
 	    [
@@ -30127,12 +30165,20 @@
 	        '?log=%5B%22TRUE%3D%5C%5Cx.%5C%5Cy.x%22%2C%22FALSE%3D%5C%5Cx.%5C%5Cy.y%22%2C%22NOT%3D%5C%5Cx.x+FALSE+TRUE%22%2C%22NOT+TRUE%22%2C%22AND%3D%5C%5Cx.%5C%5Cy.x+y+x%22%2C%22OR%3D%5C%5Cx.%5C%5Cy.x+x+y%22%5D'
 	    ],
 	    [
-	        'Numbers I.',
-	        '?log=%5B%22%23%20Numbers%20are%20represented%20by%20a%20function%20that%20applies%20a%20parameter%20N%20times%22%2C%220%3D%5C%5Cf.%5C%5Cx.x%22%2C%221%3D%5C%5Cf.%5C%5Cx.f%20x%22%2C%222%3D%5C%5Cf.%5C%5Cx.f%20(f%20x)%22%2C%22%23%20N%201%20can%20be%20obtained%20from%20N%20by%20applying%20the%20parameter%20one%20more%20time%22%2C%22SUCC%3D%5C%5Cn.%5C%5Cf.%5C%5Cx.f(n%20f%20x)%22%2C%22SUCC%202%22%2C%223%3DSUCC%202%22%2C%22%23%20The%20n-th%20composition%20of%20f%20composed%20with%20the%20k-th%20composition%20of%20f%20gives%20the%20n%20k-th%20composition%20of%20f%22%2C%22PLUS%3D%5C%5Cn.%5C%5Ck.%5C%5Cf.%5C%5Cx.n%20f%20(k%20f%20x)%22%2C%22PLUS%202%202%22%2C%22%23%20This%20multiplication%20function%20should%20not%20come%20as%20a%20surprise%22%2C%22MULT%3D%5C%5Cn.%5C%5Ck.%5C%5Cf.n%20(k%20f)%22%2C%22MULT%202%203%22%5D'
+	        'Numbers Ⅰ.',
+	        '?log=%5B%22%23%20Numbers%20are%20represented%20by%20a%20function%20that%20applies%20a%20parameter%20N%20times%22%2C%220%3D%5C%5Cf.%5C%5Cx.x%22%2C%221%3D%5C%5Cf.%5C%5Cx.f%20x%22%2C%222%3D%5C%5Cf.%5C%5Cx.f%20(f%20x)%22%2C%22%23%20N%2B1%20can%20be%20obtained%20from%20N%20by%20applying%20the%20parameter%20one%20more%20time%22%2C%22SUCC%3D%5C%5Cn.%5C%5Cf.%5C%5Cx.f(n%20f%20x)%22%2C%22SUCC%202%22%2C%223%3DSUCC%202%22%2C%22%23%20The%20n-th%20composition%20of%20f%20composed%20with%20the%20k-th%20composition%20of%20f%20gives%20the%20n%2Bk-th%20composition%20of%20f%22%2C%22PLUS%3D%5C%5Cn.%5C%5Ck.%5C%5Cf.%5C%5Cx.n%20f%20(k%20f%20x)%22%2C%22PLUS%202%202%22%2C%22%23%20This%20multiplication%20function%20should%20not%20come%20as%20a%20surprise%22%2C%22MULT%3D%5C%5Cn.%5C%5Ck.%5C%5Cf.n%20(k%20f)%22%2C%22MULT%202%203%22%5D'
 	    ],
 	    [
 	        "Pairs",
 	        '?log=%5B%22TRUE%3D%5C%5Cx.%5C%5Cy.x%3BFALSE%3D%5C%5Cx.%5C%5Cy.y%3B0%3D%5C%5Cf.%5C%5Cx.x%3BSUCC%3D%5C%5Cn.%5C%5Cf.%5C%5Cx.f%28n+f+x%29%22%2C%22%23+Pair+%28or+2-tuples%29+have+various+use+cases%2C+and+they%27re+a+fine+demonstration+of+how+closures+can+be+used+to+construct+datastructures.%22%2C%22PAIR%3D%5C%5Cx.%5C%5Cy.%5C%5Cf.f+x+y%22%2C%22FIRST%3D%5C%5Cp.p+TRUE%22%2C%22SECOND%3D%5C%5Cp.p+FALSE%22%2C%22%23+Using+pairs%2C+declaring+a+predecessor+function+is+easy%22%2C%22PHI%3D%5C%5Cx.PAIR+%28SECOND+x%29+%28SUCC+%28SECOND+x%29%29+%23+Phi+maps+%28n%2C+k%29+to+%28k%2C+k%2B1%29%22%2C%22PRED%3D%5C%5Cn.FIRST+%28n+PHI+%28PAIR+0+0%29%29%22%2C%22PRED%28SUCC%28SUCC%28SUCC%28SUCC+0%29%29%29%29+%23+Should+result+in+f%5E3%22%5D'
+	    ],
+	    [
+	        "Numbers Ⅱ.",
+	        '?log=%5B%22TRUE%3D%5C%5Cx.%5C%5Cy.x%3BFALSE%3D%5C%5Cx.%5C%5Cy.y%3B0%3D%5C%5Cf.%5C%5Cx.x%3BSUCC%3D%5C%5Cn.%5C%5Cf.%5C%5Cx.f%28n+f+x%29%3BPLUS%3D%5C%5Cn.%5C%5Ck.%5C%5Cf.%5C%5Cx.n+f+%28k+f+x%29%3BMULT%3D%5C%5Cn.%5C%5Ck.%5C%5Cf.n+%28k+f%29%3BPAIR%3D%5C%5Cx.%5C%5Cy.%5C%5Cf.f+x+y%3BFIRST%3D%5C%5Cp.p+TRUE%3BNOT%3D%5C%5Cx.x+FALSE+TRUE%3BAND%3D%5C%5Cx.%5C%5Cy.x+y+x%3BOR%3D%5C%5Cx.%5C%5Cy.x+x+y%3BSECOND%3D%5C%5Cp.p+FALSE%3BPHI%3D%5C%5Cx.PAIR+%28SECOND+x%29+%28SUCC+%28SECOND+x%29%29%3BPRED%3D%5C%5Cn.FIRST+%28n+PHI+%28PAIR+0+0%29%29%22%2C%22%23+Now+that+we+have+a+predecessor+function%2C+a+few+other+numerical+functions+can+be+defined%22%2C%22SUB%3D%5C%5Cn.%5C%5Ck.k+PRED+n%22%2C%22ISZERO%3D%5C%5Cn.n+%28%5C%5Cx.FALSE%29+TRUE%22%2C%22%23+And+finally+comparison+predicates%22%2C%22LEQ%3D%5C%5Cn.%5C%5Ck.ISZERO+%28SUB+n+k%29%22%2C%22EQ%3D%5C%5Cn.%5C%5Ck.AND+%28LEQ+n+k%29+%28LEQ+k+n%29%22%2C%22%23+Note+that+subtracting+a+large+number+from+a+smaller+one+yields+zero+due+to+our+encoding%22%2C%221%3DSUCC+0%3B2%3DSUCC+1%3B3%3DSUCC+2%22%2C%22EQ+3+%28PLUS+1+2%29%22%5D'
+	    ],
+	    [
+	        "Recursion",
+	        '?log=%5B%22TRUE%3D%5C%5Cx.%5C%5Cy.x%3BFALSE%3D%5C%5Cx.%5C%5Cy.y%3B0%3D%5C%5Cf.%5C%5Cx.x%3BSUCC%3D%5C%5Cn.%5C%5Cf.%5C%5Cx.f%28n+f+x%29%3BPLUS%3D%5C%5Cn.%5C%5Ck.%5C%5Cf.%5C%5Cx.n+f+%28k+f+x%29%3BMULT%3D%5C%5Cn.%5C%5Ck.%5C%5Cf.n+%28k+f%29%3BPAIR%3D%5C%5Cx.%5C%5Cy.%5C%5Cf.f+x+y%3BFIRST%3D%5C%5Cp.p+TRUE%3BNOT%3D%5C%5Cx.x+FALSE+TRUE%3BAND%3D%5C%5Cx.%5C%5Cy.x+y+x%3BOR%3D%5C%5Cx.%5C%5Cy.x+x+y%3BSECOND%3D%5C%5Cp.p+FALSE%3BPHI%3D%5C%5Cx.PAIR+%28SECOND+x%29+%28SUCC+%28SECOND+x%29%29%3BPRED%3D%5C%5Cn.FIRST+%28n+PHI+%28PAIR+0+0%29%29%3BSUB%3D%5C%5Cn.%5C%5Ck.k+PRED+n%3BISZERO%3D%5C%5Cn.n+%28%5C%5Cx.FALSE%29+TRUE%3BLEQ%3D%5C%5Cn.%5C%5Ck.ISZERO+%28SUB+n+k%29%3BEQ%3D%5C%5Cn.%5C%5Ck.AND+%28LEQ+n+k%29+%28LEQ+k+n%29%3B1%3DSUCC+0%3B2%3DSUCC+1%3B3%3DSUCC+2%22%2C%22%23+Intuitively%2C+we+might+define+the+factorial+function+like+this%22%2C%22FAC%3D%5C%5Cn.ISZERO+n+1+%28MULT+n+%28FAC+%28PRED+n%29%29%29%22%2C%22%23+%28+note%3A+this+is+a+really+long+calculation%2C+set+Max+iterations+to+5000+before+you+test+it+%29%22%2C%22%23+The+fact+that+this+definition+works+is+actually+a+shortcoming+of+this+interpreter%2C+as+self-referential+definitions+aren%27t+allowed+in+lambda+calculus%22%2C%22%23+Creating+loops+is+generally+not+difficult%22%2C%22%28%5C%5Cx.x+x%29%28%5C%5Cx.x+x%29%22%2C%22%23+The+self-reference+can+be+broken+by+passing+recursive+functions+as+their+own+first+argument%22%2C%22FAC%3D%5C%5Cr.%5C%5Cn.ISZERO+n+1+%28MULT+n+%28r+r+%28PRED+n%29%29%29+%23+Invoked+as+FAC+FAC+3%22%2C%22%23+Ideally%2C+we+should+have+a+function+that+abstracts+this+step%2C+a+variant+of+the+above+infinite+loop+example+that+also+passes+control+to+some+loop+body+on+every+iteration%22%2C%22Y%3D%5C%5Cg.%28%5C%5Cx.g+%28x+x%29%29%28%5C%5Cx.g+%28x+x%29%29%22%2C%22%23+Y+is+the+fixed+point+of+any+function+-+try+running+%60Y+foo%60+with+an+iteration+limit+of+10%21%22%2C%22%23+With+this%2C+we+can+finally+define+FAC+in+a+legal+and+convenient+way%22%2C%22FAC%3D%5C%5Cn.Y+%28%5C%5Cr.%5C%5Ck.ISZERO+k+1+%28MULT+k+%28r+%28PRED+k%29%29%29%29+n%22%2C%22%23+Although+the+order+of+evaluation+doesn%27t+normally+make+a+difference%2C+with+recursive+functions+it%27s+crucial+that+we+always+evaluate+the+outermost+expression+first%2C+otherwise+we+might+end+up+recursing+infinitely+on+dead+branches.%22%5D'
 	    ]
 	];
 	function App() {
@@ -30140,7 +30186,11 @@
 	    const logParam = url.get('log');
 	    const log = React.useMemo(() => JSON.parse(decodeURIComponent(logParam ?? '[]')), [logParam]);
 	    return React.createElement("div", { className: "App" },
-	        React.createElement("div", { className: "examples" }, examples.map(([name, value]) => React.createElement("a", { href: value, key: name }, name))),
+	        React.createElement("div", { className: "menu" },
+	            React.createElement("h1", null,
+	                React.createElement(Expression, { expr: ['λ', ['literal', 'f'], '.', ['literal', 'engine']] })),
+	            examples.map(([name, value]) => React.createElement("a", { href: value, key: name }, name)),
+	            React.createElement("p", null, "Most of the explanations were copied from Wikipedia")),
 	        React.createElement(Repl, { init: log, share: log => {
 	                if (log.length == 0)
 	                    url.delete('log');
