@@ -30158,7 +30158,7 @@
 	const examples = [
 	    [
 	        'Introduction',
-	        '?log=%5B%22%23+Lambda+calculus+describes+functions+with+substitution.%22%2C%22%23+A+lambda+function+consists+of+a+variable+name+and+a+body.%22%2C%22%5C%5Cx.x+%2B+1%22%2C%22%23+On+evaluation%2C+all+occurences+of+the+name+in+the+body+are+replaced+with+the+argument.%22%2C%22%28%5C%5Cx.x+%2B+1%29+2%22%2C%22%23+For+convenience+we+often+name+these+expressions%2C+however+recursion+isn%27t+allowed.%22%2C%22F%3D%5C%5Cx.1+%2F+x%22%2C%22%23+This+parser+doesn%27t+recognize+any+operators+not+normally+present+in+lambda+calculus%2C+so+surround+names+with+a+space.%22%5D'
+	        '?log=%5B%22%23+Lambda+calculus+describes+functions+with+substitution.%22%2C%22%23+A+lambda+function+consists+of+a+variable+name+and+a+body.%22%2C%22%5C%5Cx.x+%2B+1%22%2C%22%23+On+evaluation%2C+all+occurences+of+the+name+in+the+body+are+replaced+with+the+argument.%22%2C%22%28%5C%5Cx.x+%2B+1%29+2%22%2C%22%23+For+convenience+we+often+name+these+expressions%2C+however+recursion+isn%27t+allowed.%22%2C%22F%3D%5C%5Cx.1+%2F+x%22%2C%22%23+This+parser+doesn%27t+recognize+any+operators+not+normally+present+in+lambda+calculus%2C+so+surround+names+with+a+space.%22%2C%22%23+Multi-parameter+functions+are+expressed+as+functions+that+return+functions%22%2C%22ADD%3D%5C%5Cx.%5C%5Cy.x+%2B+y%22%2C%22%23+Functions+are+called+by+simply+listing+the+arguments+after+the+function+name%22%2C%22ADD+3+5%22%5D'
 	    ],
 	    [
 	        'Boolean logic',
