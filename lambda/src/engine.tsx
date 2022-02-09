@@ -26,17 +26,25 @@ export function createState(): State {
     return createStore()
 }
 
-export function execute(state: State, command: string): [boolean, string, LogEntry[], State] {
+export function execute(state: State, command: string, limit = 10): [boolean, string, LogEntry[], State] {
     if (command.includes('#'))
         command = command.substring(0, command.indexOf('#'))
-    const assign = /^([a-zA-Z0-9_]+)=/.exec(command)
-    if (assign) {
-        const name = assign[1]
-        const expression = command.substring(assign[0].length)
-        return [true, '', [], addToStore(state, name, tokenize(expression))]
-        // const [halts, value, log] = evalLoop(tokenize(expression), state)
-        // return [halts, stringify(value), log, addToStore(state, name, value)]
+    const instructions = command.split(';')
+    const values: string[] = []
+    const logs: LogEntry[] = []
+    let allHalts = true
+    for (const instruction of instructions) {
+        const assign = /^([a-zA-Z0-9_]+)=/.exec(instruction)
+        if (assign) {
+            const name = assign[1]
+            const expression = instruction.substring(assign[0].length)
+            state = addToStore(state, name, tokenize(expression))
+        } else {
+            const [halts, value, log] = evalLoop(tokenize(instruction), state, limit)
+            allHalts &&= halts
+            values.push(stringify(value))
+            logs.push(...log)
+        }
     }
-    const [halts, value, log] = evalLoop(tokenize(command), state)
-    return [halts, stringify(value), log, state]
+    return [allHalts, values.join(';'), logs, state]
 }

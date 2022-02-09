@@ -26,5 +26,11 @@
         color: #f66;
         // @include spaced
     }
+    .sub .Var {
+        padding-right: 1ch;
+        &:not(:first-child) {
+            padding-left: 1ch;
+        }
+    }
 }
 

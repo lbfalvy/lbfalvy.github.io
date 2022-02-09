@@ -29698,7 +29698,7 @@
 
 	var ReactDOM = reactDom.exports;
 
-	___$insertStylesToHeader("@import url(\"https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Source+Code+Pro&display=swap\");\nhtml {\n  background: #222;\n  color: #ccc;\n  font-family: \"Source Code Pro\", monospace;\n}\nhtml > body {\n  margin: 0;\n}\nhtml > body > #root > * {\n  box-sizing: border-box;\n  height: 100vh;\n  width: 100vw;\n}\n\nbutton {\n  color: inherit;\n  background: none;\n  font-family: inherit;\n  border: 1px solid #777;\n}\nbutton:hover {\n  border-color: white;\n}\nbutton:active {\n  border-color: #444;\n}");
+	___$insertStylesToHeader("@import url(\"https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Source+Code+Pro&display=swap\");\nhtml {\n  background: #222;\n  color: #ccc;\n  font-family: \"Source Code Pro\", monospace;\n}\nhtml > body {\n  margin: 0;\n}\nhtml > body > #root > * {\n  box-sizing: border-box;\n  height: 100vh;\n  width: 100vw;\n}\n\nbutton {\n  color: inherit;\n  background: none;\n  font-family: inherit;\n  border: 1px solid #777;\n}\nbutton:hover {\n  border-color: white;\n}\nbutton:active {\n  border-color: #444;\n}\n\ninput {\n  color: inherit;\n  background: none;\n  font-family: inherit;\n  font-size: inherit;\n  border: none;\n  border-bottom: 2px solid #777;\n  padding: 0 10px;\n}\ninput:focus {\n  outline: none;\n  border-bottom: 2px solid #66f;\n}");
 
 	/**
 	 * Decide whether each class gets applied with a simple boolean expression
@@ -29709,7 +29709,17 @@
 	    return classes.flat().filter(c => typeof c == 'string').join(' ');
 	}
 
-	___$insertStylesToHeader(".Repl {\n  display: grid;\n  grid-template-rows: auto min-content;\n  grid-template-columns: auto min-content;\n  grid-template-areas: \"log state\" \"prompt state\";\n}\n.Repl > .log {\n  grid-area: log;\n  overflow: auto;\n}\n.Repl > .log > article {\n  border-bottom: 1px solid #777;\n  padding: 0 10px;\n}\n.Repl > .log > article.loops > .result {\n  background: #f806;\n}\n.Repl > .log > article.error > .result {\n  background: #f006;\n}\n.Repl > .state {\n  grid-area: state;\n  padding: 10px;\n  min-width: 30ch;\n  height: 100%;\n  box-sizing: border-box;\n  background-color: #444;\n}\n.Repl > form {\n  grid-area: prompt;\n  display: flex;\n  padding: 10px;\n}\n.Repl > form input {\n  color: inherit;\n  background: none;\n  font-family: inherit;\n  font-size: inherit;\n  border: none;\n  border-bottom: 2px solid #777;\n  flex: 1 1 auto;\n  padding: 0 10px;\n}\n.Repl > form input:focus {\n  outline: none;\n  border-bottom: 2px solid #66f;\n}\n.Repl > form button {\n  flex: 0 0 auto;\n}");
+	___$insertStylesToHeader(".Repl {\n  display: grid;\n  grid-template-rows: auto min-content;\n  grid-template-columns: auto min-content;\n  grid-template-areas: \"log state\" \"prompt state\";\n}\n.Repl > .log {\n  grid-area: log;\n  overflow-y: scroll;\n}\n.Repl > .log > article {\n  max-width: 100%;\n  overflow-x: hidden;\n  border-bottom: 1px solid #777;\n  padding: 0 10px;\n}\n.Repl > .log > article.loops > .result {\n  background: #f806;\n}\n.Repl > .log > article.error > .result {\n  background: #f006;\n}\n.Repl > .log > article:not(:hover) button {\n  display: none;\n}\n.Repl > .log > article .process {\n  clear: both;\n  position: relative;\n}\n.Repl > .log > article .process.truncated::before {\n  content: \"\";\n  position: absolute;\n  height: 3em;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background: linear-gradient(to bottom, #2220 0%, #222f 100%);\n}\n.Repl > .state {\n  grid-area: state;\n  padding: 10px;\n  min-width: 30ch;\n  height: 100%;\n  box-sizing: border-box;\n  background-color: #444;\n}\n.Repl > form {\n  grid-area: prompt;\n  display: flex;\n  padding: 10px;\n}\n.Repl > form input {\n  flex: 1 1 auto;\n}\n.Repl > form button {\n  flex: 0 0 auto;\n}");
+
+	___$insertStylesToHeader(".Expression .token {\n  color: #999;\n}\n.Expression .name {\n  color: #eee;\n}\n.Expression .name + .name {\n  padding-left: 1ch;\n}");
+
+	function Expression({ expr }) {
+	    if (expr.length == 0)
+	        return React.createElement(React.Fragment, null);
+	    return React.createElement("span", { className: "Expression" }, expr.map((tok, i) => typeof tok == 'string'
+	        ? React.createElement("span", { key: i, className: "token" }, tok)
+	        : React.createElement("span", { key: i, className: "name" }, tok[1])));
+	}
 
 	function tokenizer(operators) {
 	    const opChars = new Set(operators.flatMap(s => s.split('')));
@@ -29793,11 +29803,23 @@
 	const defaultLres = { type: 'LambdaResult',
 	    prefix: [], param: '', body: [], argument: [], postfix: []
 	};
+	function recurseParseLambda(data, position) {
+	    const subresult = parseLambda(data.slice(position));
+	    if (subresult.param == '')
+	        return { ...defaultLres, prefix: data };
+	    const prefix = [
+	        ...data.slice(0, position),
+	        ...subresult.prefix
+	    ];
+	    return { ...subresult, prefix };
+	}
 	function parseLambda(data) {
 	    const lambdaPos = data.indexOf('\\');
 	    // An expression can only be further evaluated if there is a parenthesized lambda
-	    if (lambdaPos <= 0 || data[lambdaPos - 1] != '(')
+	    if (lambdaPos == -1)
 	        return { ...defaultLres, prefix: data };
+	    if (lambdaPos == 0 || data[lambdaPos - 1] != '(')
+	        return recurseParseLambda(data, lambdaPos + 1);
 	    const param = data[lambdaPos + 1];
 	    if (!Array.isArray(param) || data[lambdaPos + 2] != '.')
 	        throw new Error('Malformed param name');
@@ -29805,7 +29827,7 @@
 	    const afterBody = bodyEnd + 1;
 	    // If there's no argument, this lambda is the final value
 	    if (data.length <= afterBody || data[afterBody] == ')')
-	        return { ...defaultLres, prefix: data };
+	        return recurseParseLambda(data, lambdaPos + 1);
 	    const [argStart, argEnd] = data[afterBody] == '('
 	        ? [afterBody, afterBody + findParenPair(data.slice(afterBody)) + 1]
 	        : [afterBody, afterBody + 1];
@@ -29840,6 +29862,52 @@
 	            substitute
 	        }
 	    ];
+	}
+
+	___$insertStylesToHeader(".LogDisplay .Var {\n  color: #494;\n}\n.LogDisplay .Var + .Var {\n  padding-left: 1ch;\n}\n.LogDisplay .fade {\n  color: #777;\n}\n.LogDisplay .lambda {\n  color: #ca2;\n}\n.LogDisplay .argument {\n  color: #f66;\n}\n.LogDisplay .sub .Var {\n  padding-right: 1ch;\n}\n.LogDisplay .sub .Var:not(:first-child) {\n  padding-left: 1ch;\n}");
+
+	function Var({ children }) {
+	    return React.createElement("span", { className: "Var" }, children);
+	}
+	function mapJoin(arr, map, join) {
+	    return React.createElement(React.Fragment, null, arr.map((v, i) => React.createElement(React.Fragment, null,
+	        map(v, i),
+	        i < arr.length - 1 ? join() : null)));
+	}
+	function LogDisplay({ entry }) {
+	    return React.createElement("div", { className: "LogDisplay" }, entry.type == 'EvalSteps' ? React.createElement(React.Fragment, null,
+	        React.createElement("header", null,
+	            React.createElement(Expression, { expr: entry.expression })),
+	        React.createElement("section", { className: "found-lambda" },
+	            React.createElement("span", { className: "fade" }, stringify(entry.lambda.prefix)),
+	            React.createElement("span", { className: "lambda" },
+	                "\\",
+	                React.createElement(Var, null, entry.lambda.param),
+	                ".",
+	                mapJoin(entry.bodySections, (v, i) => v.length ? React.createElement("span", { key: i }, stringify(v)) : null, () => React.createElement(Var, null, entry.lambda.param))),
+	            React.createElement("span", { className: "argument" }, stringify(entry.lambda.argument)),
+	            React.createElement("span", { className: "fade" }, stringify(entry.lambda.postfix))),
+	        React.createElement("footer", { className: "evaluated-lambda" },
+	            React.createElement("span", { className: "fade" }, stringify(entry.lambda.prefix)),
+	            React.createElement("span", { className: "lambda" }, mapJoin(entry.bodySections, (v, i) => v.length ? React.createElement("span", { key: i }, stringify(v)) : null, () => React.createElement(Var, null, stringify(entry.substitute)))),
+	            React.createElement("span", { className: "fade" }, stringify(entry.lambda.postfix)))) : entry.type == 'SubDetails' ? React.createElement(React.Fragment, null,
+	        React.createElement("header", { className: "sub" },
+	            React.createElement(Expression, { expr: entry.left }),
+	            React.createElement(Var, null, entry.name),
+	            React.createElement(Expression, { expr: entry.right })),
+	        React.createElement("footer", { className: "sub sub-result" },
+	            React.createElement(Expression, { expr: entry.left }),
+	            React.createElement(Var, null, stringify(entry.substitute)),
+	            React.createElement(Expression, { expr: entry.right }))) : null);
+	}
+
+	function StateView({ state }) {
+	    const keys = Object.keys(state).sort();
+	    return React.createElement("div", { className: "StateView" }, keys.map(k => React.createElement("article", { key: k },
+	        React.createElement("span", { className: 'name' }, k),
+	        React.createElement("span", { className: "eql" }, "="),
+	        React.createElement("span", { className: "value" },
+	            React.createElement(Expression, { expr: state[k].value })))));
 	}
 
 	function createStore() {
@@ -29896,73 +29964,28 @@
 	function createState() {
 	    return createStore();
 	}
-	function execute(state, command) {
+	function execute(state, command, limit = 10) {
 	    if (command.includes('#'))
 	        command = command.substring(0, command.indexOf('#'));
-	    const assign = /^([a-zA-Z0-9_]+)=/.exec(command);
-	    if (assign) {
-	        const name = assign[1];
-	        const expression = command.substring(assign[0].length);
-	        return [true, '', [], addToStore(state, name, tokenize(expression))];
-	        // const [halts, value, log] = evalLoop(tokenize(expression), state)
-	        // return [halts, stringify(value), log, addToStore(state, name, value)]
+	    const instructions = command.split(';');
+	    const values = [];
+	    const logs = [];
+	    let allHalts = true;
+	    for (const instruction of instructions) {
+	        const assign = /^([a-zA-Z0-9_]+)=/.exec(instruction);
+	        if (assign) {
+	            const name = assign[1];
+	            const expression = instruction.substring(assign[0].length);
+	            state = addToStore(state, name, tokenize(expression));
+	        }
+	        else {
+	            const [halts, value, log] = evalLoop(tokenize(instruction), state, limit);
+	            allHalts &&= halts;
+	            values.push(stringify(value));
+	            logs.push(...log);
+	        }
 	    }
-	    const [halts, value, log] = evalLoop(tokenize(command), state);
-	    return [halts, stringify(value), log, state];
-	}
-
-	___$insertStylesToHeader(".Expression .token {\n  color: #999;\n}\n.Expression .name {\n  color: #eee;\n}\n.Expression .name + .name {\n  padding-left: 1ch;\n}");
-
-	function Expression({ expr }) {
-	    return React.createElement("span", { className: "Expression" }, expr.map((tok, i) => typeof tok == 'string'
-	        ? React.createElement("span", { key: i, className: "token" }, tok)
-	        : React.createElement("span", { key: i, className: "name" }, tok[1])));
-	}
-
-	___$insertStylesToHeader(".LogDisplay .Var {\n  color: #494;\n}\n.LogDisplay .Var + .Var {\n  padding-left: 1ch;\n}\n.LogDisplay .fade {\n  color: #777;\n}\n.LogDisplay .lambda {\n  color: #ca2;\n}\n.LogDisplay .argument {\n  color: #f66;\n}");
-
-	function Var({ children }) {
-	    return React.createElement("span", { className: "Var" }, children);
-	}
-	function mapJoin(arr, map, join) {
-	    return React.createElement(React.Fragment, null, arr.map((v, i) => React.createElement(React.Fragment, null,
-	        map(v, i),
-	        i < arr.length - 1 ? join() : null)));
-	}
-	function LogDisplay({ entry }) {
-	    return React.createElement("div", { className: "LogDisplay" }, entry.type == 'EvalSteps' ? React.createElement(React.Fragment, null,
-	        React.createElement("header", null,
-	            React.createElement(Expression, { expr: entry.expression })),
-	        React.createElement("section", { className: "found-lambda" },
-	            React.createElement("span", { className: "fade" }, stringify(entry.lambda.prefix)),
-	            React.createElement("span", { className: "lambda" },
-	                "\\",
-	                React.createElement(Var, null, entry.lambda.param),
-	                ".",
-	                mapJoin(entry.bodySections, (v, i) => v.length ? React.createElement("span", { key: i }, stringify(v)) : null, () => React.createElement(Var, null, entry.lambda.param))),
-	            React.createElement("span", { className: "argument" }, stringify(entry.lambda.argument)),
-	            React.createElement("span", { className: "fade" }, stringify(entry.lambda.postfix))),
-	        React.createElement("footer", { className: "evaluated-lambda" },
-	            React.createElement("span", { className: "fade" }, stringify(entry.lambda.prefix)),
-	            React.createElement("span", { className: "lambda" }, mapJoin(entry.bodySections, (v, i) => v.length ? React.createElement("span", { key: i }, stringify(v)) : null, () => React.createElement(Var, null, stringify(entry.substitute)))),
-	            React.createElement("span", { className: "fade" }, stringify(entry.lambda.postfix)))) : entry.type == 'SubDetails' ? React.createElement(React.Fragment, null,
-	        React.createElement("header", { className: "sub" },
-	            React.createElement(Expression, { expr: entry.left }),
-	            React.createElement(Var, null, entry.name),
-	            React.createElement(Expression, { expr: entry.right })),
-	        React.createElement("footer", { className: "sub-result" },
-	            React.createElement(Expression, { expr: entry.left }),
-	            React.createElement(Var, null, stringify(entry.substitute)),
-	            React.createElement(Expression, { expr: entry.right }))) : null);
-	}
-
-	function StateView({ state }) {
-	    const keys = Object.keys(state).sort();
-	    return React.createElement("div", { className: "StateView" }, keys.map(k => React.createElement("article", { key: k },
-	        React.createElement("span", { className: 'name' }, k),
-	        React.createElement("span", { className: "eql" }, "="),
-	        React.createElement("span", { className: "value" },
-	            React.createElement(Expression, { expr: state[k].value })))));
+	    return [allHalts, values.join(';'), logs, state];
 	}
 
 	function useLog(init = []) {
@@ -29974,12 +29997,12 @@
 	    }, init);
 	}
 
-	function useExecutor() {
+	function useExecutor(limit = 10) {
 	    const [output, out] = useLog();
 	    const [state, setState] = React.useState(createState);
 	    function exec(state, command) {
 	        try {
-	            const [halts, result, log, nextState] = execute(state, command);
+	            const [halts, result, log, nextState] = execute(state, command, limit);
 	            out(['push', {
 	                    command,
 	                    log, result,
@@ -30010,25 +30033,79 @@
 	        }
 	    ];
 	}
+
+	function useLocalStorage(key, def) {
+	    if (!window.localStorage.getItem(key) && def)
+	        window.localStorage.setItem(key, def);
+	    const [value, change] = React.useState(window.localStorage.getItem(key));
+	    React.useEffect(() => {
+	        function handle(e) {
+	            if (e.key == key)
+	                change(e.newValue);
+	        }
+	        window.addEventListener('storage', handle);
+	        return () => window.removeEventListener('storage', handle);
+	    }, []);
+	    return [
+	        value,
+	        s => {
+	            if (s === undefined || s === null)
+	                window.localStorage.removeItem(key);
+	            else
+	                window.localStorage.setItem(key, s);
+	            change(s ?? null);
+	        }
+	    ];
+	}
+
+	___$insertStylesToHeader(".RightButton {\n  float: right;\n}");
+
+	function RightButton({ children, onClick }) {
+	    return React.createElement("button", { className: "RightButton", onClick: onClick }, children);
+	}
+
+	function Row({ row, rewind }) {
+	    const [details, toggleDetails] = React.useReducer(b => !b, row.log !== undefined && row.log.length < 20);
+	    const visible = details ? row.log : row.log?.slice(0, 5);
+	    return React.createElement("article", { className: classList('row', row.status) },
+	        React.createElement("div", { className: "command" },
+	            row.command,
+	            rewind ? React.createElement(RightButton, { onClick: rewind }, "Rewind") : null),
+	        visible && row.log && visible.length ?
+	            React.createElement("div", { className: classList('process', visible.length < row.log.length && 'truncated') },
+	                React.createElement(RightButton, { onClick: toggleDetails }, "Toggle"),
+	                visible.map((e, i) => React.createElement(LogDisplay, { entry: e, key: i })))
+	            : null,
+	        React.createElement("div", { className: "result" }, row.result));
+	}
 	function Repl({ init, share }) {
 	    const [input, setInput] = React.useState('');
-	    const [output, state, exec, reset] = useExecutor();
+	    const [limit, setLimit] = useLocalStorage('executionLimit', '10');
+	    const lim = Number.parseInt(limit);
+	    const [output, state, exec, reset] = useExecutor(Number.isNaN(lim) ? 10 : lim);
+	    const logRef = React.useRef(null);
 	    React.useEffect(() => {
 	        if (init?.length) {
 	            reset();
 	            exec(init);
 	        }
 	    }, [JSON.stringify(init)]);
+	    React.useEffect(() => {
+	        const log = logRef.current;
+	        if (log)
+	            log.scrollTop = log.scrollHeight - log.clientHeight;
+	    }, [output.length]);
 	    return React.createElement("div", { className: "Repl" },
 	        React.createElement("section", { className: "state" },
 	            React.createElement(StateView, { state: state }),
+	            React.createElement("div", null,
+	                React.createElement("input", { value: limit, onChange: e => setLimit(e.target.value) })),
 	            share ? React.createElement(React.Fragment, null,
 	                React.createElement("button", { onClick: () => share(output.map(row => row.command)) }, "Share"),
 	                React.createElement("button", { onClick: () => share([]) }, "Clear")) : null),
-	        React.createElement("section", { className: "log" }, output.map((row, i) => React.createElement("article", { className: classList('row', row.status), key: i },
-	            React.createElement("div", { className: "command" }, row.command),
-	            row.log?.map((e, i) => React.createElement(LogDisplay, { entry: e, key: i })),
-	            React.createElement("div", { className: "result" }, row.result)))),
+	        React.createElement("section", { className: "log", ref: logRef }, output.map((row, i) => React.createElement(Row, { row: row, key: i, rewind: share ?
+	                () => share(output.slice(0, i + 1).map(row => row.command))
+	                : undefined }))),
 	        React.createElement("form", { onSubmit: e => {
 	                e.preventDefault();
 	                exec(input);
@@ -30048,16 +30125,27 @@
 	    [
 	        'Boolean logic',
 	        '?log=%5B%22TRUE%3D%5C%5Cx.%5C%5Cy.x%22%2C%22FALSE%3D%5C%5Cx.%5C%5Cy.y%22%2C%22NOT%3D%5C%5Cx.x+FALSE+TRUE%22%2C%22NOT+TRUE%22%2C%22AND%3D%5C%5Cx.%5C%5Cy.x+y+x%22%2C%22OR%3D%5C%5Cx.%5C%5Cy.x+x+y%22%5D'
+	    ],
+	    [
+	        'Numbers I.',
+	        '?log=%5B%22%23%20Numbers%20are%20represented%20by%20a%20function%20that%20applies%20a%20parameter%20N%20times%22%2C%220%3D%5C%5Cf.%5C%5Cx.x%22%2C%221%3D%5C%5Cf.%5C%5Cx.f%20x%22%2C%222%3D%5C%5Cf.%5C%5Cx.f%20(f%20x)%22%2C%22%23%20N%201%20can%20be%20obtained%20from%20N%20by%20applying%20the%20parameter%20one%20more%20time%22%2C%22SUCC%3D%5C%5Cn.%5C%5Cf.%5C%5Cx.f(n%20f%20x)%22%2C%22SUCC%202%22%2C%223%3DSUCC%202%22%2C%22%23%20The%20n-th%20composition%20of%20f%20composed%20with%20the%20k-th%20composition%20of%20f%20gives%20the%20n%20k-th%20composition%20of%20f%22%2C%22PLUS%3D%5C%5Cn.%5C%5Ck.%5C%5Cf.%5C%5Cx.n%20f%20(k%20f%20x)%22%2C%22PLUS%202%202%22%2C%22%23%20This%20multiplication%20function%20should%20not%20come%20as%20a%20surprise%22%2C%22MULT%3D%5C%5Cn.%5C%5Ck.%5C%5Cf.n%20(k%20f)%22%2C%22MULT%202%203%22%5D'
+	    ],
+	    [
+	        "Pairs",
+	        '?log=%5B%22TRUE%3D%5C%5Cx.%5C%5Cy.x%3BFALSE%3D%5C%5Cx.%5C%5Cy.y%3B0%3D%5C%5Cf.%5C%5Cx.x%3BSUCC%3D%5C%5Cn.%5C%5Cf.%5C%5Cx.f%28n+f+x%29%22%2C%22%23+Pair+%28or+2-tuples%29+have+various+use+cases%2C+and+they%27re+a+fine+demonstration+of+how+closures+can+be+used+to+construct+datastructures.%22%2C%22PAIR%3D%5C%5Cx.%5C%5Cy.%5C%5Cf.f+x+y%22%2C%22FIRST%3D%5C%5Cp.p+TRUE%22%2C%22SECOND%3D%5C%5Cp.p+FALSE%22%2C%22%23+Using+pairs%2C+declaring+a+predecessor+function+is+easy%22%2C%22PHI%3D%5C%5Cx.PAIR+%28SECOND+x%29+%28SUCC+%28SECOND+x%29%29+%23+Phi+maps+%28n%2C+k%29+to+%28k%2C+k%2B1%29%22%2C%22PRED%3D%5C%5Cn.FIRST+%28n+PHI+%28PAIR+0+0%29%29%22%2C%22PRED%28SUCC%28SUCC%28SUCC%28SUCC+0%29%29%29%29+%23+Should+result+in+f%5E3%22%5D'
 	    ]
 	];
 	function App() {
 	    const url = new URLSearchParams(window.location.search);
 	    const logParam = url.get('log');
-	    const log = React.useMemo(() => JSON.parse(logParam ?? '[]'), [logParam]);
+	    const log = React.useMemo(() => JSON.parse(decodeURIComponent(logParam ?? '[]')), [logParam]);
 	    return React.createElement("div", { className: "App" },
 	        React.createElement("div", { className: "examples" }, examples.map(([name, value]) => React.createElement("a", { href: value, key: name }, name))),
 	        React.createElement(Repl, { init: log, share: log => {
-	                url.set('log', JSON.stringify(log));
+	                if (log.length == 0)
+	                    url.delete('log');
+	                else
+	                    url.set('log', JSON.stringify(log));
 	                window.location.search = url.toString();
 	            } }));
 	}

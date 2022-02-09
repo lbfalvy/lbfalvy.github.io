@@ -55,7 +55,7 @@ export function LogDisplay({ entry }: { entry: LogEntry }): React.ReactElement {
                 <Var>{entry.name}</Var>
                 <Expression expr={entry.right} />
             </header>
-            <footer className="sub-result">
+            <footer className="sub sub-result">
                 <Expression expr={entry.left} />
                 <Var>{stringify(entry.substitute)}</Var>
                 <Expression expr={entry.right} />

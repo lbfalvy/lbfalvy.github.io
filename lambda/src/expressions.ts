@@ -77,11 +77,22 @@ const defaultLres: LambdaResult = { type: 'LambdaResult',
     prefix: [], param: '', body: [], argument: [], postfix: []
 }
 
+function recurseParseLambda(data: Token[], position: number) {
+    const subresult = parseLambda(data.slice(position))
+    if (subresult.param == '') return { ...defaultLres, prefix: data }
+    const prefix = [
+        ...data.slice(0, position),
+        ...subresult.prefix
+    ]
+    return { ...subresult, prefix }
+}
+
 export function parseLambda(data: Token[]): LambdaResult {
     const lambdaPos = data.indexOf('\\')
     // An expression can only be further evaluated if there is a parenthesized lambda
-    if (lambdaPos <= 0 || data[lambdaPos - 1] != '(')
-        return { ...defaultLres, prefix: data }
+    if (lambdaPos == -1) return { ...defaultLres, prefix: data }
+    if (lambdaPos == 0 || data[lambdaPos - 1] != '(')
+        return recurseParseLambda(data, lambdaPos + 1)
     const param = data[lambdaPos + 1]
     if (!Array.isArray(param) || data[lambdaPos + 2] != '.')
         throw new Error('Malformed param name')
@@ -89,7 +100,7 @@ export function parseLambda(data: Token[]): LambdaResult {
     const afterBody = bodyEnd + 1
     // If there's no argument, this lambda is the final value
     if (data.length <= afterBody || data[afterBody] == ')')
-        return { ...defaultLres, prefix: data }
+        return recurseParseLambda(data, lambdaPos + 1)
     const [argStart, argEnd] = data[afterBody] == '('
         ? [afterBody, afterBody + findParenPair(data.slice(afterBody)) + 1]
         : [afterBody, afterBody + 1]

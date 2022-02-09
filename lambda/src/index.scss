@@ -22,3 +22,17 @@ button {
     &:hover { border-color: white; }
     &:active { border-color: #444; }
 }
+
+input {
+    color: inherit;
+    background: none;
+    font-family: inherit;
+    font-size: inherit;
+    border: none;
+    border-bottom: 2px solid #777;
+    padding: 0 10px;
+    &:focus {
+        outline: none;
+        border-bottom: 2px solid #66f;
+    }
+}
