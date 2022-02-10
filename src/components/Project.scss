@@ -1,0 +1,10 @@
+.Project {
+    flex: 0 0 auto;
+    max-width: 30ch;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: inherit;
+    &:hover {
+        background: radial-gradient(circle at 0 0, #fff0 10%, #ffffff08 80%, #fff4 100%);
+    }
+}
