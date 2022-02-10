@@ -3,13 +3,13 @@ import React from 'react'
 import './index.scss'
 import { App } from './components/App'
 
-function getRoot() {
+document.body.onload = () => {
     const old = document.getElementById('root')
-    if (old) return old
-    const root = document.createElement('div')
-    root.id='root'
-    document.body.append(root)
-    return root
+    if (old) ReactDOM.hydrate(<App />, old)
+    else {
+        const root = document.createElement('div')
+        root.id='root'
+        document.body.append(root)
+        ReactDOM.render(<App />, root)
+    }
 }
-
-ReactDOM.render(<App />, getRoot())

@@ -29752,15 +29752,16 @@
 	                React.createElement("a", { href: "https://www.patreon.com/lbfalvy" }, "Patreon"))));
 	}
 
-	function getRoot() {
+	document.body.onload = () => {
 	    const old = document.getElementById('root');
 	    if (old)
-	        return old;
-	    const root = document.createElement('div');
-	    root.id = 'root';
-	    document.body.append(root);
-	    return root;
-	}
-	ReactDOM.render(React.createElement(App, null), getRoot());
+	        ReactDOM.hydrate(React.createElement(App, null), old);
+	    else {
+	        const root = document.createElement('div');
+	        root.id = 'root';
+	        document.body.append(root);
+	        ReactDOM.render(React.createElement(App, null), root);
+	    }
+	};
 
 }));
