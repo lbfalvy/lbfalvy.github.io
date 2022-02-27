@@ -1,11 +1,16 @@
+$brk: 800px;
+
 .main {
     header {
         display: grid;
-        grid-template-columns: auto 1fr;
-        grid-template-rows: auto auto;
-        grid-template-areas:
-            'title time'
-            'title summary';
+        grid-template-areas: 'time' 'title' 'summary';
+        @media (min-width: $brk) {
+            grid-template-columns: auto 1fr;
+            grid-template-rows: auto auto;
+            grid-template-areas:
+                'title time'
+                'title summary';
+        }
         h1 {
             grid-area: title;
             font-size: 2em;

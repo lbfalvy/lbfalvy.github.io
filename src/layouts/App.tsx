@@ -16,9 +16,9 @@ export function AppLayout(): React.ReactElement {
                 <NavLink to="/about">About me</NavLink>
             </nav>
         </header>
-		<section className={styles.content}>
+		<main className={styles.content}>
             <Outlet/>
-        </section>
+        </main>
         <footer className={styles.contact}>
             <h2>Contact</h2>
             <div>

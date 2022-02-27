@@ -1,13 +1,13 @@
 
 .main {
-    $brk: 500px;
+    $brk: 800px;
     display: grid;
     grid-template-areas: 'intro' 'projects' 'contact';
     grid-template-rows: auto 1fr auto;
     max-height: 100%;
     @media (min-width: $brk) {
         grid-template-rows: 1fr auto;
-        grid-template-columns: min-content auto;
+        grid-template-columns: minmax(1fr, min-content) minmax(2fr, auto);
         grid-template-areas: 
             'intro projects'
             'contact projects';
@@ -22,7 +22,7 @@
         flex-direction: column;
         h1 {
             text-align: right;
-            white-space: nowrap;
+            // white-space: nowrap;
             font-size: 1.5em;
         }
         nav {
@@ -69,7 +69,9 @@
             margin: 10px
         }
         div {
-            max-width: 200px;
+            @media (min-width: $brk) {
+                max-width: 200px;
+            }
             a {
                 display: inline-block;
                 text-decoration: none;
