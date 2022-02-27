@@ -1,13 +1,27 @@
 {
     "compilerOptions": {
-        "module": "esnext",
         "strict": true,
         "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
+        // "allowSyntheticDefaultImports": true,
         "target": "ESNext",
         "module": "esnext",
         "skipLibCheck": true,
         "moduleResolution": "node",
-        "jsx": "react"
+        "jsx": "react",
+        "plugins": [
+            { "name": "ts-css-modules-vite-plugin", "root": "./" }
+        ],
+        "typeRoots": ["declarations"]
     },
+    "ts-node": {
+        "compilerOptions": {
+            "lib": [
+                "ESNext"
+            ],
+            "moduleResolution": "Node",
+            "typeRoots": [
+                "./node_modules/@types"
+            ]
+        }
+    }
 }

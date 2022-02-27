@@ -10,31 +10,17 @@ html {
             box-sizing: border-box;
             height: 100vh;
             width: 100vw;
-            overflow-y: auto;
+            overflow-y: hidden;
             overflow-x: hidden;
         }
     }
 }
 
-button {
-    color: inherit;
-    background: none;
-    font-family: inherit;
-    border: 1px solid #777;
-    &:hover { border-color: white; }
-    &:active { border-color: #444; }
+time {
+    color: #888;
+    font-style: italic;
 }
 
-input {
-    color: inherit;
-    background: none;
-    font-family: inherit;
-    font-size: inherit;
-    border: none;
-    border-bottom: 2px solid #777;
-    padding: 0 10px;
-    &:focus {
-        outline: none;
-        border-bottom: 2px solid #66f;
-    }
+p {
+    max-width: 100ch;
 }

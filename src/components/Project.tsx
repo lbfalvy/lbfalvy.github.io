@@ -1,5 +1,7 @@
+import { classList } from "@lbfalvy/react-utils";
 import React from "react";
-import './Project.scss';
+import styles from './Project.module.scss';
+import sstyles from '../helpers/shared.module.scss';
 
 interface ProjectProps {
     name: string
@@ -8,7 +10,7 @@ interface ProjectProps {
 }
 
 export function Project({ name, url, children }: ProjectProps): React.ReactElement {
-    return <a href={url} className="Project">
+    return <a href={url} className={classList(styles.main, sstyles.linkbox)}>
         <article>
             <h3>{name}</h3>
             <p>

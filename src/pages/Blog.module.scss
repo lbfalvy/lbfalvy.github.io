@@ -1,0 +1,20 @@
+.list {
+    max-width: 74ch;
+    article {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-areas:
+            'title time'
+            'summary summary';
+        h3 {
+            grid-area: title;
+            margin-top: 0;
+        }
+        time {
+            grid-area: time;
+        }
+        summary {
+            grid-area: summary;
+        }
+    }
+}

@@ -1,0 +1,31 @@
+.main {
+    header {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-template-rows: auto auto;
+        grid-template-areas:
+            'title time'
+            'title summary';
+        h1 {
+            grid-area: title;
+            font-size: 2em;
+            margin: 10px;
+        }
+        time {
+            grid-area: time;
+            display: flex;
+            align-items: flex-end;
+            vertical-align: bottom;
+        }
+        summary {
+            grid-area: summary;
+            color: #ddd;
+            font-style: italic;
+            margin: 2px 4px;
+            letter-spacing: 3px;
+        }
+    }
+    p {
+        text-align: justify;
+    }
+}

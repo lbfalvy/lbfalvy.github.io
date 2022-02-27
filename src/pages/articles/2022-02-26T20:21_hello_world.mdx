@@ -1,0 +1,45 @@
+When one thinks about starting a blog, the first go-to solution is probably WordPress.
+Unfortunately (or fortunately) I'm a web developer, so the inefficiency, inconvenience
+and general quality of WordPress bother me a lot, not to mention that it's a server-side
+system and my deployment target is Github Pages, which only accepts static files.
+
+### Why?
+
+You may think that this entire endeavor is stupid and I wasted my time. And you would have
+a point, it was certainly a huge effort, and there are certainly existing solutions for
+static-site blogging, probably even better than I can afford to make this.
+But here's the thing: *I really like React.* To be precise, I really like how the entire
+ecosystem is composed of small and flexible programs that do one thing and do it well.
+This is the same principle, popularised by UNIX, that enables Bash together with the GNU
+coreutils to do everything from
+[collecting the news](https://gist.github.com/lbfalvy/676e7f31dc55b8e2ff71d4b9c639dfd3)
+through various minor automation tasks all the way to container orchestration as seen in
+Docker Compose.
+
+The entire projects is built in this spirit. Despite its looks, I'm confident
+that Vite can also be classed as a UNIX-like program, because its one job is to act
+as a facade. It delegates nearly all of its tasks to other programs and restricts itself
+to configuring these to work together. On the other hand, I found that React's Suspense
+is a deviation from the ideas of flexibility and simplicity because it forces both
+fetch library authors and child components to acknowledge it. Because of this, I'm
+actually using [a custom solution](https://github.com/lbfalvy/react-await) for
+lazy loading which fulfills these principles much better, at a small cost of efficiency.
+
+### How?
+
+The key concept is actually very simple: lazy loading doesn't require any runtime
+information about the loaded resource besides the URL, so the total size of a website
+segmented into lazy loaded pages is unbounded. In the current form of the blog every
+article is represented by a component which is lazy loaded and some metadata which is
+currently eagerly loaded with the article list view, but as the content grows that may
+change. If need arises, I can write scripts to generate
+
+- separate chunks for pagination
+- filtered versions of the index for tag-based search
+- word-frequency indexes to imitate full text search
+
+### Future
+
+I'd like to eventually fix the old prerenderer to generate all pages automatically,
+that way they could all be indexed by search engines, and I could switch to
+BrowserRouter and get rid of the nasty # in the URLs.
