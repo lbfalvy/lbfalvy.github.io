@@ -1,0 +1,8 @@
+#!/bin/bash
+git checkout build
+git merge master
+npm run build
+git add -f docs
+git commit -m "updating website"
+git push
+git checkout master
