@@ -6,8 +6,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "prerender": "node --loader ts-node/esm utils/prerender.ts",
+    "build:bundle": "vite build",
+    "build:prerender": "node --loader ts-node/esm utils/prerender.ts",
+    "build": "npm run build:bundle && npm run build:prerender",
     "article": "node --loader ts-node/esm utils/generate_article.ts"
   },
   "author": "",
@@ -21,12 +22,14 @@
     "@types/react-router": "^5.1.18",
     "@types/react-router-dom": "^5.3.3",
     "@vitejs/plugin-react-refresh": "^1.3.6",
+    "node-html-parser": "^5.2.0",
     "rollup-plugin-string": "^3.0.0",
     "sass": "^1.46.0",
     "simple-ssr": "^2.2.0",
     "ts-css-modules-vite-plugin": "^1.0.18",
     "ts-node": "^10.5.0",
     "vite": "^2.8.4",
+    "vite-plugin-rewrite-all": "^0.1.2",
     "vite-plugin-virtual-plain-text": "^1.2.2"
   },
   "dependencies": {

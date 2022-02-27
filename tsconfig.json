@@ -2,7 +2,6 @@
     "compilerOptions": {
         "strict": true,
         "esModuleInterop": true,
-        // "allowSyntheticDefaultImports": true,
         "target": "ESNext",
         "module": "esnext",
         "skipLibCheck": true,
@@ -11,7 +10,7 @@
         "plugins": [
             { "name": "ts-css-modules-vite-plugin", "root": "./" }
         ],
-        "typeRoots": ["declarations"]
+        "typeRoots": ["declarations", "./node_modules/@types"]
     },
     "ts-node": {
         "compilerOptions": {

@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom'
 import React from 'react'
 import './index.scss'
-import { HashRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom'
 import { AppLayout } from './layouts/App'
 import { Await } from '@lbfalvy/react-await'
 import BlogPage from './pages/Blog'
@@ -11,7 +11,7 @@ const obtainAboutPage = () => import('./pages/about')
 const obtainArticlePage = () => import('./pages/Article')
 
 const tree = () =>
-<HashRouter>
+<BrowserRouter>
     <Routes>
         <Route path="/" element={<AppLayout/>} >
             <Route path="projects" element={<Await obtainFor={obtainProjectsPage} />} />
@@ -20,7 +20,7 @@ const tree = () =>
             <Route path="blog/:article" element={<Await obtainFor={obtainArticlePage} />} />
         </Route>
     </Routes>
-</HashRouter>
+</BrowserRouter>
 
 document.body.onload = () => {
     const old = document.getElementById('root')
