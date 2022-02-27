@@ -10,6 +10,9 @@ import mdx from '@mdx-js/rollup'
 console.log(plainText)
 
 export default defineConfig({
+    build: {
+        outDir: './docs'
+    },
     plugins: [
         reactRefresh(),
        // myPlainText('@src'),
