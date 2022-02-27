@@ -7,7 +7,7 @@
     max-height: 100%;
     @media (min-width: $brk) {
         grid-template-rows: 1fr auto;
-        grid-template-columns: minmax(1fr, min-content) minmax(2fr, auto);
+        grid-template-columns: max-content auto;
         grid-template-areas: 
             'intro projects'
             'contact projects';
