@@ -25,6 +25,14 @@ fetch library authors and child components to acknowledge it. Because of this, I
 actually using [a custom solution](https://github.com/lbfalvy/react-await) for
 lazy loading which fulfills these principles much better, at a small cost of efficiency.
 
+And the result is actually a really good blog engine. I have React Router's lightning
+fast page loads, server-side rendering through Puppeteer (go check the repo, the script
+was actually a lot of work) and scaffolding with my own Node and Bash scripts. I'm
+currently writing this article in Markdown but if I wnated to I could include React
+components without any special effort thanks to MDX. Styling is all done via Sass and
+I have access to all the styles, and I have a dev server with hot reload so that I know
+exactly what the articles will look like without publishing. What's not to love?
+
 ### How?
 
 The key concept is actually very simple: lazy loading doesn't require any runtime
