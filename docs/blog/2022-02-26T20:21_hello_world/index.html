@@ -9,12 +9,12 @@
     <meta name="keywords" content="portfolio,web developer,react,typescript,lawrence,bethlenfalvy">
     <meta name="theme-color" content="#222">
     <title>Lawrence Bethlenfalvy</title>
-  <script type="module" crossorigin src="/assets/index.0e48deef.js"></script>
+  <script type="module" crossorigin src="/assets/index.31b6656b.js"></script>
   <link rel="modulepreload" href="/assets/vendor.ee1415c3.js">
   <link rel="stylesheet" href="/assets/index.bbccb9e8.css">
 </head>
 <body>
-    <div id="root"><div class="_main_107d4_1"><header class="_pagehead_107d4_14"><h1>Lawrence Bethlenfalvy</h1><nav><a class="" href="/">Blog</a><a class="" href="/projects">Projects</a><a class="" href="/about">About me</a></nav></header><main class="_content_107d4_56"><article class="_main_teqxe_1"><header><h1>Hello World!</h1><time>22 hours ago</time><summary>
+    <div id="root"><div class="_main_107d4_1"><header class="_pagehead_107d4_14"><h1>Lawrence Bethlenfalvy</h1><nav><a class="" href="/">Blog</a><a class="" href="/projects">Projects</a><a class="" href="/about">About me</a></nav></header><main class="_content_107d4_56"><article class="_main_teqxe_1"><header><h1>Hello World!</h1><time>23 hours ago</time><summary>
         How I wrote a backend-free blog using React
     </summary></header><hr><main><p>When one thinks about starting a blog, the first go-to solution is probably WordPress.
 Unfortunately (or fortunately) I'm a web developer, so the inefficiency, inconvenience
@@ -39,6 +39,13 @@ is a deviation from the ideas of flexibility and simplicity because it forces bo
 fetch library authors and child components to acknowledge it. Because of this, I'm
 actually using <a href="https://github.com/lbfalvy/react-await">a custom solution</a> for
 lazy loading which fulfills these principles much better, at a small cost of efficiency.</p>
+<p>And the result is actually a really good blog engine. I have React Router's lightning
+fast page loads, server-side rendering through Puppeteer (go check the repo, the script
+was actually a lot of work) and scaffolding with my own Node and Bash scripts. I'm
+currently writing this article in Markdown but if I wnated to I could include React
+components without any special effort thanks to MDX. Styling is all done via Sass and
+I have access to all the styles, and I have a dev server with hot reload so that I know
+exactly what the articles will look like without publishing. What's not to love?</p>
 <h3>How?</h3>
 <p>The key concept is actually very simple: lazy loading doesn't require any runtime
 information about the loaded resource besides the URL, so the total size of a website
