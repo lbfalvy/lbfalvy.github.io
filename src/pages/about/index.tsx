@@ -1,10 +1,9 @@
 import React from "react";
-import picture from './pfp.jpg';
 import styles from './index.module.scss';
 
 export default function AboutPage() {
     return <div className={styles.main}>
-        <img src={picture} />
+        <img src='https://github.com/lbfalvy.png' />
         <p>
             I make websites and web-based applications primarily with React. I enjoy
             seeing the fruit of my labour, which is why I do so much frontend development
