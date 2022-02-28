@@ -1,3 +1,5 @@
+import LambdaHighlight from '../../components/LambdaHighlight.tsx'
+
 ## Table of contents
 
 ##
@@ -72,11 +74,13 @@ on the same principles as the language itself, with the same or similar syntax e
 While experimenting with f.engine, I found that the following syntax works really well
 with common Lambda calculus:
 
-```
-func=(\arg:type. operation arg)
+<pre>
+    <LambdaHighlight>
+{`func=(\\arg:type. operation arg)
 func value:type
--- this is a comment
-```
+-- this is a comment`}
+    </LambdaHighlight>
+</pre>
 
 With a little bit of syntax highlighting this can be very clean and concise so I'll
 stick to it. One thing to note here is that while Arg is required to be a name, Type
@@ -90,16 +94,16 @@ Macros are parsed and executed after tokenization but before parsing and specify
 substitution rules in terms of a list of tokens. The basic syntax defines a source,
 a target, a floating point priority which defaults to 1 and a direction of parsing.
 
-```
-$a + $b =5=> (add $a $b)
+<LambdaHighlight>
+{`$a + $b =5=> (add $a $b)
 $a * $b =6=> (mult $a $b)
 if $a then $b else $c <=2= ($a $b $c) -- assuming Church booleans
 -- These three map square bracketed lists to a custom function
 -- and church booleans
 [ == (begin_list
 , == false
-] == true)
-```
+] == true)`}
+</LambdaHighlight>
 
 A $placeholder can represent either a single token or a group of tokens between balanced
 parentheses. Parentheses aren't considered tokens for the purposes of macro resolution, but
@@ -110,6 +114,6 @@ This should be enough for most things we might want to do, but it's far too long
 defining functions and invariants so we need a shorter syntax. If the source is a single
 token literal followed by a single equals sign, the target is automatically parenthesized.
 
-```
-true = \t.\f.t
-```
+<LambdaHighlight>
+{`true = \\true.\\false.true`}
+</LambdaHighlight>

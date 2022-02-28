@@ -1,0 +1,33 @@
+:root {
+    --base-lightness: 40;
+}
+
+.main {
+    white-space: pre-wrap;
+    .comment {
+        color: #8f8;
+    }
+    .name {
+        color: hsl(170, 50%, calc(70% - var(--level) * 10%));
+        &.global {
+            color: hsl(30, 50%, 70%)
+        }
+    }
+    .operator {
+        color: white;
+    }
+    .macro {
+        color: #f55;
+    }
+    .placeholder {
+        color: #bb5;
+    }
+    .lambda {
+        .bkslash, .colon, .dot {
+            color: #999;
+        }
+        .param {
+
+        }
+    }
+}
