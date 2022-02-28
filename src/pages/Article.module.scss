@@ -1,3 +1,5 @@
+@import url('https://css.gg/link.css');
+
 $brk: 800px;
 
 .main {
@@ -30,7 +32,67 @@ $brk: 800px;
             letter-spacing: 3px;
         }
     }
-    p {
-        text-align: justify;
+    main {
+        $right-gutter: 25ch;
+        $right-gutter-break: 4 * $right-gutter;
+
+        @media (min-width: $right-gutter-break) {
+            & > * {
+                max-width: 100ch;
+                margin-right: $right-gutter;
+                box-sizing: border-box;
+            }
+        }
+        
+        h2:global(#table-of-contents) {
+            display: none;
+            & + ul {
+                @media (min-width: ($right-gutter-break / 2)) {
+                    width: calc($right-gutter - 20px);
+                    float: right;
+                    @media (min-width: $right-gutter-break) {
+                        position: sticky;
+                    }
+                }
+                top: 1rem;
+                z-index: 100;
+                background-color: #333;
+                padding: 10px 15px 15px;
+                margin: 0 10px;
+                &, & ul {
+                    padding-left: 2ch;
+                    list-style-type: none;
+                }
+                a {
+                    color: inherit;
+                    text-decoration: none;
+                    &:hover {
+                        color: white;
+                    }
+                }
+            }
+        }
+        h2[id=""] { display: none }
+
+        // Linked titles
+
+        :global(.linkbtn) {
+            display: inline-block;
+            margin: 5px 10px;
+            color: grey;
+            visibility: hidden;
+        }
+        h1,h2,h3,h4,h5,h6 {
+            &:hover :global(.linkbtn) {
+                visibility: unset;
+            }
+        }
+
+        // Basic aesthetics
+
+        p {
+            
+            text-align: justify;
+        }
     }
 }

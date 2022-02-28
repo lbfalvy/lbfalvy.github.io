@@ -21,7 +21,7 @@ export interface Metadata {
 }
 
 export default function BlogPage(): React.ReactElement {
-    const list = articles.sort((a, b) => Temporal.ZonedDateTime.compare(a.time, b.time))
+    const list = articles.sort((a, b) => Temporal.ZonedDateTime.compare(b.time, a.time))
     return <div className={classList(styles.list)}>
         <h2>Latest articles</h2>
         {list.map(art => <Link key={art.url} to={`/blog/${art.url}`} className={sstyles.linkbox}>
