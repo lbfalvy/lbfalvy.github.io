@@ -1,4 +1,9 @@
 #!/bin/bash
+if [ ! -z "$(git status --porcelain)" ]
+then
+    echo "Working tree not clean"
+    exit 1
+fi
 git checkout build
 git merge master
 npm run build

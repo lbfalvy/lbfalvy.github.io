@@ -1,0 +1,115 @@
+## Table of contents
+
+##
+
+Lambda calculus is a mathematical approach to abstract machines that served as
+the basis of languages such as Haskell and ML. As a programmer who had mainly
+worked with procedural languages, it always intrigued me how such languages
+are constructed. Recently I made an educational
+[Lambda calculus executor](https://lbfalvy.github.io/f.engine)
+combined with an interactive tutorial to show the language to a friend, and this gave
+me a bit of insight into the general ideas of the language. In this series I hope to
+successfully define a language which is both usable and pure by applying the code
+quality principles I learned in Typescript onto Lambda Calculus
+
+## Requirements
+
+### Substitution
+
+The basic rule of the language is that of lambda calculus, that is, substitution or
+function application. Evaluation at runtime is always lazy, and this is sufficient
+for Turing-completeness. Of course, this one rule is not nearly enough for a usable
+language, so let's set out some more.
+
+### Macros
+
+Preprocessor macros in C are a language of their own, frequently used for
+
+- defining invariants (except you can't be sure that it's an invariant and not a runtime
+    expression)
+- changing the code depending on compiler flags (necessary for platform-specific behavior)
+- constructing complex parameterised types (C's type system is turing complete if we
+    consider the preprocessor part of it, and we should because it's the official answer
+    to generics)
+
+Now, these are very different tasks and as far as I know no language apart from C
+opted to solve all of them by embedding another Turing-complete language.
+
+Invariants are an important feature and we definitely need to support them. Since Lambda
+expressions are both operators and values, these invariants will be both named functions
+and constants.
+
+Platform-specific behavior is an antipattern. A lot of C programmers will fight me over
+this, but in my opinion if two things share functionality but do slightly different
+things then they should be separated into a function that always does the same thing
+and two entry points which call it differently.
+
+One thing C's preprocessor doesn't do is define operators, but this is something I'd
+like to solve in our case with macros. Infix operators are immensely useful in
+mathematical code but they're one of those things lambda calculus doesn't have simply
+because it was designed to be a mathematical lab rat and not a programming language. Do
+take note though, that supporting user-defined operators implies that we must also
+support overloading.
+
+### Types
+
+The best thing about functional languages is the type system. In many languages it's
+regarded as something isolated and untangible, and entire language features are
+scrapped to keep type inference computable. In my opinion vode is written for
+humans to read and if they can't figure it out then the lack of type annotations is
+a flaw. Consequently, I'd like my type system to be as expressive as technically
+possible and intentionally ignore the computability of type inference.
+
+On the other hand, I don't want to fall into C's trap and make the type system a
+separate langauge, as that would increase the maintenance effort and steepen the
+learning curve disproportionately. What I would ike is for the type system to operate
+on the same principles as the language itself, with the same or similar syntax elements.
+
+## Syntax
+
+### Basics
+
+While experimenting with f.engine, I found that the following syntax works really well
+with common Lambda calculus:
+
+```
+func=(\arg:type. operation arg)
+func value:type
+-- this is a comment
+```
+
+With a little bit of syntax highlighting this can be very clean and concise so I'll
+stick to it. One thing to note here is that while Arg is required to be a name, Type
+can be any valid lambda expression. A type preceded by a colon can be attached to any
+expression, but in many cases (like the provided example) the language should be able
+to infer the types if all expression parameters are typed correctly.
+
+### Macros
+
+Macros are parsed and executed after tokenization but before parsing and specify
+substitution rules in terms of a list of tokens. The basic syntax defines a source,
+a target, a floating point priority which defaults to 1 and a direction of parsing.
+
+```
+$a + $b =5=> (add $a $b)
+$a * $b =6=> (mult $a $b)
+if $a then $b else $c <=2= ($a $b $c) -- assuming Church booleans
+-- These three map square bracketed lists to a custom function
+-- and church booleans
+[ == (begin_list
+, == false
+] == true)
+```
+
+A $placeholder can represent either a single token or a group of tokens between balanced
+parentheses. Parentheses aren't considered tokens for the purposes of macro resolution, but
+they may appear in the target. Tokenization is done via a standard greedy strategy, with
+the exact set of tokens defined by the macros.
+
+This should be enough for most things we might want to do, but it's far too long for
+defining functions and invariants so we need a shorter syntax. If the source is a single
+token literal followed by a single equals sign, the target is automatically parenthesized.
+
+```
+true = \t.\f.t
+```

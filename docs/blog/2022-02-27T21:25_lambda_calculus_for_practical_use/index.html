@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Lawrence Bethlenfalvy">
+    <meta name="description" content="Typescript developer">
+    <meta name="keywords" content="portfolio,web developer,react,typescript,lawrence,bethlenfalvy">
+    <meta name="theme-color" content="#222">
+    <title>Lawrence Bethlenfalvy</title>
+  <script type="module" crossorigin src="/assets/index.f50c6461.js"></script>
+  <link rel="modulepreload" href="/assets/vendor.ee1415c3.js">
+  <link rel="stylesheet" href="/assets/index.bbccb9e8.css">
+</head>
+<body>
+    <div id="root"><div class="_main_107d4_1"><header class="_pagehead_107d4_14"><h1>Lawrence Bethlenfalvy</h1><nav><a class="" href="/">Blog</a><a class="" href="/projects">Projects</a><a class="" href="/about">About me</a></nav></header><main class="_content_107d4_56"><article class="_main_1lk9c_2"><header><h1>Lambda Calculus for Practical Use</h1><time>5 hours ago</time><summary>
+        Designing a functional programming language
+    </summary></header><hr><main><h2 id="table-of-contents"><a aria-hidden="true" tabindex="-1" href="#table-of-contents"><i class="linkbtn gg-link"></i></a>Table of contents</h2>
+<ul>
+<li><a href="#requirements">Requirements</a>
+<ul>
+<li><a href="#substitution">Substitution</a></li>
+<li><a href="#macros">Macros</a></li>
+<li><a href="#types">Types</a></li>
+</ul>
+</li>
+<li><a href="#syntax">Syntax</a>
+<ul>
+<li><a href="#basics">Basics</a></li>
+<li><a href="#macros-1">Macros</a></li>
+</ul>
+</li>
+</ul>
+<h2 id=""><a aria-hidden="true" tabindex="-1" href="#"><i class="linkbtn gg-link"></i></a></h2>
+<p>Lambda calculus is a mathematical approach to abstract machines that served as
+the basis of languages such as Haskell and ML. As a programmer who had mainly
+worked with procedural languages, it always intrigued me how such languages
+are constructed. Recently I made an educational
+<a href="https://lbfalvy.github.io/f.engine">Lambda calculus executor</a>
+combined with an interactive tutorial to show the language to a friend, and this gave
+me a bit of insight into the general ideas of the language. In this series I hope to
+successfully define a language which is both usable and pure by applying the code
+quality principles I learned in Typescript onto Lambda Calculus</p>
+<h2 id="requirements"><a aria-hidden="true" tabindex="-1" href="#requirements"><i class="linkbtn gg-link"></i></a>Requirements</h2>
+<h3 id="substitution"><a aria-hidden="true" tabindex="-1" href="#substitution"><i class="linkbtn gg-link"></i></a>Substitution</h3>
+<p>The basic rule of the language is that of lambda calculus, that is, substitution or
+function application. Evaluation at runtime is always lazy, and this is sufficient
+for Turing-completeness. Of course, this one rule is not nearly enough for a usable
+language, so let's set out some more.</p>
+<h3 id="macros"><a aria-hidden="true" tabindex="-1" href="#macros"><i class="linkbtn gg-link"></i></a>Macros</h3>
+<p>Preprocessor macros in C are a language of their own, frequently used for</p>
+<ul>
+<li>defining invariants (except you can't be sure that it's an invariant and not a runtime
+expression)</li>
+<li>changing the code depending on compiler flags (necessary for platform-specific behavior)</li>
+<li>constructing complex parameterised types (C's type system is turing complete if we
+consider the preprocessor part of it, and we should because it's the official answer
+to generics)</li>
+</ul>
+<p>Now, these are very different tasks and as far as I know no language apart from C
+opted to solve all of them by embedding another Turing-complete language.</p>
+<p>Invariants are an important feature and we definitely need to support them. Since Lambda
+expressions are both operators and values, these invariants will be both named functions
+and constants.</p>
+<p>Platform-specific behavior is an antipattern. A lot of C programmers will fight me over
+this, but in my opinion if two things share functionality but do slightly different
+things then they should be separated into a function that always does the same thing
+and two entry points which call it differently.</p>
+<p>One thing C's preprocessor doesn't do is define operators, but this is something I'd
+like to solve in our case with macros. Infix operators are immensely useful in
+mathematical code but they're one of those things lambda calculus doesn't have simply
+because it was designed to be a mathematical lab rat and not a programming language. Do
+take note though, that supporting user-defined operators implies that we must also
+support overloading.</p>
+<h3 id="types"><a aria-hidden="true" tabindex="-1" href="#types"><i class="linkbtn gg-link"></i></a>Types</h3>
+<p>The best thing about functional languages is the type system. In many languages it's
+regarded as something isolated and untangible, and entire language features are
+scrapped to keep type inference computable. In my opinion vode is written for
+humans to read and if they can't figure it out then the lack of type annotations is
+a flaw. Consequently, I'd like my type system to be as expressive as technically
+possible and intentionally ignore the computability of type inference.</p>
+<p>On the other hand, I don't want to fall into C's trap and make the type system a
+separate langauge, as that would increase the maintenance effort and steepen the
+learning curve disproportionately. What I would ike is for the type system to operate
+on the same principles as the language itself, with the same or similar syntax elements.</p>
+<h2 id="syntax"><a aria-hidden="true" tabindex="-1" href="#syntax"><i class="linkbtn gg-link"></i></a>Syntax</h2>
+<h3 id="basics"><a aria-hidden="true" tabindex="-1" href="#basics"><i class="linkbtn gg-link"></i></a>Basics</h3>
+<p>While experimenting with f.engine, I found that the following syntax works really well
+with common Lambda calculus:</p>
+<pre><code>func=(\arg:type. operation arg)
+func value:type
+-- this is a comment
+</code></pre>
+<p>With a little bit of syntax highlighting this can be very clean and concise so I'll
+stick to it. One thing to note here is that while Arg is required to be a name, Type
+can be any valid lambda expression. A type preceded by a colon can be attached to any
+expression, but in many cases (like the provided example) the language should be able
+to infer the types if all expression parameters are typed correctly.</p>
+<h3 id="macros-1"><a aria-hidden="true" tabindex="-1" href="#macros-1"><i class="linkbtn gg-link"></i></a>Macros</h3>
+<p>Macros are parsed and executed after tokenization but before parsing and specify
+substitution rules in terms of a list of tokens. The basic syntax defines a source,
+a target, a floating point priority which defaults to 1 and a direction of parsing.</p>
+<pre><code>$a + $b =5=&gt; (add $a $b)
+$a * $b =6=&gt; (mult $a $b)
+if $a then $b else $c &lt;=2= ($a $b $c) -- assuming Church booleans
+-- These three map square bracketed lists to a custom function
+-- and church booleans
+[ == (begin_list
+, == false
+] == true)
+</code></pre>
+<p>A $placeholder can represent either a single token or a group of tokens between balanced
+parentheses. Parentheses aren't considered tokens for the purposes of macro resolution, but
+they may appear in the target. Tokenization is done via a standard greedy strategy, with
+the exact set of tokens defined by the macros.</p>
+<p>This should be enough for most things we might want to do, but it's far too long for
+defining functions and invariants so we need a shorter syntax. If the source is a single
+token literal followed by a single equals sign, the target is automatically parenthesized.</p>
+<pre><code>true = \t.\f.t
+</code></pre></main></article></main><footer class="_contact_107d4_61"><h2>Contact</h2><div><a href="mailto:lbfalvy@protonmail.com" class="email">lbfalvy@protonmail.com</a><a href="https://www.linkedin.com/in/lawrence-bethlenfalvy/">LinkedIn</a><a href="https://github.com/lbfalvy">Github</a><a href="https://www.npmjs.com/~lbfalvy">NPM</a></div><div><a href="https://ko-fi.com/lbfalvy">Ko‑fi</a><a href="https://www.patreon.com/lbfalvy">Patreon</a></div></footer></div></div>
+    
+</body>
+</html>
