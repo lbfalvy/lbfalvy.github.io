@@ -9,12 +9,12 @@
     <meta name="keywords" content="portfolio,web developer,react,typescript,lawrence,bethlenfalvy">
     <meta name="theme-color" content="#222">
     <title>Lawrence Bethlenfalvy</title>
-  <script type="module" crossorigin src="/assets/index.f50c6461.js"></script>
+  <script type="module" crossorigin src="/assets/index.a1c05dfa.js"></script>
   <link rel="modulepreload" href="/assets/vendor.ee1415c3.js">
   <link rel="stylesheet" href="/assets/index.bbccb9e8.css">
 </head>
 <body>
-    <div id="root"><div class="_main_107d4_1"><header class="_pagehead_107d4_14"><h1>Lawrence Bethlenfalvy</h1><nav><a class="" href="/">Blog</a><a class="" href="/projects">Projects</a><a class="" href="/about">About me</a></nav></header><main class="_content_107d4_56"><article class="_main_1lk9c_2"><header><h1>Lambda Calculus for Practical Use</h1><time>5 hours ago</time><summary>
+    <div id="root"><div class="_main_107d4_1"><header class="_pagehead_107d4_14"><h1>Lawrence Bethlenfalvy</h1><nav><a class="" href="/">Blog</a><a class="" href="/projects">Projects</a><a class="" href="/about">About me</a></nav></header><main class="_content_107d4_56"><article class="_main_1lk9c_2"><header><h1>Lambda Calculus for Practical Use</h1><time>18 hours ago</time><summary>
         Designing a functional programming language
     </summary></header><hr><main><h2 id="table-of-contents"><a aria-hidden="true" tabindex="-1" href="#table-of-contents"><i class="linkbtn gg-link"></i></a>Table of contents</h2>
 <ul>
@@ -88,10 +88,9 @@ on the same principles as the language itself, with the same or similar syntax e
 <h3 id="basics"><a aria-hidden="true" tabindex="-1" href="#basics"><i class="linkbtn gg-link"></i></a>Basics</h3>
 <p>While experimenting with f.engine, I found that the following syntax works really well
 with common Lambda calculus:</p>
-<pre><code>func=(\arg:type. operation arg)
-func value:type
--- this is a comment
-</code></pre>
+<pre><code class="_main_djcd9_5"><span class="_name_djcd9_11 _global_djcd9_14">func</span><span class="_macro_djcd9_20">=</span><span class="_operator_djcd9_17">(</span><span class="_lambda_djcd9_26" data-name="arg"><span class="_bkslash_djcd9_26">\</span><span class="_name_djcd9_11" style="--level:1;">arg</span><span class="_colon_djcd9_26">:</span><span><code class="_main_djcd9_5"><span class="_name_djcd9_11 _global_djcd9_14">type</span></code></span><span class="_dot_djcd9_26">.</span><span><code class="_main_djcd9_5"><span> </span><span class="_name_djcd9_11 _global_djcd9_14">operation</span><span> </span><span class="_name_djcd9_11" style="--level:1;">arg</span><span class="_operator_djcd9_17">)</span></code></span></span><span>
+</span><span class="_name_djcd9_11 _global_djcd9_14">func</span><span> </span><span class="_name_djcd9_11 _global_djcd9_14">value</span><span class="_operator_djcd9_17">:</span><span class="_name_djcd9_11 _global_djcd9_14">type</span><span>
+</span><span class="_comment_djcd9_8">-- this is a comment</span></code></pre>
 <p>With a little bit of syntax highlighting this can be very clean and concise so I'll
 stick to it. One thing to note here is that while Arg is required to be a name, Type
 can be any valid lambda expression. A type preceded by a colon can be attached to any
@@ -101,15 +100,14 @@ to infer the types if all expression parameters are typed correctly.</p>
 <p>Macros are parsed and executed after tokenization but before parsing and specify
 substitution rules in terms of a list of tokens. The basic syntax defines a source,
 a target, a floating point priority which defaults to 1 and a direction of parsing.</p>
-<pre><code>$a + $b =5=&gt; (add $a $b)
-$a * $b =6=&gt; (mult $a $b)
-if $a then $b else $c &lt;=2= ($a $b $c) -- assuming Church booleans
--- These three map square bracketed lists to a custom function
--- and church booleans
-[ == (begin_list
-, == false
-] == true)
-</code></pre>
+<code class="_main_djcd9_5"><span class="_placeholder_djcd9_23">$a</span><span> </span><span class="_operator_djcd9_17">+</span><span> </span><span class="_placeholder_djcd9_23">$b</span><span> </span><span class="_macro_djcd9_20">=5=&gt;</span><span> </span><span class="_operator_djcd9_17">(</span><span class="_name_djcd9_11 _global_djcd9_14">add</span><span> </span><span class="_placeholder_djcd9_23">$a</span><span> </span><span class="_placeholder_djcd9_23">$b</span><span class="_operator_djcd9_17">)</span><span>
+</span><span class="_placeholder_djcd9_23">$a</span><span> </span><span class="_operator_djcd9_17">*</span><span> </span><span class="_placeholder_djcd9_23">$b</span><span> </span><span class="_macro_djcd9_20">=6=&gt;</span><span> </span><span class="_operator_djcd9_17">(</span><span class="_name_djcd9_11 _global_djcd9_14">mult</span><span> </span><span class="_placeholder_djcd9_23">$a</span><span> </span><span class="_placeholder_djcd9_23">$b</span><span class="_operator_djcd9_17">)</span><span>
+</span><span class="_name_djcd9_11 _global_djcd9_14">if</span><span> </span><span class="_placeholder_djcd9_23">$a</span><span> </span><span class="_name_djcd9_11 _global_djcd9_14">then</span><span> </span><span class="_placeholder_djcd9_23">$b</span><span> </span><span class="_name_djcd9_11 _global_djcd9_14">else</span><span> </span><span class="_placeholder_djcd9_23">$c</span><span> </span><span class="_macro_djcd9_20">&lt;=2=</span><span> </span><span class="_operator_djcd9_17">(</span><span class="_placeholder_djcd9_23">$a</span><span> </span><span class="_placeholder_djcd9_23">$b</span><span> </span><span class="_placeholder_djcd9_23">$c</span><span class="_operator_djcd9_17">)</span><span> </span><span class="_comment_djcd9_8">-- assuming Church booleans
+</span><span class="_comment_djcd9_8">-- These three map square bracketed lists to a custom function
+</span><span class="_comment_djcd9_8">-- and church booleans
+</span><span class="_operator_djcd9_17">[</span><span> </span><span class="_macro_djcd9_20">==</span><span> </span><span class="_operator_djcd9_17">(</span><span class="_name_djcd9_11 _global_djcd9_14">begin_list</span><span>
+</span><span class="_operator_djcd9_17">,</span><span> </span><span class="_macro_djcd9_20">==</span><span> </span><span class="_name_djcd9_11 _global_djcd9_14">false</span><span>
+</span><span class="_operator_djcd9_17">]</span><span> </span><span class="_macro_djcd9_20">==</span><span> </span><span class="_name_djcd9_11 _global_djcd9_14">true</span><span class="_operator_djcd9_17">)</span></code>
 <p>A $placeholder can represent either a single token or a group of tokens between balanced
 parentheses. Parentheses aren't considered tokens for the purposes of macro resolution, but
 they may appear in the target. Tokenization is done via a standard greedy strategy, with
@@ -117,8 +115,7 @@ the exact set of tokens defined by the macros.</p>
 <p>This should be enough for most things we might want to do, but it's far too long for
 defining functions and invariants so we need a shorter syntax. If the source is a single
 token literal followed by a single equals sign, the target is automatically parenthesized.</p>
-<pre><code>true = \t.\f.t
-</code></pre></main></article></main><footer class="_contact_107d4_61"><h2>Contact</h2><div><a href="mailto:lbfalvy@protonmail.com" class="email">lbfalvy@protonmail.com</a><a href="https://www.linkedin.com/in/lawrence-bethlenfalvy/">LinkedIn</a><a href="https://github.com/lbfalvy">Github</a><a href="https://www.npmjs.com/~lbfalvy">NPM</a></div><div><a href="https://ko-fi.com/lbfalvy">Ko‑fi</a><a href="https://www.patreon.com/lbfalvy">Patreon</a></div></footer></div></div>
+<code class="_main_djcd9_5"><span class="_name_djcd9_11 _global_djcd9_14">true</span><span> </span><span class="_macro_djcd9_20">=</span><span> </span><span class="_lambda_djcd9_26" data-name="true"><span class="_bkslash_djcd9_26">\</span><span class="_name_djcd9_11" style="--level:1;">true</span><span class="_dot_djcd9_26">.</span><span><code class="_main_djcd9_5"><span class="_lambda_djcd9_26" data-name="false"><span class="_bkslash_djcd9_26">\</span><span class="_name_djcd9_11" style="--level:2;">false</span><span class="_dot_djcd9_26">.</span><span><code class="_main_djcd9_5"><span class="_name_djcd9_11" style="--level:1;">true</span></code></span></span></code></span></span></code></main></article></main><footer class="_contact_107d4_61"><h2>Contact</h2><div><a href="mailto:lbfalvy@protonmail.com" class="email">lbfalvy@protonmail.com</a><a href="https://www.linkedin.com/in/lawrence-bethlenfalvy/">LinkedIn</a><a href="https://github.com/lbfalvy">Github</a><a href="https://www.npmjs.com/~lbfalvy">NPM</a></div><div><a href="https://ko-fi.com/lbfalvy">Ko‑fi</a><a href="https://www.patreon.com/lbfalvy">Patreon</a></div></footer></div></div>
     
 </body>
 </html>
