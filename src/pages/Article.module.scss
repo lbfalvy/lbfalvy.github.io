@@ -47,7 +47,7 @@ $brk: 800px;
         h2:global(#table-of-contents) {
             display: none;
             & + ul {
-                @media (min-width: ($right-gutter-break / 2)) {
+                @media (min-width: calc($right-gutter-break / 2)) {
                     width: calc($right-gutter - 20px);
                     float: right;
                     @media (min-width: $right-gutter-break) {
