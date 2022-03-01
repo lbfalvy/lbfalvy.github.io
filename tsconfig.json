@@ -20,7 +20,8 @@
             "moduleResolution": "Node",
             "typeRoots": [
                 "./node_modules/@types"
-            ]
+            ],
+            "jsx": "react"
         }
     }
 }

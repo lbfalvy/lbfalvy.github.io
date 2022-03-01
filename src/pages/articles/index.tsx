@@ -1,4 +1,6 @@
-import { Metadata } from '../Blog'
+import Metadata from './Metadata'
+// export { default as Metadata } from './Metadata'
+
 // There's no good way to type this line
 // @ts-ignore
 const articles = import.meta.globEager('./*.tsx')

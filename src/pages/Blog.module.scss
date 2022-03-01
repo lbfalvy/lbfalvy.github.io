@@ -1,11 +1,28 @@
 .list {
-    max-width: 74ch;
+    header {
+        a {
+            color: inherit;
+            font-size: .8em;
+            text-decoration: none;
+            padding: 1px .5em;
+            margin: 3px;
+            display: inline-block;
+            border-radius: 10000px;
+            border: 1px solid;
+            &.empty {
+                color: #555;
+            }
+            &.active {
+                color: #88f;
+            }
+        }
+    }
     article {
         display: grid;
-        grid-template-columns: 1fr auto;
+        grid-template-columns: 1fr auto auto;
         grid-template-areas:
-            'title time'
-            'summary summary';
+            'title address time'
+            'summary summary summary';
         h3 {
             grid-area: title;
             margin-top: 0;
@@ -15,6 +32,9 @@
         }
         summary {
             grid-area: summary;
+        }
+        address {
+            grid-area: address;
         }
     }
 }

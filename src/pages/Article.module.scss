@@ -1,4 +1,5 @@
 @import url('https://css.gg/link.css');
+@import '../helpers/shared.module.scss';
 
 $brk: 800px;
 
@@ -33,32 +34,11 @@ $brk: 800px;
         }
     }
     main {
-        $right-gutter: 25ch;
-        $right-gutter-break: 4 * $right-gutter;
-
-        @media (min-width: $right-gutter-break) {
-            & > * {
-                max-width: 100ch;
-                margin-right: $right-gutter;
-                box-sizing: border-box;
-            }
-        }
-        
+        @include side-bar-container();
         h2:global(#table-of-contents) {
             display: none;
             & + ul {
-                @media (min-width: calc($right-gutter-break / 2)) {
-                    width: calc($right-gutter - 20px);
-                    float: right;
-                    @media (min-width: $right-gutter-break) {
-                        position: sticky;
-                    }
-                }
-                top: 1rem;
-                z-index: 100;
-                background-color: #333;
-                padding: 10px 15px 15px;
-                margin: 0 10px;
+                @include side-bar();
                 &, & ul {
                     padding-left: 2ch;
                     list-style-type: none;
