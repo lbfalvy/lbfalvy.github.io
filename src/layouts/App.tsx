@@ -2,6 +2,13 @@ import React from "react";
 import { Outlet } from "react-router";
 import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Github from "../components/icons/Github";
+import KoFi from "../components/icons/KoFi";
+import KoFi2 from "../components/icons/KoFi2";
+import LinkedIn from "../components/icons/LinkedIn";
+import Npm from "../components/icons/Npm";
+import Patreon from "../components/icons/Patreon";
+import Rss from "../components/icons/Rss";
 import { useTitle } from "../hooks/useTitle";
 import styles from './App.module.scss';
 
@@ -23,24 +30,25 @@ export function AppLayout(): React.ReactElement {
             <h2>Contact</h2>
             <div>
                 <a href="mailto:lbfalvy@protonmail.com" className="email">
-                    lbfalvy@protonmail.com
+                    <i style={{ background: 'white', color: 'black' }} className="gg-mail"></i>
                 </a>
                 <a href="https://www.linkedin.com/in/lawrence-bethlenfalvy/">
-                    LinkedIn
+                    <LinkedIn />
                 </a>
                 <a href="https://github.com/lbfalvy">
-                    Github
+                    <Github />
                 </a>
                 <a href="https://www.npmjs.com/~lbfalvy">
-                    NPM
+                    <Npm />
                 </a>
-            </div>
-            <div>
                 <a href="https://ko-fi.com/lbfalvy">
-                    Ko‑fi
+                    <KoFi />
                 </a>
                 <a href="https://www.patreon.com/lbfalvy">
-                    Patreon
+                    <Patreon />
+                </a>
+                <a href="/feed">
+                    <Rss />
                 </a>
             </div>
         </footer>

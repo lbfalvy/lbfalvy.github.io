@@ -1,0 +1,9 @@
+.main {
+    // width: 1em;
+    height: calc(1em - 4px);
+    width: calc(1em - 4px);
+    padding: 2px;
+    border-radius: 10000px;
+    background: radial-gradient(circle closest-side at 40% 50%, #ff5c60 0%, #ff5c60 60%, #00b9fe 60%, #00b9fe 100%);
+    color: white//#00b9fe;
+}

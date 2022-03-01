@@ -5,6 +5,7 @@ import rewriteAll from 'vite-plugin-rewrite-all'
 import remarkToc from 'remark-toc'
 import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import reactSvg from 'vite-plugin-react-svg'
 
 export default defineConfig({
     build: {
@@ -12,6 +13,7 @@ export default defineConfig({
     },
     plugins: [
         reactRefresh(),
+        reactSvg(),
         mdx({
             remarkPlugins: [
                 [remarkToc, {

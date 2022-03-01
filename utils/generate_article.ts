@@ -14,17 +14,20 @@ const componentName = `${safeTitle.replace(
     (_, letter: string) => letter.toUpperCase()
 )}Page`
 
-const metadata = `
-import { Temporal } from "@js-temporal/polyfill";
-import { Metadata } from "../Blog";
+const metadata =
+`import { Temporal } from "@js-temporal/polyfill";
+import Metadata from "./Metadata";
 
 export default {
     url: "${fileName}",
     title: ${JSON.stringify(title)},
+    author: \`Your Name Here\`,
+    tags: [],
     time: Temporal.ZonedDateTime.from("${now}[UTC]"),
     summary: \`
-        Description goes here!
+        Description here
     \`,
+    unlisted: false,
     load: () => import(${JSON.stringify(`./${fileName}.mdx`)})
 } as Metadata
 `

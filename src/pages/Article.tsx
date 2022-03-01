@@ -13,6 +13,7 @@ export default function ArticlePage(): React.ReactElement {
         <header>
             <h1>{metadata.title}</h1>
             <time>{printTime(metadata.time)}</time>
+            <address>{metadata.author}</address>
             <summary>{metadata.summary}</summary>
         </header>
         <hr/>
