@@ -57,7 +57,7 @@ support overloading.
 
 The best thing about functional languages is the type system. In many languages it's
 regarded as something isolated and untangible, and entire language features are
-scrapped to keep type inference computable. In my opinion vode is written for
+scrapped to keep type inference computable. In my opinion code is written for
 humans to read and if they can't figure it out then the lack of type annotations is
 a flaw. Consequently, I'd like my type system to be as expressive as technically
 possible and intentionally ignore the computability of type inference.
@@ -91,8 +91,9 @@ to infer the types if all expression parameters are typed correctly.
 ### Macros
 
 Macros are parsed and executed after tokenization but before parsing and specify
-substitution rules in terms of a list of tokens. The basic syntax defines a source,
-a target, a floating point priority which defaults to 1 and a direction of parsing.
+substitution rules in terms of a list of tokens. The basic syntax defines a source and
+a target which share a number of placeholders, a floating point priority which defaults
+to 1 and a direction of parsing.
 
 <LambdaHighlight>
 {`$a + $b =5=> (add $a $b)
@@ -112,8 +113,16 @@ the exact set of tokens defined by the macros.
 
 This should be enough for most things we might want to do, but it's far too long for
 defining functions and invariants so we need a shorter syntax. If the source is a single
-token literal followed by a single equals sign, the target is automatically parenthesized.
+token literal followed by a single equals sign, the target is automatically parenthesized:
 
 <LambdaHighlight>
 {`true = \\true.\\false.true`}
 </LambdaHighlight>
+
+## Future
+
+This is the first article in a series discussing aspects of programming language design.
+In the following parts I'll discuss type checking and overloading, type inference,
+guaranteed optimizations and elements of the standard library, in no particular order.
+I hope to write an implementation of the language during the next academic year, by then
+it would be best to answer most high level design decisions.
