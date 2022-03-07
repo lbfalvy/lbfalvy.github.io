@@ -71,9 +71,9 @@
         }
         div {
             margin-left: 5px;
-            @media (min-width: $brk) {
-                max-width: 200px;
-            }
+            // @media (min-width: $brk) {
+            //     max-width: 250px;
+            // }
             a {
                 display: inline-block;
                 text-decoration: none;
