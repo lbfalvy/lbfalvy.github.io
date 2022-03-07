@@ -56,7 +56,7 @@ const results = await Promise.all(
         const { html } = await simpleSSR.render(
             `http://localhost:${port}/${route}`,
             {
-                timeout: 4000,
+                timeout: 6000,
                 domTarget: null,
                 waitUntil: 'networkidle0'
             }
