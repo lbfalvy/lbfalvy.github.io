@@ -16,24 +16,28 @@ coreutils to do everything from
 through various minor automation tasks all the way to container orchestration as seen in
 Docker Compose.
 
-The entire projects is built in this spirit. Despite its looks, I'm confident
-that Vite can also be classed as a UNIX-like program, because its one job is to act
-as a facade. It delegates nearly all of its tasks to other programs and restricts itself
-to configuring these to work together. On the other hand, I found that React's Suspense
-is a deviation from the ideas of flexibility and simplicity because it forces both
-fetch library authors and child components to acknowledge it. Because of this, I'm
-actually using [a custom solution](https://github.com/lbfalvy/react-await) for
-lazy loading which fulfills these principles much better, at a small cost of efficiency.
+The entire project is built in this spirit. I use Typescript and Scss for most of the work
+and Vite bundles everything. Articles are written in MDX, which is a variant of Markdown
+with React component support and itself connects Remark and Rehype to turn markdown into HTML.
+The result is unparallelled flexibility, since I can add plugins separately to my bundler and
+markdown parser and nothing has to know about anything else.
+
+Details like server-side rendering for search-engine support and RSS feed generation are done
+using custom-made scripts. SSR uses simple-ssr which is basically a wrapper on Puppeteer which
+is a scripting interface for Chromium. RSS dynamically loads metadata from the articles folder.
+On the other hand, I found that React's Suspense is a deviation from the ideas of flexibility
+and modularity because it forces both fetch library authors and child components to acknowledge
+its existence. Because of this, I'm actually using
+[a custom solution](https://github.com/lbfalvy/react-await) for lazy loading which fulfills
+these principles much better, at a small cost of efficiency.
 
 And the result is actually a really good blog engine. I have React Router's lightning
-fast page loads, server-side rendering through Puppeteer (go check the repo, the script
-was actually a lot of work) and scaffolding with my own Node and Bash scripts. I'm
-currently writing this article in Markdown but if I wnated to I could include React
-components without any special effort thanks to MDX. Styling is all done via Sass and
-I have access to all the styles, and I have a dev server with hot reload so that I know
-exactly what the articles will look like without publishing. What's not to love?
+fast page loads, search engine indexing and scaffolding with my own Node and Bash scripts.
+Styling is all done via Sass which is bliss to use and I have a dev server with hot reload
+which feels almost as streamlined as a WYSIWYG editor except it doesn't break version control.
+What's not to love?
 
-### How?
+### Principle
 
 The key concept is actually very simple: lazy loading doesn't require any runtime
 information about the loaded resource besides the URL, so the total size of a website
@@ -45,3 +49,11 @@ change. If need arises, I can write scripts to generate
 - separate chunks for pagination
 - filtered versions of the index for tag-based search
 - word-frequency indexes to imitate full text search
+
+### Usage
+
+If this sounds like something you would want on your blog, go check out
+[the repository](https://github.com/lbfalvy/lbfalvy.github.io). Do take note though,
+this is not a public package and it requires a bit of tinkering to get it to work.
+Maybe I'll release a framework later, but it would take a bit of rewiring and further
+abstraction.

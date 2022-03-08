@@ -1,22 +1,4 @@
 .list {
-    header {
-        a {
-            color: inherit;
-            font-size: .8em;
-            text-decoration: none;
-            padding: 1px .5em;
-            margin: 3px;
-            display: inline-block;
-            border-radius: 10000px;
-            border: 1px solid;
-            &.empty {
-                color: #555;
-            }
-            &.active {
-                color: #88f;
-            }
-        }
-    }
     article {
         display: grid;
         grid-template-columns: 1fr auto auto;

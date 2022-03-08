@@ -6,18 +6,24 @@ $brk: 800px;
 .main {
     header {
         display: grid;
-        grid-template-areas: 'time' 'title' 'summary';
+        grid-template-areas: 'author time' 'title' 'summary';
         @media (min-width: $brk) {
-            grid-template-columns: auto 1fr;
+            grid-template-columns: auto auto 1fr;
             grid-template-rows: auto auto;
             grid-template-areas:
-                'title time'
-                'title summary';
+                'title author time'
+                'title summary summary';
         }
         h1 {
             grid-area: title;
             font-size: 2em;
             margin: 10px;
+        }
+        address {
+            grid-area: author;
+            display: flex;
+            align-items: flex-end;
+            vertical-align: bottom;
         }
         time {
             grid-area: time;
@@ -71,8 +77,11 @@ $brk: 800px;
         // Basic aesthetics
 
         p {
-            
             text-align: justify;
+        }
+
+        a {
+            @include colored-link();
         }
     }
 }

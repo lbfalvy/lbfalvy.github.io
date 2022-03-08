@@ -6,7 +6,7 @@ export default {
     title: "Lambda Calculus for Practical Use",
     author: 'lbfalvy',
     tags: ['programming', 'programming language development', 'project'],
-    time: Temporal.ZonedDateTime.from("2022-02-27T21:25Z[UTC]"),
+    time: Temporal.ZonedDateTime.from("2022-03-07T21:25Z[UTC]"),
     summary: `
         Designing a functional programming language
     `,

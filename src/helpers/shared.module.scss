@@ -40,3 +40,38 @@
         @include side-bar()
     }
 }
+
+$link-color: #5c2dc8;
+
+@mixin colored-link() {
+    & {
+        text-decoration: none;
+        color: $link-color;
+        &:visited {
+            color: desaturate($color: $link-color, $amount: 50%);
+        }
+    }
+}
+
+@mixin filters() {
+    a {
+        color: inherit;
+        font-size: .8em;
+        text-decoration: none;
+        padding: 1px .5em;
+        margin: 3px;
+        display: inline-block;
+        border-radius: 10000px;
+        border: 1px solid;
+        &.empty {
+            color: #555;
+        }
+        &.active {
+            color: #88f;
+        }
+    }
+}
+
+.filters {
+    @include filters()
+}
