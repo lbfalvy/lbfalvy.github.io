@@ -5,6 +5,7 @@ import printTime from "../helpers/printTime";
 import articles from './articles'
 import styles from './Article.module.scss';
 import useMetadata from "../hooks/useMetadata";
+import useMeta from "../hooks/useMeta";
 
 export default function ArticlePage(): React.ReactElement {
     const { article } = useParams()
@@ -15,6 +16,8 @@ export default function ArticlePage(): React.ReactElement {
         metadata?.tags ?? [],
         metadata?.author,
         metadata?.image)
+    useMeta('twitter:card', 'summary_large_image')
+    useMeta('twitter:image', metadata?.image)
     if (!metadata) return <>Article not found</>
     return <article className={styles.main}>
         <header>

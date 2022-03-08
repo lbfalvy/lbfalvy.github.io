@@ -83,5 +83,9 @@ $brk: 800px;
         a {
             @include colored-link();
         }
+
+        img {
+            max-width: 100%;
+        }
     }
 }
