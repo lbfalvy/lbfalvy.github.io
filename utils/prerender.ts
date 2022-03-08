@@ -62,8 +62,13 @@ const results = await Promise.all(
             }
         )
         const root = parse(html).querySelector('#root')
+        const head = parse(html).querySelectorAll('meta[name], meta[property], title')
         if (!root) throw new Error(`#root not found`)
-        return [route, root.toString()] as [string, string]
+        return [
+            route,
+            root.toString(),
+            head.map(t => t.toString()).join('\n')
+        ] as [string, string, string]
     })
 )
 
@@ -76,7 +81,12 @@ await Promise.all([
 
 console.log('Writing back to file...')
 
-await Promise.all(results.map(async ([route, html]) => {
+await Promise.all(results.map(async ([route, html, head]) => {
     const path = getPathForRoute(prefix, route)
-    await write(template.replace('<!-- SSR-placeholder -->', html), path)
+    await write(
+        template
+            .replace('<!-- SSR-placeholder -->', html)
+            .replace('<!-- SSR-head-placeholder -->', head),
+        path
+    )
 }))

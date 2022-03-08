@@ -33,7 +33,6 @@ function parseLambda(expr: string): LambdaToken {
     let afterType = afterName
     if (expr[afterName] == ':') {
         const typeStr = matchParen(expr.slice(afterName + 1)).slice(0, -1)
-        console.log(typeStr)
         type = tokenizeExp(typeStr)
         afterType += typeStr.length + 1
     }
@@ -76,7 +75,6 @@ export default function LambdaHighlight({ children }: { children: string | Token
     let tokens: Token[]
     if (typeof children == 'string') {
         tokens = tokenizeExp(children)
-        console.log(tokens)
     } else tokens = children
     return <code className={style.main}>
         {tokens.map(([name, value, ...extras], i) => { switch (name) {

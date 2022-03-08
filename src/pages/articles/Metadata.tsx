@@ -4,6 +4,7 @@ export default interface Metadata {
     url: string
     title: string
     summary: string
+    image: string
     time: Temporal.ZonedDateTime
     unlisted: boolean
     author: string

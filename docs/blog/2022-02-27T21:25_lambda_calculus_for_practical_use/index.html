@@ -4,17 +4,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Lawrence Bethlenfalvy">
-    <meta name="description" content="Typescript developer">
-    <meta name="keywords" content="portfolio,web developer,react,typescript,lawrence,bethlenfalvy,lbfalvy">
-    <meta name="theme-color" content="#222">
-    <title>Lawrence Bethlenfalvy</title>
-  <script type="module" crossorigin src="/assets/index.d9b68da1.js"></script>
+<meta name="theme-color" content="#222">
+<title>lbfalvy - Lambda Calculus for Practical Use</title>
+<meta name="author" content="lbfalvy">
+<meta name="description" content="
+        Designing a functional programming language
+    ">
+<meta name="keywords" content="lbfalvy,lawrence bethlenfalvy,programming,programming language development,project">
+<meta property="og:title" content="Lambda Calculus for Practical Use">
+<meta property="og:type" content="article">
+<meta property="og:description" content="
+        Designing a functional programming language
+    ">
+<meta property="og:image" content="https://i.ibb.co/cYXydKk/Screenshot-2022-03-08-at-16-44-15-Lambda-Calculus-for-Practical-Use.png">
+  <script type="module" crossorigin src="/assets/index.5b0e0841.js"></script>
   <link rel="modulepreload" href="/assets/vendor.ed6a35f9.js">
   <link rel="stylesheet" href="/assets/index.d6a6bd8b.css">
 </head>
 <body>
-    <div id="root"><div class="_main_iw998_2"><header class="_pagehead_iw998_15"><h1>Lawrence Bethlenfalvy</h1><nav><a class="" href="/">Blog</a><a class="" href="/projects">Projects</a><a class="" href="/about">About me</a></nav></header><main class="_content_iw998_57"><article class="_main_yf1hp_56"><header><h1>Lambda Calculus for Practical Use</h1><time>15 hours ago</time><address>lbfalvy</address><summary>
+    <div id="root"><div class="_main_iw998_2"><header class="_pagehead_iw998_15"><h1>Lawrence Bethlenfalvy</h1><nav><a class="" href="/">Blog</a><a class="" href="/projects">Projects</a><a class="" href="/about">About me</a></nav></header><main class="_content_iw998_57"><article class="_main_yf1hp_56"><header><h1>Lambda Calculus for Practical Use</h1><time>18 hours ago</time><address>lbfalvy</address><summary>
         Designing a functional programming language
     </summary></header><hr><main><h2 id="table-of-contents"><a aria-hidden="true" tabindex="-1" href="#table-of-contents"><i class="linkbtn gg-link"></i></a>Table of contents</h2>
 <ul>
@@ -101,9 +109,9 @@ can receive one.</p>
 <h3 id="basics"><a aria-hidden="true" tabindex="-1" href="#basics"><i class="linkbtn gg-link"></i></a>Basics</h3>
 <p>While experimenting with f.engine, I found that the following syntax works really well
 with common Lambda calculus:</p>
-<pre><code class="_main_djcd9_5"><span class="_name_djcd9_11 _global_djcd9_14">func</span><span class="_macro_djcd9_20">=</span><span class="_lambda_djcd9_26" data-name="arg"><span class="_bkslash_djcd9_26">\</span><span class="_name_djcd9_11" style="--level:1;">arg</span><span class="_colon_djcd9_26">:</span><span><code class="_main_djcd9_5"><span class="_name_djcd9_11 _global_djcd9_14">type</span></code></span><span class="_dot_djcd9_26">.</span><span><code class="_main_djcd9_5"><span> </span><span class="_name_djcd9_11 _global_djcd9_14">operation</span><span> </span><span class="_name_djcd9_11" style="--level:1;">arg</span><span>
-</span><span class="_name_djcd9_11 _global_djcd9_14">func</span><span> </span><span class="_name_djcd9_11 _global_djcd9_14">value</span><span class="_operator_djcd9_17">:</span><span class="_name_djcd9_11 _global_djcd9_14">type</span><span>
-</span><span class="_comment_djcd9_8">-- this is a comment</span></code></span></span></code></pre>
+<code class="_main_10ysk_5"><span class="_name_10ysk_11 _global_10ysk_14">func</span><span class="_macro_10ysk_20">=</span><span class="_lambda_10ysk_26" data-name="arg"><span class="_bkslash_10ysk_26">\</span><span class="_name_10ysk_11" style="--level:1;">arg</span><span class="_colon_10ysk_26">:</span><span><code class="_main_10ysk_5"><span class="_name_10ysk_11 _global_10ysk_14">type</span></code></span><span class="_dot_10ysk_26">.</span><span><code class="_main_10ysk_5"><span> </span><span class="_name_10ysk_11 _global_10ysk_14">operation</span><span> </span><span class="_name_10ysk_11" style="--level:1;">arg</span><span>
+</span><span class="_name_10ysk_11 _global_10ysk_14">func</span><span> </span><span class="_name_10ysk_11 _global_10ysk_14">value</span><span class="_operator_10ysk_17">:</span><span class="_name_10ysk_11 _global_10ysk_14">type</span><span>
+</span><span class="_comment_10ysk_8">-- this is a comment</span></code></span></span></code>
 <p>With a little bit of syntax highlighting this can be very clean and concise so I'll
 stick to it. One thing to note here is that while Arg is required to be a name, Type
 can be any valid lambda expression. A type preceded by a colon can be attached to any
@@ -114,14 +122,14 @@ to infer the types if all expression parameters are typed correctly.</p>
 substitution rules in terms of a list of tokens. The basic syntax defines a source and
 a target which share a number of placeholders, a floating point priority which defaults
 to 1 and a direction of parsing.</p>
-<code class="_main_djcd9_5"><span class="_placeholder_djcd9_23">$a</span><span> </span><span class="_operator_djcd9_17">+</span><span> </span><span class="_placeholder_djcd9_23">$b</span><span> </span><span class="_macro_djcd9_20">=5=&gt;</span><span> </span><span class="_operator_djcd9_17">(</span><span class="_name_djcd9_11 _global_djcd9_14">add</span><span> </span><span class="_placeholder_djcd9_23">$a</span><span> </span><span class="_placeholder_djcd9_23">$b</span><span class="_operator_djcd9_17">)</span><span>
-</span><span class="_placeholder_djcd9_23">$a</span><span> </span><span class="_operator_djcd9_17">*</span><span> </span><span class="_placeholder_djcd9_23">$b</span><span> </span><span class="_macro_djcd9_20">=6=&gt;</span><span> </span><span class="_operator_djcd9_17">(</span><span class="_name_djcd9_11 _global_djcd9_14">mult</span><span> </span><span class="_placeholder_djcd9_23">$a</span><span> </span><span class="_placeholder_djcd9_23">$b</span><span class="_operator_djcd9_17">)</span><span>
-</span><span class="_name_djcd9_11 _global_djcd9_14">if</span><span> </span><span class="_placeholder_djcd9_23">$a</span><span> </span><span class="_name_djcd9_11 _global_djcd9_14">then</span><span> </span><span class="_placeholder_djcd9_23">$b</span><span> </span><span class="_name_djcd9_11 _global_djcd9_14">else</span><span> </span><span class="_placeholder_djcd9_23">$c</span><span> </span><span class="_macro_djcd9_20">&lt;=2=</span><span> </span><span class="_operator_djcd9_17">(</span><span class="_placeholder_djcd9_23">$a</span><span> </span><span class="_placeholder_djcd9_23">$b</span><span> </span><span class="_placeholder_djcd9_23">$c</span><span class="_operator_djcd9_17">)</span><span> </span><span class="_comment_djcd9_8">-- assuming Church booleans
-</span><span class="_comment_djcd9_8">-- These three map square bracketed lists to a custom function
-</span><span class="_comment_djcd9_8">-- and church booleans
-</span><span class="_operator_djcd9_17">[</span><span> </span><span class="_macro_djcd9_20">==</span><span> </span><span class="_operator_djcd9_17">(</span><span class="_name_djcd9_11 _global_djcd9_14">begin_list</span><span>
-</span><span class="_operator_djcd9_17">,</span><span> </span><span class="_macro_djcd9_20">==</span><span> </span><span class="_name_djcd9_11 _global_djcd9_14">false</span><span>
-</span><span class="_operator_djcd9_17">]</span><span> </span><span class="_macro_djcd9_20">==</span><span> </span><span class="_name_djcd9_11 _global_djcd9_14">true</span><span class="_operator_djcd9_17">)</span></code>
+<code class="_main_10ysk_5"><span class="_placeholder_10ysk_23">$a</span><span> </span><span class="_operator_10ysk_17">+</span><span> </span><span class="_placeholder_10ysk_23">$b</span><span> </span><span class="_macro_10ysk_20">=5=&gt;</span><span> </span><span class="_operator_10ysk_17">(</span><span class="_name_10ysk_11 _global_10ysk_14">add</span><span> </span><span class="_placeholder_10ysk_23">$a</span><span> </span><span class="_placeholder_10ysk_23">$b</span><span class="_operator_10ysk_17">)</span><span>
+</span><span class="_placeholder_10ysk_23">$a</span><span> </span><span class="_operator_10ysk_17">*</span><span> </span><span class="_placeholder_10ysk_23">$b</span><span> </span><span class="_macro_10ysk_20">=6=&gt;</span><span> </span><span class="_operator_10ysk_17">(</span><span class="_name_10ysk_11 _global_10ysk_14">mult</span><span> </span><span class="_placeholder_10ysk_23">$a</span><span> </span><span class="_placeholder_10ysk_23">$b</span><span class="_operator_10ysk_17">)</span><span>
+</span><span class="_name_10ysk_11 _global_10ysk_14">if</span><span> </span><span class="_placeholder_10ysk_23">$a</span><span> </span><span class="_name_10ysk_11 _global_10ysk_14">then</span><span> </span><span class="_placeholder_10ysk_23">$b</span><span> </span><span class="_name_10ysk_11 _global_10ysk_14">else</span><span> </span><span class="_placeholder_10ysk_23">$c</span><span> </span><span class="_macro_10ysk_20">&lt;=2=</span><span> </span><span class="_operator_10ysk_17">(</span><span class="_placeholder_10ysk_23">$a</span><span> </span><span class="_placeholder_10ysk_23">$b</span><span> </span><span class="_placeholder_10ysk_23">$c</span><span class="_operator_10ysk_17">)</span><span> </span><span class="_comment_10ysk_8">-- assuming Church booleans
+</span><span class="_comment_10ysk_8">-- These three map square bracketed lists to a custom function
+</span><span class="_comment_10ysk_8">-- and church booleans
+</span><span class="_operator_10ysk_17">[</span><span> </span><span class="_macro_10ysk_20">==</span><span> </span><span class="_operator_10ysk_17">(</span><span class="_name_10ysk_11 _global_10ysk_14">begin_list</span><span>
+</span><span class="_operator_10ysk_17">,</span><span> </span><span class="_macro_10ysk_20">==</span><span> </span><span class="_name_10ysk_11 _global_10ysk_14">false</span><span>
+</span><span class="_operator_10ysk_17">]</span><span> </span><span class="_macro_10ysk_20">==</span><span> </span><span class="_name_10ysk_11 _global_10ysk_14">true</span><span class="_operator_10ysk_17">)</span></code>
 <p>A $placeholder can represent either a single token or a group of tokens between balanced
 parentheses. Parentheses aren't considered tokens for the purposes of macro resolution, but
 they may appear in the target. Tokenization is done via a standard greedy strategy, with
@@ -129,7 +137,7 @@ the exact set of tokens defined by the macros.</p>
 <p>This should be enough for most things we might want to do, but it's far too verbose for
 defining functions and invariants so we need a shorter syntax. If the source is a single
 token literal followed by a single equals sign, the target is automatically parenthesized:</p>
-<code class="_main_djcd9_5"><span class="_name_djcd9_11 _global_djcd9_14">true</span><span> </span><span class="_macro_djcd9_20">=</span><span> </span><span class="_lambda_djcd9_26" data-name="true"><span class="_bkslash_djcd9_26">\</span><span class="_name_djcd9_11" style="--level:1;">true</span><span class="_dot_djcd9_26">.</span><span><code class="_main_djcd9_5"><span class="_lambda_djcd9_26" data-name="false"><span class="_bkslash_djcd9_26">\</span><span class="_name_djcd9_11" style="--level:2;">false</span><span class="_dot_djcd9_26">.</span><span><code class="_main_djcd9_5"><span class="_name_djcd9_11" style="--level:1;">true</span></code></span></span></code></span></span></code>
+<code class="_main_10ysk_5"><span class="_name_10ysk_11 _global_10ysk_14">true</span><span> </span><span class="_macro_10ysk_20">=</span><span> </span><span class="_lambda_10ysk_26" data-name="true"><span class="_bkslash_10ysk_26">\</span><span class="_name_10ysk_11" style="--level:1;">true</span><span class="_dot_10ysk_26">.</span><span><code class="_main_10ysk_5"><span class="_lambda_10ysk_26" data-name="false"><span class="_bkslash_10ysk_26">\</span><span class="_name_10ysk_11" style="--level:2;">false</span><span class="_dot_10ysk_26">.</span><span><code class="_main_10ysk_5"><span class="_name_10ysk_11" style="--level:1;">true</span></code></span></span></code></span></span></code>
 <h2 id="future"><a aria-hidden="true" tabindex="-1" href="#future"><i class="linkbtn gg-link"></i></a>Future</h2>
 <p>This is the first article in a series discussing aspects of programming language design.
 In the following parts I'll discuss type checking and overloading, type inference,
@@ -147,7 +155,7 @@ it would be best to settle on most high level design decisions.</p></main></arti
             c-3.151,0-5.816,2.054-6.619,5.106c-0.791,3.006,0.666,6.177,3.353,7.74c36.966,21.513,79.131,32.883,121.955,32.883
             c37.485,0,72.549-7.439,104.219-22.109c29.033-13.449,54.689-32.674,76.255-57.141c20.09-22.792,35.8-49.103,46.692-78.201
             c10.383-27.737,15.871-57.333,15.871-85.589v-1.346c-0.001-4.537,2.051-8.806,5.631-11.712c13.585-11.03,25.415-24.014,35.16-38.591
-            l0,0C411.924,77.126,407.866,72.302,403.632,74.18L403.632,74.18z"></path></svg></a><a href="https://t.me/lbfalvy"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 240 240" width="16" height="16"><defs><linearGradient id="linear-gradient" x1="120" y1="240" x2="120" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#1d93d2"></stop><stop offset="1" stop-color="#38b0e3"></stop></linearGradient></defs><title>Telegram_logo</title><circle cx="120" cy="120" r="120" fill="url(#linear-gradient)"></circle><path d="M81.229,128.772l14.237,39.406s1.78,3.687,3.686,3.687,30.255-29.492,30.255-29.492l31.525-60.89L81.737,118.6Z" fill="#c8daea"></path><path d="M100.106,138.878l-2.733,29.046s-1.144,8.9,7.754,0,17.415-15.763,17.415-15.763" fill="#a9c6d8"></path><path d="M81.486,130.178,52.2,120.636s-3.5-1.42-2.373-4.64c.232-.664.7-1.229,2.1-2.2,6.489-4.523,120.106-45.36,120.106-45.36s3.208-1.081,5.1-.362a2.766,2.766,0,0,1,1.885,2.055,9.357,9.357,0,0,1,.254,2.585c-.009.752-.1,1.449-.169,2.542-.692,11.165-21.4,94.493-21.4,94.493s-1.239,4.876-5.678,5.043A8.13,8.13,0,0,1,146.1,172.5c-8.711-7.493-38.819-27.727-45.472-32.177a1.27,1.27,0,0,1-.546-.9c-.093-.469.417-1.05.417-1.05s52.426-46.6,53.821-51.492c.108-.379-.3-.566-.848-.4-3.482,1.281-63.844,39.4-70.506,43.607A3.21,3.21,0,0,1,81.486,130.178Z" fill="#fff"></path></svg></a></div></footer></div></div>
+            l0,0C411.924,77.126,407.866,72.302,403.632,74.18L403.632,74.18z"></path></svg></a><a href="https://t.me/lbfalvy"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 240 240" width="16" height="16"><defs><linearGradient id="linear-gradient" x1="120" y1="240" x2="120" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#1d93d2"></stop><stop offset="1" stop-color="#38b0e3"></stop></linearGradient></defs><circle cx="120" cy="120" r="120" fill="url(#linear-gradient)"></circle><path d="M81.229,128.772l14.237,39.406s1.78,3.687,3.686,3.687,30.255-29.492,30.255-29.492l31.525-60.89L81.737,118.6Z" fill="#c8daea"></path><path d="M100.106,138.878l-2.733,29.046s-1.144,8.9,7.754,0,17.415-15.763,17.415-15.763" fill="#a9c6d8"></path><path d="M81.486,130.178,52.2,120.636s-3.5-1.42-2.373-4.64c.232-.664.7-1.229,2.1-2.2,6.489-4.523,120.106-45.36,120.106-45.36s3.208-1.081,5.1-.362a2.766,2.766,0,0,1,1.885,2.055,9.357,9.357,0,0,1,.254,2.585c-.009.752-.1,1.449-.169,2.542-.692,11.165-21.4,94.493-21.4,94.493s-1.239,4.876-5.678,5.043A8.13,8.13,0,0,1,146.1,172.5c-8.711-7.493-38.819-27.727-45.472-32.177a1.27,1.27,0,0,1-.546-.9c-.093-.469.417-1.05.417-1.05s52.426-46.6,53.821-51.492c.108-.379-.3-.566-.848-.4-3.482,1.281-63.844,39.4-70.506,43.607A3.21,3.21,0,0,1,81.486,130.178Z" fill="#fff"></path></svg></a></div></footer></div></div>
     
 </body>
 </html>
