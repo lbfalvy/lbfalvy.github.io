@@ -132,6 +132,28 @@ token literal followed by a single equals sign, the target is automatically pare
 {`true = \\true.\\false.true`}
 </LambdaHighlight>
 
+### Conclusion
+
+Given the above examples and fairly standard Lambda Calculus constants, the below example
+is a reasonable guess at what the final code might look like:
+
+<LambdaHighlight>
+{`find = \\T. \\predicate:(\\item:T.Bool). \\list:Cons T. (
+    (loop \\repeat. \\sublist:Cons T.
+        if (predicate (head sublist))
+        then (head sublist)
+        else (repeat (tail sublist))
+    ) list
+)
+`}
+</LambdaHighlight>
+
+Here `loop` is a more accessible keyword for the Y combinator and `T` is a generic parameter.
+Also note that the type of sublist is specified even though it can easily be deduced from
+context because the human reader parsing the code top-down would have to skip to the end of
+the loop call to see the parameter. This is a good example of a case where adding superfluous
+type hints improves readability.
+
 ## Future
 
 This is the first article in a series discussing aspects of programming language design.

@@ -17,12 +17,14 @@
         Designing a functional programming language
     ">
 <meta property="og:image" content="https://i.ibb.co/cYXydKk/Screenshot-2022-03-08-at-16-44-15-Lambda-Calculus-for-Practical-Use.png">
-  <script type="module" crossorigin src="/assets/index.5b0e0841.js"></script>
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i.ibb.co/cYXydKk/Screenshot-2022-03-08-at-16-44-15-Lambda-Calculus-for-Practical-Use.png">
+  <script type="module" crossorigin src="/assets/index.8dd7f807.js"></script>
   <link rel="modulepreload" href="/assets/vendor.ed6a35f9.js">
   <link rel="stylesheet" href="/assets/index.d6a6bd8b.css">
 </head>
 <body>
-    <div id="root"><div class="_main_iw998_2"><header class="_pagehead_iw998_15"><h1>Lawrence Bethlenfalvy</h1><nav><a class="" href="/">Blog</a><a class="" href="/projects">Projects</a><a class="" href="/about">About me</a></nav></header><main class="_content_iw998_57"><article class="_main_yf1hp_56"><header><h1>Lambda Calculus for Practical Use</h1><time>18 hours ago</time><address>lbfalvy</address><summary>
+    <div id="root"><div class="_main_iw998_2"><header class="_pagehead_iw998_15"><h1>Lawrence Bethlenfalvy</h1><nav><a class="" href="/">Blog</a><a class="" href="/projects">Projects</a><a class="" href="/about">About me</a></nav></header><main class="_content_iw998_57"><article class="_main_yfl43_56"><header><h1>Lambda Calculus for Practical Use</h1><time>19 hours ago</time><address>lbfalvy</address><summary>
         Designing a functional programming language
     </summary></header><hr><main><h2 id="table-of-contents"><a aria-hidden="true" tabindex="-1" href="#table-of-contents"><i class="linkbtn gg-link"></i></a>Table of contents</h2>
 <ul>
@@ -37,6 +39,7 @@
 <ul>
 <li><a href="#basics">Basics</a></li>
 <li><a href="#macros-1">Macros</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
 </ul>
 </li>
 <li><a href="#future">Future</a></li>
@@ -138,6 +141,22 @@ the exact set of tokens defined by the macros.</p>
 defining functions and invariants so we need a shorter syntax. If the source is a single
 token literal followed by a single equals sign, the target is automatically parenthesized:</p>
 <code class="_main_10ysk_5"><span class="_name_10ysk_11 _global_10ysk_14">true</span><span> </span><span class="_macro_10ysk_20">=</span><span> </span><span class="_lambda_10ysk_26" data-name="true"><span class="_bkslash_10ysk_26">\</span><span class="_name_10ysk_11" style="--level:1;">true</span><span class="_dot_10ysk_26">.</span><span><code class="_main_10ysk_5"><span class="_lambda_10ysk_26" data-name="false"><span class="_bkslash_10ysk_26">\</span><span class="_name_10ysk_11" style="--level:2;">false</span><span class="_dot_10ysk_26">.</span><span><code class="_main_10ysk_5"><span class="_name_10ysk_11" style="--level:1;">true</span></code></span></span></code></span></span></code>
+<h3 id="conclusion"><a aria-hidden="true" tabindex="-1" href="#conclusion"><i class="linkbtn gg-link"></i></a>Conclusion</h3>
+<p>Given the above examples and fairly standard Lambda Calculus constants, the below example
+is a reasonable guess at what the final code might look like:</p>
+<code class="_main_10ysk_5"><span class="_name_10ysk_11 _global_10ysk_14">find</span><span> </span><span class="_macro_10ysk_20">=</span><span> </span><span class="_lambda_10ysk_26" data-name="T"><span class="_bkslash_10ysk_26">\</span><span class="_name_10ysk_11" style="--level:1;">T</span><span class="_dot_10ysk_26">.</span><span><code class="_main_10ysk_5"><span> </span><span class="_lambda_10ysk_26" data-name="predicate"><span class="_bkslash_10ysk_26">\</span><span class="_name_10ysk_11" style="--level:2;">predicate</span><span class="_colon_10ysk_26">:</span><span><code class="_main_10ysk_5"><span class="_operator_10ysk_17">(</span><span class="_lambda_10ysk_26" data-name="item"><span class="_bkslash_10ysk_26">\</span><span class="_name_10ysk_11" style="--level:3;">item</span><span class="_colon_10ysk_26">:</span><span><code class="_main_10ysk_5"><span class="_name_10ysk_11" style="--level:1;">T</span></code></span><span class="_dot_10ysk_26">.</span><span><code class="_main_10ysk_5"><span class="_name_10ysk_11 _global_10ysk_14">Bool</span><span class="_operator_10ysk_17">)</span></code></span></span></code></span><span class="_dot_10ysk_26">.</span><span><code class="_main_10ysk_5"><span> </span><span class="_lambda_10ysk_26" data-name="list"><span class="_bkslash_10ysk_26">\</span><span class="_name_10ysk_11" style="--level:3;">list</span><span class="_colon_10ysk_26">:</span><span><code class="_main_10ysk_5"><span class="_name_10ysk_11 _global_10ysk_14">Cons</span><span> </span><span class="_name_10ysk_11" style="--level:1;">T</span></code></span><span class="_dot_10ysk_26">.</span><span><code class="_main_10ysk_5"><span> </span><span class="_operator_10ysk_17">(</span><span>
+    </span><span class="_operator_10ysk_17">(</span><span class="_name_10ysk_11 _global_10ysk_14">loop</span><span> </span><span class="_lambda_10ysk_26" data-name="repeat"><span class="_bkslash_10ysk_26">\</span><span class="_name_10ysk_11" style="--level:4;">repeat</span><span class="_dot_10ysk_26">.</span><span><code class="_main_10ysk_5"><span> </span><span class="_lambda_10ysk_26" data-name="sublist"><span class="_bkslash_10ysk_26">\</span><span class="_name_10ysk_11" style="--level:5;">sublist</span><span class="_colon_10ysk_26">:</span><span><code class="_main_10ysk_5"><span class="_name_10ysk_11 _global_10ysk_14">Cons</span><span> </span><span class="_name_10ysk_11" style="--level:1;">T</span></code></span><span class="_dot_10ysk_26">.</span><span><code class="_main_10ysk_5"><span>
+        </span><span class="_name_10ysk_11 _global_10ysk_14">if</span><span> </span><span class="_operator_10ysk_17">(</span><span class="_name_10ysk_11" style="--level:2;">predicate</span><span> </span><span class="_operator_10ysk_17">(</span><span class="_name_10ysk_11 _global_10ysk_14">head</span><span> </span><span class="_name_10ysk_11" style="--level:5;">sublist</span><span class="_operator_10ysk_17">))</span><span>
+        </span><span class="_name_10ysk_11 _global_10ysk_14">then</span><span> </span><span class="_operator_10ysk_17">(</span><span class="_name_10ysk_11 _global_10ysk_14">head</span><span> </span><span class="_name_10ysk_11" style="--level:5;">sublist</span><span class="_operator_10ysk_17">)</span><span>
+        </span><span class="_name_10ysk_11 _global_10ysk_14">else</span><span> </span><span class="_operator_10ysk_17">(</span><span class="_name_10ysk_11" style="--level:4;">repeat</span><span> </span><span class="_operator_10ysk_17">(</span><span class="_name_10ysk_11 _global_10ysk_14">tail</span><span> </span><span class="_name_10ysk_11" style="--level:5;">sublist</span><span class="_operator_10ysk_17">))</span><span>
+    </span><span class="_operator_10ysk_17">)</span></code></span></span></code></span></span><span> </span><span class="_name_10ysk_11" style="--level:3;">list</span><span>
+</span><span class="_operator_10ysk_17">)</span><span>
+</span></code></span></span></code></span></span></code></span></span></code>
+<p>Here <code>loop</code> is a more accessible keyword for the Y combinator and <code>T</code> is a generic parameter.
+Also note that the type of sublist is specified even though it can easily be deduced from
+context because the human reader parsing the code top-down would have to skip to the end of
+the loop call to see the parameter. This is a good example of a case where adding superfluous
+type hints improves readability.</p>
 <h2 id="future"><a aria-hidden="true" tabindex="-1" href="#future"><i class="linkbtn gg-link"></i></a>Future</h2>
 <p>This is the first article in a series discussing aspects of programming language design.
 In the following parts I'll discuss type checking and overloading, type inference,

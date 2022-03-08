@@ -9,13 +9,14 @@ import Patreon from "../components/icons/Patreon";
 import Rss from "../components/icons/Rss";
 import Telegram from "../components/icons/Telegram";
 import Twitter from "../components/icons/Twitter";
+import useLink from "../hooks/useLink";
 import useMeta from "../hooks/useMeta";
-import { useTitle } from "../hooks/useTitle";
 import styles from './App.module.scss';
 
 export function AppLayout(): React.ReactElement {
     useMeta('viewport', 'width=device-width, initial-scale=1.0')
     useMeta('theme-color', '#222')
+    useLink('icon', 'https://github.com/lbfalvy.png')
     return <div className={styles.main}>
         <header className={styles.pagehead}>
             <h1>Lawrence Bethlenfalvy</h1>
