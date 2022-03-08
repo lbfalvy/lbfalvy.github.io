@@ -6,7 +6,11 @@ $brk: 800px;
 .main {
     header {
         display: grid;
-        grid-template-areas: 'author time' 'title' 'summary';
+        grid-template-columns: auto 1fr;
+        grid-template-areas:
+            'author time'
+            'title title'
+            'summary summary';
         @media (min-width: $brk) {
             grid-template-columns: auto auto 1fr;
             grid-template-rows: auto auto;
