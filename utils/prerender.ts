@@ -62,7 +62,7 @@ const results = await Promise.all(
             }
         )
         const root = parse(html).querySelector('#root')
-        const head = parse(html).querySelectorAll('meta[name], meta[property], title')
+        const head = parse(html).querySelectorAll('[data-ssr], title')
         if (!root) throw new Error(`#root not found`)
         return [
             route,
