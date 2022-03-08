@@ -7,7 +7,7 @@ export default {
     author: 'lbfalvy',
     tags: ['programming', 'programming language development', 'project'],
     time: Temporal.ZonedDateTime.from("2022-03-07T21:25Z[UTC]"),
-    image: 'https://i.ibb.co/cYXydKk/Screenshot-2022-03-08-at-16-44-15-Lambda-Calculus-for-Practical-Use.png',
+    image: 'https://i.ibb.co/bNTH3Fq/liftoff-banner.jpg',
     summary: `
         Designing a functional programming language
     `,
