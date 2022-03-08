@@ -18,5 +18,9 @@ export default function useMetadata(
     useOG('type', type)
     useOG('description', description)
     useOG('image', image)
-
+    useMeta('twitter:card', image ? 'summary_large_image' : 'summary')
+    useMeta('twitter:site', '@lbfalvy')
+    useMeta('twitter:title', title)
+    useMeta('twitter:description', description)
+    useMeta('twitter:image', image ?? 'https://github.com/lbfalvy.png')
 }
