@@ -8,8 +8,14 @@ import { classList } from '@lbfalvy/react-utils'
 import sstyles from '../helpers/shared.module.scss';
 import useSearchTerm from '../hooks/useSearchTerm'
 import useTags from '../hooks/useTags'
+import useMetadata from '../hooks/useMetadata'
 
 export default function BlogPage(): React.ReactElement {
+    useMetadata('website',
+        `Lawrence's Blog`,
+        'I sometimes write about my projects or my experience with technologies',
+        ['blog']
+    )
     const items = articles.filter(x => x && !x.unlisted)
     const [filtered, tags, filter, toggleFilter] = useTags(items, ...useSearchTerm('filter'))
     const list = filtered.sort((a, b) => Temporal.ZonedDateTime.compare(b.time, a.time))

@@ -6,9 +6,15 @@ import projects from './projects';
 import useTags from "../hooks/useTags";
 import useSearchTerm from "../hooks/useSearchTerm";
 import { classList } from "@lbfalvy/react-utils";
+import useMetadata from "../hooks/useMetadata";
 
 export default function ProjectsPage() {
     const [filtered, tags, filter, toggleFilter] = useTags(projects, ...useSearchTerm('filter'))
+    useMetadata('website',
+        `Projects`,
+        'my humble portfolio',
+        ['portfolio']
+    )
     return <div className={classList(styles.main, sstyles.sideBarContainer)}>
         <h2>Projects</h2>
         <header className={classList(sstyles.sideBar, sstyles.filters)}>

@@ -8,7 +8,11 @@
         color: #8f8;
     }
     .name {
-        color: hsl(170, 50%, calc(70% - var(--level) * 10%));
+        color: hsl(
+            calc(170 - var(--level) * 5), 
+            calc(50% + var(--level) * 10%), 
+            calc(70% - var(--level) * 5%)
+        );
         &.global {
             color: hsl(30, 50%, 70%)
         }
@@ -26,8 +30,6 @@
         .bkslash, .colon, .dot {
             color: #999;
         }
-        .param {
-
-        }
+        .param {}
     }
 }

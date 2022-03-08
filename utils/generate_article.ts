@@ -24,6 +24,7 @@ export default {
     author: \`Your Name Here\`,
     tags: [],
     time: Temporal.ZonedDateTime.from("${now}[UTC]"),
+    image: '',
     summary: \`
         Description here
     \`,

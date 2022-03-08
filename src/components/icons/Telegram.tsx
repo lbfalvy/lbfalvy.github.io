@@ -8,7 +8,6 @@ export default function Telegram(): React.ReactElement {
                 <stop offset="1" stop-color="#38b0e3"/>
             </linearGradient>
         </defs>
-        <title>Telegram_logo</title>
         <circle cx="120" cy="120" r="120" fill="url(#linear-gradient)"/>
         <path d="M81.229,128.772l14.237,39.406s1.78,3.687,3.686,3.687,30.255-29.492,30.255-29.492l31.525-60.89L81.737,118.6Z" fill="#c8daea"/>
         <path d="M100.106,138.878l-2.733,29.046s-1.144,8.9,7.754,0,17.415-15.763,17.415-15.763" fill="#a9c6d8"/>
