@@ -8,6 +8,7 @@ import Npm from "../components/icons/Npm";
 import Patreon from "../components/icons/Patreon";
 import Rss from "../components/icons/Rss";
 import Telegram from "../components/icons/Telegram";
+import Twitter from "../components/icons/Twitter";
 import { useTitle } from "../hooks/useTitle";
 import styles from './App.module.scss';
 
@@ -48,6 +49,9 @@ export function AppLayout(): React.ReactElement {
                 </a>
                 <a href="/feed">
                     <Rss />
+                </a>
+                <a href="https://twitter.com/lbfalvy">
+                    <Twitter />
                 </a>
                 <a href="https://t.me/lbfalvy">
                     <Telegram />

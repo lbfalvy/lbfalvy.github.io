@@ -12,9 +12,12 @@ are constructed. Recently I made an educational
 combined with an interactive tutorial to show the language to a friend, and this gave
 me a bit of insight into the general ideas of the language. In this series I hope to
 successfully define a language which is both usable and pure by applying the code
-quality principles I learned in Typescript onto Lambda Calculus
+quality principles I learned in Typescript onto Lambda Calculus.
 
-## Requirements
+If you aren't familiar with Lambda calculus, I suggest reading through the above tutorial
+or the [Wikipedia page](https://en.wikipedida.org/wiki/Lambda_calculus).
+
+## Rules
 
 ### Substitution
 
@@ -34,7 +37,7 @@ Preprocessor macros in C are a language of their own, frequently used for
     consider the preprocessor part of it, and we should because it's the official answer
     to generics)
 
-Now, these are very different tasks and as far as I know no language apart from C
+Now, these are very different challenges and as far as I know no language apart from C
 opted to solve all of them by embedding another Turing-complete language.
 
 Invariants are an important feature and we definitely need to support them. Since Lambda
@@ -51,21 +54,33 @@ like to solve in our case with macros. Infix operators are immensely useful in
 mathematical code but they're one of those things lambda calculus doesn't have simply
 because it was designed to be a mathematical lab rat and not a programming language. Do
 take note though, that supporting user-defined operators implies that we must also
-support overloading.
+support overloading - resolving functions based on the types of their arguments.
 
 ### Types
 
-The best thing about functional languages is the type system. In many languages it's
-regarded as something isolated and untangible, and entire language features are
-scrapped to keep type inference computable. In my opinion code is written for
-humans to read and if they can't figure it out then the lack of type annotations is
-a flaw. Consequently, I'd like my type system to be as expressive as technically
-possible and intentionally ignore the computability of type inference.
+The best thing about functional languages is the type system. Lambda calculus doesn't
+have types and it doesn't need them, since the only type is the lambda function that
+is applied to a lambda function and evaluates to a lambda function. The named constants
+you see in examples are actually an extension, usually representing the type of predicates
+from simply typed lambda calculus (a "thing" that cannot be applied to anything).
+
+In many functional languages the type system is regarded as something isolated and untangible,
+and entire language features are scrapped to keep type inference computable. Some lack syntax
+for generics altogether. In my opinion code is written for humans to read and if they can't
+figure it out then the lack of type annotations is a flaw. Consequently, I'd like my type
+system to be as expressive as technically possible and intentionally ignore such questions as
+the computability of type inference.
 
 On the other hand, I don't want to fall into C's trap and make the type system a
 separate langauge, as that would increase the maintenance effort and steepen the
 learning curve disproportionately. What I would ike is for the type system to operate
 on the same principles as the language itself, with the same or similar syntax elements.
+
+As for syntax, I'm faced with an interesting challenge; choosing to ignore type inference
+means that users may have to add type hints to intermediary values, but functional languages
+doon't normally include variable declarations - or variables for that matter - so type hints
+will have to be designed in such a way that any subsection of the program that has a type
+can receive one.
 
 ## Syntax
 
@@ -76,7 +91,7 @@ with common Lambda calculus:
 
 <pre>
     <LambdaHighlight>
-{`func=(\\arg:type. operation arg)
+{`func=\\arg:type. operation arg
 func value:type
 -- this is a comment`}
     </LambdaHighlight>
@@ -111,7 +126,7 @@ parentheses. Parentheses aren't considered tokens for the purposes of macro reso
 they may appear in the target. Tokenization is done via a standard greedy strategy, with
 the exact set of tokens defined by the macros.
 
-This should be enough for most things we might want to do, but it's far too long for
+This should be enough for most things we might want to do, but it's far too verbose for
 defining functions and invariants so we need a shorter syntax. If the source is a single
 token literal followed by a single equals sign, the target is automatically parenthesized:
 
@@ -125,4 +140,4 @@ This is the first article in a series discussing aspects of programming language
 In the following parts I'll discuss type checking and overloading, type inference,
 guaranteed optimizations and elements of the standard library, in no particular order.
 I hope to write an implementation of the language during the next academic year, by then
-it would be best to answer most high level design decisions.
+it would be best to settle on most high level design decisions.
