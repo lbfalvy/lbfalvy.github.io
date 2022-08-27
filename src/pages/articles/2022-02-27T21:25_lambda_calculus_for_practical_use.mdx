@@ -1,4 +1,5 @@
 import LambdaHighlight from '../../components/LambdaHighlight.tsx'
+import {domain} from '../../../config'
 
 ## Table of contents
 
@@ -8,7 +9,7 @@ Lambda calculus is a mathematical approach to abstract machines that served as
 the basis of languages such as Haskell and ML. As a programmer who had mainly
 worked with procedural languages, it always intrigued me how such languages
 are constructed. Recently I made an educational
-[Lambda calculus executor](https://lbfalvy.github.io/f.engine)
+<a href={`https://www.lbfalvy.com/f.engine`}>Lambda calculus executor</a>
 combined with an interactive tutorial to show the language to a friend, and this gave
 me a bit of insight into the general ideas of the language. In this series I hope to
 successfully define a language which is both usable and pure by applying the code
@@ -114,9 +115,9 @@ $a * $b =6=> (mult $a $b)
 if $a then $b else $c <=2= ($a $b $c) -- assuming Church booleans
 -- These three map square bracketed lists to a custom function
 -- and church booleans
-[ == (begin_list
-, == false
-] == true)`}
+[ := (begin_list
+, := false
+] := true)`}
 </LambdaHighlight>
 
 A $placeholder can represent either a single token or a group of tokens between balanced
@@ -129,7 +130,7 @@ defining functions and invariants so we need a shorter syntax. If the source is 
 token literal followed by a single equals sign, the target is automatically parenthesized:
 
 <LambdaHighlight>
-{`true = \\true.\\false.true`}
+{`true := \\true.\\false.true`}
 </LambdaHighlight>
 
 ### Conclusion
@@ -138,7 +139,7 @@ Given the above examples and fairly standard Lambda Calculus constants, the belo
 is a reasonable guess at what the final code might look like:
 
 <LambdaHighlight>
-{`find = \\T. \\predicate:(\\item:T.Bool). \\list:Cons T. (
+{`find := \\T. \\predicate:(\\item:T.Bool). \\list:Cons T. (
     (loop \\repeat. \\sublist:Cons T.
         if (predicate (head sublist))
         then (head sublist)
@@ -161,3 +162,7 @@ In the following parts I'll discuss type checking and overloading, type inferenc
 guaranteed optimizations and elements of the standard library, in no particular order.
 I hope to write an implementation of the language during the next academic year, by then
 it would be best to settle on most high level design decisions.
+
+_ps: I updated the code samples in this article to keep the highlighting working. Changes:_
+
+- _replaced `=` and `==` with `:=` in invariant rules_

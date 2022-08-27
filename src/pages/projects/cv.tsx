@@ -2,7 +2,7 @@ import Project from "./Project";
 
 export default {
     name: 'Résumé',
-    url: 'https://lbfalvy.github.io/cv/?lang=en',
+    url: `https://www.lbfalvy.com/cv/?lang=en`,
     tags: ['react', 'app'],
     description: `
         My CV is written in React, so internationalization and other advanced
