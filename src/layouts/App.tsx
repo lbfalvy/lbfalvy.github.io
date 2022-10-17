@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { FooterLink } from "../components/FooterLink";
 import Github from "../components/icons/Github";
 import KoFi from "../components/icons/KoFi";
@@ -20,9 +20,9 @@ export function AppLayout(): React.ReactElement {
     useLink('icon', 'https://github.com/lbfalvy.png')
     return <div className={styles.main}>
         <header className={styles.pagehead}>
-            <h1>Lawrence Bethlenfalvy</h1>
+            <h1>Lawrence Bet…</h1>
             <nav>
-                <NavLink to="/">Blog</NavLink>
+                <NavLink to="/" end>Blog</NavLink>
                 <NavLink to="/projects">Projects</NavLink>
                 <NavLink to="/about">About me</NavLink>
             </nav>

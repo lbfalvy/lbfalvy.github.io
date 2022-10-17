@@ -12,6 +12,6 @@ export default {
         A brief description and some demos of a preprocessor based on generalized kerning
         for my programming language.
     `,
-    unlisted: false,
+    unlisted: true,
     load: () => import("./2022-08-19T17:19_orchid.mdx")
 } as Metadata
