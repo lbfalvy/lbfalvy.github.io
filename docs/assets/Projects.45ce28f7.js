@@ -1,10 +1,10 @@
-import{R as e,c as l,s as n,u as c,a as m,b as u}from"./index.af73a0ff.js";const b="_main_b0dtv_1",_={main:b};function d({name:a,url:o,children:r}){return e.createElement("a",{href:o,className:l(_.main,n.linkbox)},e.createElement("article",null,e.createElement("h3",null,a),e.createElement("p",null,r)))}const f="_main_1qb79_1",p={main:f},g={name:"\xC1rny\xE9kegyetem",tags:["react","web","app","ts"],description:`
+import{R as e,c as l,s as n,u as c,a as m,b as u}from"./index.cc569d2e.js";const b="_main_b0dtv_1",_={main:b};function d({name:a,url:o,children:r}){return e.createElement("a",{href:o,className:l(_.main,n.linkbox)},e.createElement("article",null,e.createElement("h3",null,a),e.createElement("p",null,r)))}const f="_main_1qb79_1",p={main:f},g={name:"\xC1rny\xE9kegyetem",tags:["react","web","app","ts"],description:`
         (currently offline)
         A complex SPA for the ARG (Alternate Reality Game) of the same name. This is
         the homebase of the game, and it serves the role of a blog, wiki and forum.
     `},y=Object.freeze(Object.defineProperty({__proto__:null,default:g},Symbol.toStringTag,{value:"Module"})),h={name:"Buffered Dispatch",url:"https://github.com/lbfalvy/buffered-dispatch",tags:["library","ts"],description:`
         An in-thread worker pool manager for Typescript
-    `},v=Object.freeze(Object.defineProperty({__proto__:null,default:h},Symbol.toStringTag,{value:"Module"})),w={name:"R\xE9sum\xE9",url:"https://www.lbfalvy.com/cv/?lang=en",tags:["react","app"],description:`
+    `},v=Object.freeze(Object.defineProperty({__proto__:null,default:h},Symbol.toStringTag,{value:"Module"})),w={name:"R\xE9sum\xE9",url:"https://www.lbfalvy.com/cv/?lang=en&country=uk",tags:["react","app"],description:`
         My CV is written in React, so internationalization and other advanced
         features are a breeze to implement.
     `},j=Object.freeze(Object.defineProperty({__proto__:null,default:w},Symbol.toStringTag,{value:"Module"})),x={name:"\u03BBf.engine",url:"https://www.lbfalvy.com/f.engine/",tags:["react","web","app","ts"],description:`
