@@ -1,0 +1,1 @@
+export const domain = "www.lbfalvy.com"

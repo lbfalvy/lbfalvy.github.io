@@ -25,8 +25,8 @@ export default function BlogPage(): React.ReactElement {
             {tags.map(cat => 
                 <a href="#" onClick={() => toggleFilter(cat)}
                     className={classList(
-                        filter.includes(cat) && styles.active,
-                        list.every(x => !x.tags.includes(cat)) && styles.empty
+                        filter.includes(cat) && sstyles.active,
+                        list.every(x => !x.tags.includes(cat)) && sstyles.empty
                     )}
                 >{cat}</a>
             )}

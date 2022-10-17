@@ -4,6 +4,12 @@
 
 .main {
     white-space: pre-wrap;
+    padding: unset !important;
+    background: unset !important;
+    border-radius: unset !important;
+    border: unset !important;
+    font-family: "Droid Sans Mono", monospace;
+    font-size: small;
     .comment {
         color: #8f8;
     }
@@ -25,6 +31,15 @@
     }
     .placeholder {
         color: #bb5;
+    }
+    .keyword {
+        color: #39f;
+    }
+    .string {
+        color: #f8b;
+    }
+    .number {
+        color: #afa;
     }
     .lambda {
         .bkslash, .colon, .dot {

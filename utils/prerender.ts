@@ -46,21 +46,24 @@ console.log('Starting Vite and simpleSSR...')
 
 const [srv] = await Promise.all([
     createServer().then(s => s.listen(port)),
-    simpleSSR.start({ headless: true })
+    // @ts-ignore
+    simpleSSR.start({ headless: false, executablePath: '/usr/bin/google-chrome-stable' })
 ])
 
 console.log('Rendering HTML...')
 
 const results = await Promise.all(
     routes.map(async route => {
+        console.log(`Rendering ${route}`)
         const { html } = await simpleSSR.render(
             `http://localhost:${port}/${route}`,
             {
                 timeout: 6000,
                 domTarget: null,
-                waitUntil: 'networkidle0'
+                waitUntil: 'networkidle2'
             }
         )
+        console.log(`Successfully rendered ${route}`)
         const root = parse(html).querySelector('#root')
         const head = parse(html).querySelectorAll('[data-ssr], title')
         if (!root) throw new Error(`#root not found`)

@@ -44,6 +44,8 @@ $brk: 800px;
         }
     }
     main {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 300;
         @include side-bar-container();
         h2:global(#table-of-contents) {
             display: none;
@@ -73,6 +75,8 @@ $brk: 800px;
             visibility: hidden;
         }
         h1,h2,h3,h4,h5,h6 {
+            font-family: 'Montserrat', sans-serif;
+            // font-weight: 300;
             &:hover :global(.linkbtn) {
                 visibility: unset;
             }
@@ -90,6 +94,14 @@ $brk: 800px;
 
         img {
             max-width: 100%;
+        }
+
+        code {
+            color: white;
+            background: #0004;
+            padding: 0 5px;
+            border-radius: 5px;
+            border: .5px solid #888;
         }
     }
 }

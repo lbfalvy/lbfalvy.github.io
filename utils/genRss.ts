@@ -3,9 +3,10 @@ import Rss from 'rss'
 import { Temporal } from '@js-temporal/polyfill'
 import fs from 'fs/promises'
 import Metadata from '../src/pages/articles/Metadata'
+import { domain } from '../config'
 
 const now = Temporal.Now.zonedDateTimeISO()
-const baseURL = 'https://lbfalvy.github.io'
+const baseURL = `https:/${domain}`
 const artPath = './src/pages/articles'
 const articleFiles = await fs.readdir(artPath)
 const articles = (await Promise.all(articleFiles

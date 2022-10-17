@@ -1,6 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { FooterLink } from "../components/FooterLink";
 import Github from "../components/icons/Github";
 import KoFi from "../components/icons/KoFi";
 import LinkedIn from "../components/icons/LinkedIn";
@@ -19,9 +20,9 @@ export function AppLayout(): React.ReactElement {
     useLink('icon', 'https://github.com/lbfalvy.png')
     return <div className={styles.main}>
         <header className={styles.pagehead}>
-            <h1>Lawrence Bethlenfalvy</h1>
+            <h1>Lawrence Bet…</h1>
             <nav>
-                <NavLink to="/">Blog</NavLink>
+                <NavLink to="/" end>Blog</NavLink>
                 <NavLink to="/projects">Projects</NavLink>
                 <NavLink to="/about">About me</NavLink>
             </nav>
@@ -32,33 +33,33 @@ export function AppLayout(): React.ReactElement {
         <footer className={styles.contact}>
             <h2>Contact</h2>
             <div>
-                <a href="mailto:lbfalvy@protonmail.com" className="email">
+                <FooterLink href="mailto:lbfalvy@protonmail.com">
                     <i style={{ background: 'white', color: 'black' }} className="gg-mail"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/lawrence-bethlenfalvy/">
+                </FooterLink>
+                <FooterLink href="https://www.linkedin.com/in/lawrence-bethlenfalvy/">
                     <LinkedIn />
-                </a>
-                <a href="https://github.com/lbfalvy">
+                </FooterLink>
+                <FooterLink href="https://github.com/lbfalvy">
                     <Github />
-                </a>
-                <a href="https://www.npmjs.com/~lbfalvy">
+                </FooterLink>
+                <FooterLink href="https://www.npmjs.com/~lbfalvy">
                     <Npm />
-                </a>
-                <a href="https://ko-fi.com/lbfalvy">
+                </FooterLink>
+                <FooterLink href="https://ko-fi.com/lbfalvy">
                     <KoFi />
-                </a>
-                <a href="https://www.patreon.com/lbfalvy">
+                </FooterLink>
+                <FooterLink href="https://www.patreon.com/lbfalvy">
                     <Patreon />
-                </a>
-                <a href="/feed">
+                </FooterLink>
+                <FooterLink href="/feed">
                     <Rss />
-                </a>
-                <a href="https://twitter.com/lbfalvy">
+                </FooterLink>
+                <FooterLink href="https://twitter.com/lbfalvy">
                     <Twitter />
-                </a>
-                <a href="https://t.me/lbfalvy">
+                </FooterLink>
+                <FooterLink href="https://t.me/lbfalvy">
                     <Telegram />
-                </a>
+                </FooterLink>
             </div>
         </footer>
 
