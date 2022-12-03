@@ -1,3 +1,10 @@
 {
-    "typescript.tsdk": "node_modules/typescript/lib"
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "[mdx]": {
+        "editor.wordWrap": "bounded",
+        "editor.wordWrapColumn": 80,
+        "editor.minimap.enabled": false,
+        // "editor.lineNumbers": "off",
+        "breadcrumbs.showStrings": false,
+    }
 }

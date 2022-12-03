@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router";
 import { Link, NavLink } from "react-router-dom";
-import { FooterLink } from "../components/FooterLink";
+import { A } from "../components/A";
 import Github from "../components/icons/Github";
 import KoFi from "../components/icons/KoFi";
 import LinkedIn from "../components/icons/LinkedIn";
@@ -33,33 +33,33 @@ export function AppLayout(): React.ReactElement {
         <footer className={styles.contact}>
             <h2>Contact</h2>
             <div>
-                <FooterLink href="mailto:lbfalvy@protonmail.com">
+                <A href="mailto:lbfalvy@protonmail.com">
                     <i style={{ background: 'white', color: 'black' }} className="gg-mail"></i>
-                </FooterLink>
-                <FooterLink href="https://www.linkedin.com/in/lawrence-bethlenfalvy/">
+                </A>
+                <A href="https://www.linkedin.com/in/lawrence-bethlenfalvy/">
                     <LinkedIn />
-                </FooterLink>
-                <FooterLink href="https://github.com/lbfalvy">
+                </A>
+                <A href="https://github.com/lbfalvy">
                     <Github />
-                </FooterLink>
-                <FooterLink href="https://www.npmjs.com/~lbfalvy">
+                </A>
+                <A href="https://www.npmjs.com/~lbfalvy">
                     <Npm />
-                </FooterLink>
-                <FooterLink href="https://ko-fi.com/lbfalvy">
+                </A>
+                <A href="https://ko-fi.com/lbfalvy">
                     <KoFi />
-                </FooterLink>
-                <FooterLink href="https://www.patreon.com/lbfalvy">
+                </A>
+                <A href="https://www.patreon.com/lbfalvy">
                     <Patreon />
-                </FooterLink>
-                <FooterLink href="/feed">
+                </A>
+                <A href="/feed">
                     <Rss />
-                </FooterLink>
-                <FooterLink href="https://twitter.com/lbfalvy">
+                </A>
+                <A href="https://twitter.com/lbfalvy">
                     <Twitter />
-                </FooterLink>
-                <FooterLink href="https://t.me/lbfalvy">
+                </A>
+                <A href="https://t.me/lbfalvy">
                     <Telegram />
-                </FooterLink>
+                </A>
             </div>
         </footer>
 
