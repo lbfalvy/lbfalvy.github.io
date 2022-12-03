@@ -3,7 +3,7 @@ import Rss from 'rss'
 import { Temporal } from '@js-temporal/polyfill'
 import fs from 'fs/promises'
 import Metadata from '../src/pages/articles/Metadata'
-import { domain } from '../config'
+import { domain } from '../config.js'
 
 const now = Temporal.Now.zonedDateTimeISO()
 const baseURL = `https:/${domain}`
@@ -19,10 +19,10 @@ const feed = new Rss({
     site_url: baseURL,
     title: `Lawrence Bethlenfalvy's blog`,
     categories: ['blog', ...new Set(articles.flatMap(art => art.tags))],
-    copyright: `${now.year} Lawrence Bethlenfalvy all`,
+    copyright: `${now.year} Lawrence Bethlenfalvy all rights reserved`,
     description: `
         I often post about my various projects and my experiences with assorted tools.
-        I like a mathematical approah to computer science and an engineer's approach to
+        I like a mathematical approach to computer science and an engineer's approach to
         mathematics.
     `,
     image_url: 'https://github.com/lbfalvy.png',

@@ -53,7 +53,7 @@ function tokenizeExp(expr: string): Token[]  {
     if (ws) return [['whitespace', ws[0]], ...tokenizeExp(expr.slice(ws[0].length))]
     const keyword = /^(export|import|default|replacing)\s/.exec(expr)
     if (keyword) return [['keyword', keyword[0]], ...tokenizeExp(expr.slice(keyword[0].length))]
-    const macro = /^:=|^=([\d\_a-fA-F]+(\.[\d\_a-fA-F]+)?(p-?[\d_]+)?)?=>/.exec(expr)
+    const macro = /^:=|^=\-?([\d\_a-fA-F]+(\.[\d\_a-fA-F]+)?(p\-?[\d_]+)?)?=>/.exec(expr)
     // const macro = /^[:<]=(([\d_]+(\.[\d_]+)?)?=>?)?/.exec(expr)
     if (macro) return [['macro', macro[0]], ...tokenizeExp(expr.slice(macro[0].length))]
     const number = /^\d\S*/.exec(expr)
@@ -95,11 +95,14 @@ const varLvlCtx = React.createContext<Map<string, number>>(new Map())
 
 export const H = ({ c }: { c: string }): React.ReactElement => <LambdaHighlight children={c} />
 
-export default function LambdaHighlight({ children }: { children: string | Token[] }): React.ReactElement {
+
+export function LambdaHighlight({ children }: { children: string | Token[] }): React.ReactElement {
     const vlvlv = React.useContext(varLvlCtx)
     const nextLvl = vlvlv.size + 1
     let tokens: Token[]
     if (typeof children == 'string') {
+        // Do not try to move the opening and closing brackets and
+        // literal terminators into the same line as the tag, it breaks Acorn
         tokens = tokenizeExp(children)
     } else tokens = children
     return <code className={style.main}>

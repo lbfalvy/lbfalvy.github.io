@@ -1,4 +1,4 @@
-import{R as e,c as l,s as n,u as c,a as m,b as u}from"./index.cc569d2e.js";const b="_main_b0dtv_1",_={main:b};function d({name:a,url:o,children:r}){return e.createElement("a",{href:o,className:l(_.main,n.linkbox)},e.createElement("article",null,e.createElement("h3",null,a),e.createElement("p",null,r)))}const f="_main_1qb79_1",p={main:f},g={name:"\xC1rny\xE9kegyetem",tags:["react","web","app","ts"],description:`
+import{R as e,c as l,s as n,u as c,a as m,b as u}from"./index.4815d703.js";const b="_main_b0dtv_1",_={main:b};function d({name:a,url:o,children:r}){return e.createElement("a",{href:o,className:l(_.main,n.linkbox)},e.createElement("article",null,e.createElement("h3",null,a),e.createElement("p",null,r)))}const f="_main_1qb79_1",p={main:f},g={name:"\xC1rny\xE9kegyetem",tags:["react","web","app","ts"],description:`
         (currently offline)
         A complex SPA for the ARG (Alternate Reality Game) of the same name. This is
         the homebase of the game, and it serves the role of a blog, wiki and forum.
