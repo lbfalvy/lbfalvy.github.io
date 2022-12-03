@@ -7,6 +7,7 @@ import puppeteer from 'puppeteer';
 // Config
 
 const dir = './docs'
+const CNAME = 'www.lbfalvy.com'
 async function routes(): Promise<string[]> {
     const articleFiles = await fs.readdir('./src/pages/articles')
     return [
@@ -59,7 +60,7 @@ async function write(data: string, path: string[]): Promise<void> {
     await fs.writeFile(path.join('/'), data)
 }
 
-async function prerender(routes: string[], dir: string) { 
+async function prerender(routes: string[], dir: string, cname?: string) { 
     const port = 8432
     console.log('Starting Vite and Puppeteer...')
     const [srv, crawler] = await Promise.all([
@@ -101,6 +102,8 @@ async function prerender(routes: string[], dir: string) {
             path
         )
     }))
+
+    if (cname !== undefined) await fs.writeFile(`${dir}/CNAME`, cname);
 }
 
-routes().then(routes => prerender(routes, dir))
+routes().then(routes => prerender(routes, dir, CNAME))

@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "clean": "rm -rf ./docs",
     "build:bundle": "vite build",
     "build:prerender": "node --loader ts-node/esm utils/prerender.ts",
     "build:rss": "node --loader ts-node/esm utils/genRss.ts",
