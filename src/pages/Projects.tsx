@@ -29,7 +29,7 @@ export default function ProjectsPage() {
         </header>
         <main>
             {filtered.map(proj =>
-                <Project name={proj.name} url={proj.url}>
+                <Project name={proj.name} url={proj.url}> key={proj.name}
                     {proj.description}
                 </Project>
             )}

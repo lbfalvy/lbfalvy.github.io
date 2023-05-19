@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom'
+import { createRoot, hydrateRoot } from 'react-dom/client'
 import React from 'react'
 import './index.scss'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
@@ -24,11 +24,11 @@ const tree = () =>
 
 document.body.onload = () => {
     const old = document.getElementById('root')
-    if (old) ReactDOM.hydrate(tree(), old)
+    if (old) hydrateRoot(old, tree())
     else {
         const root = document.createElement('div')
         root.id='root'
         document.body.append(root)
-        ReactDOM.render(tree(), root)
+        createRoot(root).render(tree());
     }
 }

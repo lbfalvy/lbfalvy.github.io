@@ -107,8 +107,8 @@ export function LambdaHighlight({ children }: { children: string | Token[] }): R
     } else tokens = children
     return <code className={style.main}>
         {tokens.map(([name, value, ...extras], i) => { switch (name) {
-            case 'comment': return <span className={style.comment}>{value}</span>
-            case 'name': return <span 
+            case 'comment': return <span key={i} className={style.comment}>{value}</span>
+            case 'name': return <span key={i} 
                 className={classList(style.name, vlvlv.get(value) || style.global)}
                 style={vlvlv.has(value) ? {
                     '--level': `${vlvlv.get(value)}`
@@ -116,14 +116,14 @@ export function LambdaHighlight({ children }: { children: string | Token[] }): R
             >
                 {value}
             </span>
-            case 'operator': return <span className={style.operator}>{value}</span>
-            case 'whitespace': return <span>{value}</span>
-            case 'placeholder': return <span className={style.placeholder}>{value}</span>
-            case 'macro': return <span className={style.macro}>{value}</span>
-            case 'keyword': return <span className={style.keyword}>{value}</span>
-            case 'string': return <span className={style.string}>{value}</span>
-            case 'number': return <span className={style.number}>{value}</span>
-            case 'lambda': return <varLvlCtx.Provider value={(()=>{
+            case 'operator': return <span key={i} className={style.operator}>{value}</span>
+            case 'whitespace': return <span key={i}>{value}</span>
+            case 'placeholder': return <span key={i} className={style.placeholder}>{value}</span>
+            case 'macro': return <span key={i} className={style.macro}>{value}</span>
+            case 'keyword': return <span key={i} className={style.keyword}>{value}</span>
+            case 'string': return <span key={i} className={style.string}>{value}</span>
+            case 'number': return <span key={i} className={style.number}>{value}</span>
+            case 'lambda': return <varLvlCtx.Provider key={i} value={(()=>{
                 const sub_vlvlv = new Map(vlvlv)
                 sub_vlvlv.set(value, nextLvl)
                 return sub_vlvlv

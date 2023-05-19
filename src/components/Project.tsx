@@ -10,7 +10,7 @@ interface ProjectProps {
 }
 
 export function Project({ name, url, children }: ProjectProps): React.ReactElement {
-    return <a href={url} className={classList(styles.main, sstyles.linkbox)}>
+    return <a href={url} className={classList(styles.main, sstyles.linkbox)} target="_blank">
         <article>
             <h3>{name}</h3>
             <p>

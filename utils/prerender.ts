@@ -26,12 +26,13 @@ async function getCrawler(): Promise<{
     stop: () => Promise<void>
     get: (path: string) => Promise<string>
 }> {
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({ headless: false });
     return {
-        stop: () => browser.close(),
+        stop: () => Promise.resolve(),//() => browser.close(),
         async get(path) {
             const page = await browser.newPage();
-            await page.goto(path, { waitUntil: 'networkidle0' });
+            await page.goto(path);
+            await page.waitForNetworkIdle({ idleTime: 10000 });
             const content = await page.content();
             await page.close();
             return content;
@@ -99,7 +100,7 @@ async function prerender(routes: string[], dir: string, cname?: string) {
             template
                 .replace('<!-- SSR-placeholder -->', html)
                 .replace('<!-- SSR-head-placeholder -->', head),
-            path
+            path,
         )
     }))
 
