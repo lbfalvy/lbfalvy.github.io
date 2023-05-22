@@ -5,7 +5,7 @@ export default function AboutPage() {
     return <div className={styles.main}>
         <img src='https://github.com/lbfalvy.png' />
         <p>
-            My name is Bethlenfalvy Lőrinc, I make websites and web-based applications primarily
+            My name is Lawrence Bethlenfalvy, I make websites and web-based applications primarily
             with React. I enjoy seeing the fruit of my labour, which is why I do so much
             frontend development even though I'm not exactly an artistic genius, as finest
             demonstrated by this website.

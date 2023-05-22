@@ -12,7 +12,7 @@ import useMetadata from '../hooks/useMetadata'
 
 export default function BlogPage(): React.ReactElement {
     useMetadata('website',
-        `Lawrence's Blog`,
+        `Lawrence's Blug`,
         'I sometimes write about my projects or my experience with technologies',
         ['blog']
     )
@@ -24,6 +24,7 @@ export default function BlogPage(): React.ReactElement {
         <header className={classList(sstyles.sideBar, sstyles.filters)}>
             {tags.map(cat => 
                 <a href="#" onClick={() => toggleFilter(cat)}
+                    key={cat}
                     className={classList(
                         filter.includes(cat) && sstyles.active,
                         list.every(x => !x.tags.includes(cat)) && sstyles.empty

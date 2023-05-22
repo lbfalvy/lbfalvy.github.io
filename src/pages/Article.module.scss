@@ -1,4 +1,4 @@
-@import url('https://css.gg/link.css');
+@import url('https://unpkg.com/css.gg@2.0.0/icons/css/link.css');
 @import '../helpers/shared.module.scss';
 
 $brk: 800px;
@@ -72,14 +72,14 @@ $brk: 800px;
             display: inline-block;
             margin: 5px 10px;
             color: grey;
-            visibility: hidden;
+            // visibility: hidden;
         }
         h1,h2,h3,h4,h5,h6 {
             font-family: 'Montserrat', sans-serif;
             // font-weight: 300;
-            &:hover :global(.linkbtn) {
-                visibility: unset;
-            }
+            // &:hover :global(.linkbtn) {
+            //     visibility: unset;
+            // }
         }
 
         // Basic aesthetics

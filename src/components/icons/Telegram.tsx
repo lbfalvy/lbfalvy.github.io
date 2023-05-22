@@ -4,8 +4,8 @@ export default function Telegram(): React.ReactElement {
     return <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 240 240" width="16" height="16">
         <defs>
             <linearGradient id="linear-gradient" x1="120" y1="240" x2="120" gradientUnits="userSpaceOnUse">
-                <stop offset="0" stop-color="#1d93d2"/>
-                <stop offset="1" stop-color="#38b0e3"/>
+                <stop offset="0" stopColor="#1d93d2"/>
+                <stop offset="1" stopColor="#38b0e3"/>
             </linearGradient>
         </defs>
         <circle cx="120" cy="120" r="120" fill="url(#linear-gradient)"/>

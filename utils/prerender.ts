@@ -7,6 +7,7 @@ import puppeteer from 'puppeteer';
 // Config
 
 const dir = './docs'
+const CNAME = 'www.lbfalvy.com'
 async function routes(): Promise<string[]> {
     const articleFiles = await fs.readdir('./src/pages/articles')
     return [
@@ -25,12 +26,13 @@ async function getCrawler(): Promise<{
     stop: () => Promise<void>
     get: (path: string) => Promise<string>
 }> {
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({ headless: false });
     return {
-        stop: () => browser.close(),
+        stop: () => Promise.resolve(),//() => browser.close(),
         async get(path) {
             const page = await browser.newPage();
-            await page.goto(path, { waitUntil: 'networkidle0' });
+            await page.goto(path);
+            await page.waitForNetworkIdle({ idleTime: 10000 });
             const content = await page.content();
             await page.close();
             return content;
@@ -59,7 +61,7 @@ async function write(data: string, path: string[]): Promise<void> {
     await fs.writeFile(path.join('/'), data)
 }
 
-async function prerender(routes: string[], dir: string) { 
+async function prerender(routes: string[], dir: string, cname?: string) { 
     const port = 8432
     console.log('Starting Vite and Puppeteer...')
     const [srv, crawler] = await Promise.all([
@@ -98,9 +100,11 @@ async function prerender(routes: string[], dir: string) {
             template
                 .replace('<!-- SSR-placeholder -->', html)
                 .replace('<!-- SSR-head-placeholder -->', head),
-            path
+            path,
         )
     }))
+
+    if (cname !== undefined) await fs.writeFile(`${dir}/CNAME`, cname);
 }
 
-routes().then(routes => prerender(routes, dir))
+routes().then(routes => prerender(routes, dir, CNAME))
