@@ -9,7 +9,7 @@ import Inspect from 'vite-plugin-inspect'
 
 export default defineConfig({
     build: {
-        outDir: './docs'
+        outDir: './docs',
     },
     plugins: [
         reactRefresh(),

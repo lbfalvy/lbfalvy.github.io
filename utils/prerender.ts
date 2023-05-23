@@ -20,6 +20,7 @@ async function routes(): Promise<string[]> {
     ]
 }
 
+
 // Implementation
 
 type Crawler = {
@@ -65,7 +66,14 @@ async function write(data: string, path: string[]): Promise<void> {
     await fs.writeFile(path.join('/'), data)
 }
 
+const phComment = '<!-- SSR-placeholder -->';
+const headPhComment = '<!-- SSR-head-placeholder -->';
 async function prerender(routes: string[], dir: string, cname?: string) { 
+    console.log('Loading template...')
+    const template = await fs.readFile(`${dir}/index.html`, { encoding: 'utf-8' })
+    if (!template.includes(phComment)) throw new Error(`Template must contain ${phComment}`);
+    if (!template.includes(headPhComment)) throw new Error(`Template must contain ${headPhComment}`);
+
     const port = 8432
     console.log('Starting Vite and Puppeteer...')
     const [srv, crawler] = await Promise.all([
@@ -79,7 +87,7 @@ async function prerender(routes: string[], dir: string, cname?: string) {
             console.log(`Rendering /${route}`)
             const html = await crawler.get(`http://localhost:${port}/${route}`);
             console.log(`Successfully rendered /${route}`)
-            const root = parse(html).querySelector('#root')
+            const root = parse(html).querySelector('body')
             const head = parse(html).querySelectorAll('[data-ssr], title')
             if (!root) throw new Error(`#root not found`)
             return [
@@ -97,13 +105,12 @@ async function prerender(routes: string[], dir: string, cname?: string) {
     ])
 
     console.log('Writing back to file...')
-    const template = await fs.readFile(`./index.html`, { encoding: 'utf-8' })
     await Promise.all(results.map(async ([route, html, head]) => {
         const path = getPathForRoute(dir, route)
         await write(
             template
-                .replace('<!-- SSR-placeholder -->', html)
-                .replace('<!-- SSR-head-placeholder -->', head),
+                .replace(phComment, html)
+                .replace(headPhComment, head),
             path,
         )
     }))
