@@ -1,4 +1,4 @@
-import{j as e}from"./jsx-runtime-24dda297.js";import{L as t}from"./LambdaHighlight-8cde56a0.js";import"./index-2a8bec30.js";function s(a){const n=Object.assign({h2:"h2",a:"a",i:"i",ul:"ul",li:"li",p:"p",h3:"h3",code:"code",em:"em"},a.components);return e.jsxs(e.Fragment,{children:[e.jsxs(n.h2,{id:"table-of-contents",children:[e.jsx(n.a,{"aria-hidden":"true",tabIndex:"-1",href:"#table-of-contents",children:e.jsx(n.i,{className:"linkbtn gg-link"})}),"Table of contents"]}),`
+import{j as e}from"./jsx-runtime-82b96a72.js";import{L as t}from"./LambdaHighlight-2768f9a0.js";import"./index-b343c6e9.js";import"./classList-dea12197.js";function s(a){const n=Object.assign({h2:"h2",a:"a",i:"i",ul:"ul",li:"li",p:"p",h3:"h3",code:"code",em:"em"},a.components);return e.jsxs(e.Fragment,{children:[e.jsxs(n.h2,{id:"table-of-contents",children:[e.jsx(n.a,{"aria-hidden":"true",tabIndex:"-1",href:"#table-of-contents",children:e.jsx(n.i,{className:"linkbtn gg-link"})}),"Table of contents"]}),`
 `,e.jsxs(n.ul,{children:[`
 `,e.jsxs(n.li,{children:[e.jsx(n.a,{href:"#rules",children:"Rules"}),`
 `,e.jsxs(n.ul,{children:[`
@@ -73,4 +73,4 @@ if $a then $b else $c <=2= ($a $b $c) -- assuming Church booleans
 `,e.jsx(n.p,{children:e.jsx(n.em,{children:"ps: I updated the code samples in this article to keep the highlighting working. Changes:"})}),`
 `,e.jsxs(n.ul,{children:[`
 `,e.jsx(n.li,{children:e.jsxs(n.em,{children:["replaced ",e.jsx(n.code,{children:"="})," and ",e.jsx(n.code,{children:"=="})," with ",e.jsx(n.code,{children:":="})," in invariant rules"]})}),`
-`]})]})}function l(a={}){const{wrapper:n}=a.components||{};return n?e.jsx(n,Object.assign({},a,{children:e.jsx(s,a)})):s(a)}export{l as default};
+`]})]})}function h(a={}){const{wrapper:n}=a.components||{};return n?e.jsx(n,Object.assign({},a,{children:e.jsx(s,a)})):s(a)}export{h as default};

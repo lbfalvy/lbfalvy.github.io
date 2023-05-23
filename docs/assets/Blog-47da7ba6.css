@@ -1,0 +1,1 @@
+._list_uikcb_1 article{display:grid;grid-template-columns:1fr auto auto;grid-template-areas:"title address time" "summary summary summary"}._list_uikcb_1 article h3{grid-area:title;margin-top:0}._list_uikcb_1 article time{grid-area:time}._list_uikcb_1 article summary{grid-area:summary}._list_uikcb_1 article address{grid-area:address}
