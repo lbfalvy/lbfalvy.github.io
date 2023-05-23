@@ -22,20 +22,24 @@ async function routes(): Promise<string[]> {
 
 // Implementation
 
-async function getCrawler(): Promise<{
+type Crawler = {
     stop: () => Promise<void>
     get: (path: string) => Promise<string>
-}> {
-    const browser = await puppeteer.launch({ headless: false });
+};
+
+async function getPuppeteerCrawler(): Promise<Crawler> {
+    const browser = await puppeteer.launch({ product: 'chrome', headless: 'new' });
     return {
-        stop: () => Promise.resolve(),//() => browser.close(),
+        stop: () => browser.close(),
         async get(path) {
             const page = await browser.newPage();
-            await page.goto(path);
-            await page.waitForNetworkIdle({ idleTime: 10000 });
-            const content = await page.content();
-            await page.close();
-            return content;
+            try {
+                await page.goto(path, { timeout: 30_000 });
+                await page.waitForNetworkIdle({ idleTime: 500, timeout: 10_000 });
+                return await page.content()
+            } finally {
+                await page.close();
+            }
         }
     }
 }
@@ -66,15 +70,15 @@ async function prerender(routes: string[], dir: string, cname?: string) {
     console.log('Starting Vite and Puppeteer...')
     const [srv, crawler] = await Promise.all([
         createServer().then(s => s.listen(port)),
-        getCrawler()
+        getPuppeteerCrawler()
     ])
 
     console.log('Rendering HTML...')
     const results = await Promise.all(
         routes.map(async route => {
-            console.log(`Rendering ${route}`)
+            console.log(`Rendering /${route}`)
             const html = await crawler.get(`http://localhost:${port}/${route}`);
-            console.log(`Successfully rendered ${route}`)
+            console.log(`Successfully rendered /${route}`)
             const root = parse(html).querySelector('#root')
             const head = parse(html).querySelectorAll('[data-ssr], title')
             if (!root) throw new Error(`#root not found`)
@@ -93,7 +97,7 @@ async function prerender(routes: string[], dir: string, cname?: string) {
     ])
 
     console.log('Writing back to file...')
-    const template = await fs.readFile(`${dir}/index.html`, { encoding: 'utf-8' })
+    const template = await fs.readFile(`./index.html`, { encoding: 'utf-8' })
     await Promise.all(results.map(async ([route, html, head]) => {
         const path = getPathForRoute(dir, route)
         await write(
