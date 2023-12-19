@@ -14,7 +14,7 @@ $brk: 800px;
             'summary summary';
 
         @media (min-width: $brk) {
-            grid-template-columns: auto auto 1fr;
+            grid-template-columns: auto auto minmax(300px, 1fr);
             grid-template-rows: auto auto;
             grid-template-areas:
                 'title author time'
@@ -51,6 +51,7 @@ $brk: 800px;
     }
 
     main {
+        max-width: 100%;
         font-family: 'Roboto', sans-serif;
         font-weight: 300;
         @include side-bar-container();
@@ -118,9 +119,17 @@ $brk: 800px;
             max-width: 100%;
         }
 
+        pre {
+            max-width: 100%;
+            overflow-x: auto;
+            padding: 5px 10px;
+            background-color: #fff1;
+        }
+
         code {
             font-family: 'Source Code Pro', monospace;
             font-size: inherit;
+            overflow-x: auto;
             // background: #0004;
             // padding: 0 5px;
             // border-radius: 5px;

@@ -5,29 +5,38 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { AppLayout } from './layouts/App'
 import { Await } from '@lbfalvy/react-await'
 
-const obtainBlogPage = () => import('./pages/Blog')
+const obtainBlogPage = async () => {
+    try {
+        const ret = await import('./pages/Blog');
+        console.log("Blog loaded")
+        return ret
+    } catch (e) {
+        console.error(e);
+        throw e;
+    }
+}
 const obtainProjectsPage = () => import('./pages/Projects')
 const obtainAboutPage = () => import('./pages/about')
 const obtainArticlePage = () => import('./pages/Article')
 
 const tree = () =>
-<BrowserRouter>
-    <Routes>
-        <Route path="/" element={<AppLayout/>} >
-            <Route index element={<Await obtainFor={obtainBlogPage}/>} />
-            <Route path="blog/:article" element={<Await obtainFor={obtainArticlePage} />} />
-            <Route path="projects" element={<Await obtainFor={obtainProjectsPage} />} />
-            <Route path="about" element={<Await obtainFor={obtainAboutPage} />} />
-        </Route>
-    </Routes>
-</BrowserRouter>
+    <BrowserRouter>
+        <Routes>
+            <Route path="/" element={<AppLayout />} >
+                <Route index element={<Await obtainFor={obtainBlogPage} />} />
+                <Route path="blog/:article" element={<Await obtainFor={obtainArticlePage} />} />
+                <Route path="projects" element={<Await obtainFor={obtainProjectsPage} />} />
+                <Route path="about" element={<Await obtainFor={obtainAboutPage} />} />
+            </Route>
+        </Routes>
+    </BrowserRouter>
 
 document.body.onload = () => {
     const old = document.getElementById('root')
     if (old) hydrateRoot(old, tree())
     else {
         const root = document.createElement('div')
-        root.id='root'
+        root.id = 'root'
         document.body.append(root)
         createRoot(root).render(tree());
     }

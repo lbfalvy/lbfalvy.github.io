@@ -1,11 +1,9 @@
 import { defineConfig } from 'vite'
 import reactRefresh from '@vitejs/plugin-react-refresh'
 import mdx from '@mdx-js/rollup'
-import rewriteAll from 'vite-plugin-rewrite-all'
 import remarkToc from 'remark-toc'
 import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
-import Inspect from 'vite-plugin-inspect'
 import rehypeHighlight from "rehype-highlight"
 
 export default defineConfig({
@@ -14,7 +12,6 @@ export default defineConfig({
     },
     plugins: [
         reactRefresh(),
-        Inspect(),
         mdx({
             useDynamicImport: false,
             remarkPlugins: [
@@ -36,7 +33,6 @@ export default defineConfig({
                     }
                 }]
             ]
-        }),
-        rewriteAll()
+        })
     ]
 })
