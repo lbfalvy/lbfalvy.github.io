@@ -23,8 +23,9 @@ $brk: 800px;
 
         h1 {
             grid-area: title;
-            font-size: 2em;
+            font-size: 1.7em;
             margin: 10px;
+            overflow-x: visible;
         }
 
         address {
