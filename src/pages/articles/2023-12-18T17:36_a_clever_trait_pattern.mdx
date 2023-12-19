@@ -81,11 +81,15 @@ trait HitTargetPick {
 
 // specific to Block
 struct HitTargetByBlock;
-impl<T> HitTargetImpl<HitTargetByBlock> for T where T: Block + HitTargetPick<Key = HitTargetByBlock> {}
+impl<T> HitTargetImpl<HitTargetByBlock> for T
+where T: Block + HitTargetPick<Key = HitTargetByBlock>
+{}
 
 // specific to Entity
 struct HitTargetByEntity;
-impl<T> HitTargetImpl<HitTargetByEntity> for T where T: Entity + HitTargetPick<Key = HitTargetByEntity> {}
+impl<T> HitTargetImpl<HitTargetByEntity> for T
+where T: Entity + HitTargetPick<Key = HitTargetByEntity>
+{}
 ```
 
 This way the two `HitTargetImpl` implementations are mutually exclusive and the `HitTarget` implementation selects one unambiguously.

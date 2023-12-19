@@ -1,4 +1,4 @@
-import{j as e}from"./jsx-runtime-yrloyHiS.js";import"./index-lgQ9cqWi.js";function a(t){const s={a:"a",code:"code",em:"em",h1:"h1",i:"i",li:"li",p:"p",pre:"pre",span:"span",ul:"ul",...t.components};return e.jsxs(e.Fragment,{children:[e.jsxs(s.p,{children:["I recently saw a clever techinque ",e.jsx(s.a,{href:"https://users.rust-lang.org/t/two-blanket-implementations-for-different-classes-of-objects/100173",children:"on the Rust forum"})," which reshaped my understanding of traits. It took me a while to fully understand why this technique works and I found the conclusion very satisfying, so I'll break it down in this article."]}),`
+import{j as e}from"./jsx-runtime-DBxbVxKC.js";import"./index-ZlcVxoNn.js";function a(t){const s={a:"a",code:"code",em:"em",h1:"h1",i:"i",li:"li",p:"p",pre:"pre",span:"span",ul:"ul",...t.components};return e.jsxs(e.Fragment,{children:[e.jsxs(s.p,{children:["I recently saw a clever techinque ",e.jsx(s.a,{href:"https://users.rust-lang.org/t/two-blanket-implementations-for-different-classes-of-objects/100173",children:"on the Rust forum"})," which reshaped my understanding of traits. It took me a while to fully understand why this technique works and I found the conclusion very satisfying, so I'll break it down in this article."]}),`
 `,e.jsx(s.p,{children:"Let's suppose that we have the following structure. This is a contrived example vaguely inspired by Minecraft, but the general situation is fairly common."}),`
 `,e.jsx(s.pre,{children:e.jsxs(s.code,{className:"hljs language-rust",children:[e.jsx(s.span,{className:"hljs-keyword",children:"trait"})," ",e.jsx(s.span,{className:"hljs-title class_",children:"Entity"}),` {}
 `,e.jsx(s.span,{className:"hljs-keyword",children:"trait"})," ",e.jsx(s.span,{className:"hljs-title class_",children:"Block"}),` {}
@@ -52,11 +52,15 @@ import{j as e}from"./jsx-runtime-yrloyHiS.js";import"./index-lgQ9cqWi.js";functi
 
 `,e.jsx(s.span,{className:"hljs-comment",children:"// specific to Block"}),`
 `,e.jsx(s.span,{className:"hljs-keyword",children:"struct"})," ",e.jsx(s.span,{className:"hljs-title class_",children:"HitTargetByBlock"}),`;
-`,e.jsx(s.span,{className:"hljs-keyword",children:"impl"}),"<T> HitTargetImpl<HitTargetByBlock> ",e.jsx(s.span,{className:"hljs-keyword",children:"for"})," ",e.jsx(s.span,{className:"hljs-title class_",children:"T"})," ",e.jsx(s.span,{className:"hljs-keyword",children:"where"}),` T: Block + HitTargetPick<Key = HitTargetByBlock> {}
+`,e.jsx(s.span,{className:"hljs-keyword",children:"impl"}),"<T> HitTargetImpl<HitTargetByBlock> ",e.jsx(s.span,{className:"hljs-keyword",children:"for"})," ",e.jsx(s.span,{className:"hljs-title class_",children:"T"}),`
+`,e.jsx(s.span,{className:"hljs-keyword",children:"where"}),` T: Block + HitTargetPick<Key = HitTargetByBlock>
+{}
 
 `,e.jsx(s.span,{className:"hljs-comment",children:"// specific to Entity"}),`
 `,e.jsx(s.span,{className:"hljs-keyword",children:"struct"})," ",e.jsx(s.span,{className:"hljs-title class_",children:"HitTargetByEntity"}),`;
-`,e.jsx(s.span,{className:"hljs-keyword",children:"impl"}),"<T> HitTargetImpl<HitTargetByEntity> ",e.jsx(s.span,{className:"hljs-keyword",children:"for"})," ",e.jsx(s.span,{className:"hljs-title class_",children:"T"})," ",e.jsx(s.span,{className:"hljs-keyword",children:"where"}),` T: Entity + HitTargetPick<Key = HitTargetByEntity> {}
+`,e.jsx(s.span,{className:"hljs-keyword",children:"impl"}),"<T> HitTargetImpl<HitTargetByEntity> ",e.jsx(s.span,{className:"hljs-keyword",children:"for"})," ",e.jsx(s.span,{className:"hljs-title class_",children:"T"}),`
+`,e.jsx(s.span,{className:"hljs-keyword",children:"where"}),` T: Entity + HitTargetPick<Key = HitTargetByEntity>
+{}
 `]})}),`
 `,e.jsxs(s.p,{children:["This way the two ",e.jsx(s.code,{children:"HitTargetImpl"})," implementations are mutually exclusive and the ",e.jsx(s.code,{children:"HitTarget"})," implementation selects one unambiguously."]}),`
 `,e.jsxs(s.p,{children:["With this in place, any ",e.jsx(s.code,{children:"Block"})," or ",e.jsx(s.code,{children:"Entity"})," can become a ",e.jsx(s.code,{children:"HitTarget"})," without reimplementing any of the logic by just selecting the correct Key for the implementation:"]}),`
