@@ -1,4 +1,4 @@
-import{j as e}from"./jsx-runtime-0127b9df.js";import{L as t}from"./LambdaHighlight-a7fc9e51.js";import"./index-0e98de9a.js";import"./classList-dea12197.js";function s(a){const n=Object.assign({h2:"h2",a:"a",i:"i",ul:"ul",li:"li",p:"p",h3:"h3",code:"code",em:"em"},a.components);return e.jsxs(e.Fragment,{children:[e.jsxs(n.h2,{id:"table-of-contents",children:[e.jsx(n.a,{"aria-hidden":"true",tabIndex:"-1",href:"#table-of-contents",children:e.jsx(n.i,{className:"linkbtn gg-link"})}),"Table of contents"]}),`
+import{j as e}from"./jsx-runtime-WlUtsefC.js";import{L as t}from"./LambdaHighlight-awbIc-rS.js";import"./index-w4kDYxkg.js";import"./classList-dVscd13K.js";function s(a){const n={a:"a",code:"code",em:"em",h2:"h2",h3:"h3",i:"i",li:"li",p:"p",ul:"ul",...a.components};return e.jsxs(e.Fragment,{children:[e.jsxs(n.h2,{id:"table-of-contents",children:[e.jsx(n.a,{"aria-hidden":"true",tabIndex:"-1",href:"#table-of-contents",children:e.jsx(n.i,{className:"linkbtn gg-link"})}),"Table of contents"]}),`
 `,e.jsxs(n.ul,{children:[`
 `,e.jsxs(n.li,{children:[e.jsx(n.a,{href:"#rules",children:"Rules"}),`
 `,e.jsxs(n.ul,{children:[`
@@ -16,7 +16,7 @@ import{j as e}from"./jsx-runtime-0127b9df.js";import{L as t}from"./LambdaHighlig
 `]}),`
 `,e.jsx(n.li,{children:e.jsx(n.a,{href:"#future",children:"Future"})}),`
 `]}),`
-`,e.jsx(n.h2,{id:"",children:e.jsx(n.a,{"aria-hidden":"true",tabIndex:"-1",href:"#",children:e.jsx(n.i,{className:"linkbtn gg-link"})})}),`
+`,e.jsx(n.h2,{id:""}),`
 `,e.jsxs(n.p,{children:["Lambda calculus is a mathematical approach to abstract machines that served as the basis of languages such as Haskell and ML. As a programmer who had mainly worked with procedural languages, it always intrigued me how such languages are constructed. Recently I made an educational ",e.jsx("a",{href:"https://www.lbfalvy.com/f.engine",children:"Lambda calculus executor"})," combined with an interactive tutorial to show the language to a friend, and this gave me a bit of insight into the general ideas of the language. In this series I hope to successfully define a language which is both usable and pure by applying the code quality principles I learned in Typescript onto Lambda Calculus."]}),`
 `,e.jsxs(n.p,{children:["If you aren't familiar with Lambda calculus, I suggest reading through the above tutorial or the ",e.jsx(n.a,{href:"https://en.wikipedida.org/wiki/Lambda_calculus",children:"Wikipedia page"}),"."]}),`
 `,e.jsxs(n.h2,{id:"rules",children:[e.jsx(n.a,{"aria-hidden":"true",tabIndex:"-1",href:"#rules",children:e.jsx(n.i,{className:"linkbtn gg-link"})}),"Rules"]}),`
@@ -73,4 +73,4 @@ if $a then $b else $c <=2= ($a $b $c) -- assuming Church booleans
 `,e.jsx(n.p,{children:e.jsx(n.em,{children:"ps: I updated the code samples in this article to keep the highlighting working. Changes:"})}),`
 `,e.jsxs(n.ul,{children:[`
 `,e.jsx(n.li,{children:e.jsxs(n.em,{children:["replaced ",e.jsx(n.code,{children:"="})," and ",e.jsx(n.code,{children:"=="})," with ",e.jsx(n.code,{children:":="})," in invariant rules"]})}),`
-`]})]})}function h(a={}){const{wrapper:n}=a.components||{};return n?e.jsx(n,Object.assign({},a,{children:e.jsx(s,a)})):s(a)}export{h as default};
+`]})]})}function h(a={}){const{wrapper:n}=a.components||{};return n?e.jsx(n,{...a,children:e.jsx(s,{...a})}):s(a)}export{h as default};
