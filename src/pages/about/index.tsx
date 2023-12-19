@@ -1,5 +1,6 @@
 import React from "react";
 import styles from './index.module.scss';
+import { SsrReady } from "../../components/SsrReady";
 
 export default function AboutPage() {
     return <div className={styles.main}>
@@ -30,5 +31,6 @@ export default function AboutPage() {
             progress is fundamentally incompatible with the optimal, holistic approach to
             issues like type checking, but when I have something to report I do it here.
         </p>
+        <SsrReady/>
     </div>
 }

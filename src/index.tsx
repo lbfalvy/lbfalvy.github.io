@@ -5,17 +5,15 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { AppLayout } from './layouts/App'
 import { Await } from '@lbfalvy/react-await'
 
-const obtainBlogPage = async () => {
+const obtainBlogPage = async () => import('./pages/Blog')
+const obtainProjectsPage = async () => {
     try {
-        const ret = await import('./pages/Blog');
-        console.log("Blog loaded")
-        return ret
+        return await import('./pages/Projects')
     } catch (e) {
         console.error(e);
         throw e;
     }
 }
-const obtainProjectsPage = () => import('./pages/Projects')
 const obtainAboutPage = () => import('./pages/about')
 const obtainArticlePage = () => import('./pages/Article')
 
