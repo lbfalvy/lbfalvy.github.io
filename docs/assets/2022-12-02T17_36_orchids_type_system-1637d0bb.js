@@ -1,11 +1,11 @@
-import{j as e}from"./jsx-runtime-82b96a72.js";import"./index-b343c6e9.js";function s(n){const i=Object.assign({h2:"h2",a:"a",i:"i",p:"p",code:"code",pre:"pre",ul:"ul",li:"li",em:"em"},n.components);return e.jsxs(e.Fragment,{children:[e.jsxs(i.h2,{id:"unification-universe-recursion",children:[e.jsx(i.a,{"aria-hidden":"true",tabIndex:"-1",href:"#unification-universe-recursion",children:e.jsx(i.i,{className:"linkbtn gg-link"})}),"Unification, universe recursion"]}),`
+import{j as e}from"./jsx-runtime-0127b9df.js";import"./index-0e98de9a.js";function s(n){const i=Object.assign({h2:"h2",a:"a",i:"i",p:"p",code:"code",pre:"pre",ul:"ul",li:"li",em:"em"},n.components);return e.jsxs(e.Fragment,{children:[e.jsxs(i.h2,{id:"unification-universe-recursion",children:[e.jsx(i.a,{"aria-hidden":"true",tabIndex:"-1",href:"#unification-universe-recursion",children:e.jsx(i.i,{className:"linkbtn gg-link"})}),"Unification, universe recursion"]}),`
 `,e.jsx(i.p,{children:"Orchid will be a compiled variant of lambda calculus which supports dependent types. Because it's compiled, the type of every value must be known statically, and because it supports dependent types, values can spontaneously appear in type expressions. This makes the type system Turing complete, and introduces the concept of dead branches."}),`
 `,e.jsx(i.p,{children:"As a matter of fact, Orchid's type system is Orchid. During unification, possible reductions of both type expressions are iterated breadth-first, and each of them are unified with each reduction of the opposite type until a match is found, the sequences end or a maximum number of steps is reached. In this way, by adding recognized reduction steps, we can support selected cases of infinite recursion in a manner that is backwards-compatibly extensible."}),`
 `,e.jsx(i.p,{children:"Unfortunately, there's another kind of recursion, one which is much more difficult to detect. Recursion across universes. Through a certain kind of symmetry between values and types, functions and kinds, it's very easy to end up with a value that occurs in a dead branch of its own type. Eagerly type checking this value would reduce to the same problem in the universe of types."}),`
 `,e.jsx(i.p,{children:"At this point it would make a lot of sense to just classify this as unsupported behavior. It would simplify the language substantially, and it would probably still leave a very expressive language. But saying no to myself isn't what got me so far. Instead, my solution is to employ gradual typing for type expressions. Above the universe of values, types are only unified when actually evaluating a function on a parameter."}),`
 `,e.jsxs(i.h2,{id:"hkts-typeclasses",children:[e.jsx(i.a,{"aria-hidden":"true",tabIndex:"-1",href:"#hkts-typeclasses",children:e.jsx(i.i,{className:"linkbtn gg-link"})}),"HKTs, typeclasses"]}),`
 `,e.jsxs(i.p,{children:["Orchid supports higher kinded types and typeclasses. Both are defined with a ",e.jsx(i.code,{children:"define Name $Param:kind,* as ...typeExpression"})," statement, which specifies all parameters and their kinds, and the backing type. For a demonstration, here's what the definition of List (type constructor) and Add (typeclass) might look like"]}),`
-`,e.jsx(i.pre,{children:e.jsx(i.code,{className:"language-orchid",children:`define List $T:type as loop \\r. Option (Pair $T r)
+`,e.jsx(i.pre,{children:e.jsx(i.code,{className:"hljs language-orchid",children:`define List $T:type as loop \\r. Option (Pair $T r)
 define Add $A $B $R as $A -> $B -> $R
 define Multiply $A $B $R as $A -> $B -> $R
 define Default $T:type as $T
@@ -18,7 +18,7 @@ define Default $T:type as $T
 `,e.jsxs(i.li,{children:[e.jsx(i.code,{children:"via valueExpression"})," ",e.jsx(i.em,{children:"required"})," The value that will be applied wherever this typeclass successfully matches. This will receive all auto parameters and preconditions that occur in the type expression, and must have the same type as the definition of the typeclass."]}),`
 `]}),`
 `,e.jsx(i.p,{children:"Following are some examples of typeclass implementations."}),`
-`,e.jsx(i.pre,{children:e.jsx(i.code,{className:"language-orchid",children:`impl Add string string string via \\a.\\b. strcat a b
+`,e.jsx(i.pre,{children:e.jsx(i.code,{className:"hljs language-orchid",children:`impl Add string string string via \\a.\\b. strcat a b
 impl @T. -- variables
     @:Add T T T. @init:Default T. -- preconditions
     Multiply uint T T -- target

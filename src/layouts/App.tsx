@@ -14,10 +14,34 @@ import useLink from "../hooks/useLink";
 import useMeta from "../hooks/useMeta";
 import styles from './App.module.scss';
 
+function debounce<T>(timeout: number, callback: (arg: T) => void): (arg: T) => void {
+    let cb: null | ReturnType<typeof setTimeout> = null;
+    return t => {
+        if (cb) clearTimeout(cb);
+        cb = setTimeout(() => {
+            cb = null;
+            callback(t);
+        }, timeout)
+    }
+}
+
 export function AppLayout(): React.ReactElement {
     useMeta('viewport', 'width=device-width, initial-scale=1.0')
     useMeta('theme-color', '#222')
     useLink('icon', 'https://github.com/lbfalvy.png')
+    const content_ref = React.useRef<HTMLElement>(null);
+    React.useEffect(() => {
+        const timeout = setTimeout(() => {
+            console.log("Attempting to restore scroll...")
+            const stored_scroll = localStorage.getItem(`scroll-for-${window.location.href}`);
+            const scroll = stored_scroll ? Number.parseInt(stored_scroll) : 0;
+            content_ref.current?.scrollTo({ top: scroll });
+        }, 500);
+        return () => clearTimeout(timeout);
+    }, [])
+    const saveScroll = debounce(100, (top: number | undefined) => {
+        if (top != undefined) localStorage.setItem(`scroll-for-${window.location.href}`, top.toString());
+    });
     return <div className={styles.main}>
         <header className={styles.pagehead}>
             <h1>Lawrence Bet…</h1>
@@ -27,8 +51,8 @@ export function AppLayout(): React.ReactElement {
                 <NavLink to="/about">About me</NavLink>
             </nav>
         </header>
-		<main className={styles.content}>
-            <Outlet/>
+        <main className={styles.content} ref={content_ref} onScroll={ev => saveScroll(content_ref.current?.scrollTop)}>
+            <Outlet />
         </main>
         <footer className={styles.contact}>
             <h2>Contact</h2>

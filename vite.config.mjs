@@ -6,6 +6,7 @@ import remarkToc from 'remark-toc'
 import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import Inspect from 'vite-plugin-inspect'
+import rehypeHighlight from "rehype-highlight"
 
 export default defineConfig({
     build: {
@@ -23,7 +24,8 @@ export default defineConfig({
                 }]
             ],
             rehypePlugins: [
-                rehypeSlug, 
+                rehypeSlug,
+                rehypeHighlight,
                 [rehypeAutolinkHeadings, {
                     content: {
                         type: 'element',
