@@ -19,7 +19,7 @@
 <meta data-ssr="data-ssr" name="twitter:title" content="Multiple First-party Blanket Implementations">
 <meta data-ssr="data-ssr" name="twitter:description" content="Breakdown of an interesting technique that gave me a new perspective on Rust traits">
 <meta data-ssr="data-ssr" name="twitter:image" content="">
-  <script type="module" crossorigin src="/assets/index-lkVcr_fF.js"></script>
+  <script type="module" crossorigin src="/assets/index-9oc8Fc-3.js"></script>
   <link rel="stylesheet" crossorigin href="/assets/index-HUclQR_7.css">
 </head>
 <body>
@@ -112,12 +112,12 @@
 <p>As mentioned above, the set of implementations is extensible by just defining <code>HitTargetImpl</code> for new values of <code>Key</code>. This of course refers to an internal extension, as blanket implementations of external traits aren't allowed. Importantly, this means that when used in an external interface, this trait creates a divide between first party implementations and third party implementations which need to use a newtype. The newtype pattern iw discussed below as an alternative.</p>
 <p>Modifications and extensions to the trait itself don't affect the indirect implementors, so it's much more flexible with respect to the trait itself than, say, exposing the indirect implementations as functions and then having the individual blocks and entities implement <code>HitTarget</code> using those functions.</p>
 <p>The most notable problem is that this selector mechanism is extremely heavy, and it isn't <em>really</em> a blanket implementation, just a sort of shared implementation body. The individual types still need to request the implementation, even if they can be statically forced to do so. The mental overhead of such a system can be daunting in Rust code which already tends to be very concept-heavy.</p>
-<h1 id="newtype"><a aria-hidden="true" tabindex="-1" href="#newtype"><i class="linkbtn gg-link"></i></a>Newtype</h1>
+<h2 id="newtype"><a aria-hidden="true" tabindex="-1" href="#newtype"><i class="linkbtn gg-link"></i></a>Newtype</h2>
 <p>The most plausible alternative I could find was to define a generic newtype:</p>
 <pre><code class="hljs language-rust"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">EntityHitTarget</span>&lt;T: Entity&gt;(<span class="hljs-keyword">pub</span> T);
 <span class="hljs-keyword">impl</span>&lt;T&gt; HitTarget <span class="hljs-keyword">for</span> <span class="hljs-title class_">EntityHitTarget</span>&lt;T&gt; <span class="hljs-keyword">where</span> T: Entity {}
 </code></pre>
-<p>In contrast to the above discussed pattern, this one is absolutely tiny and extremely straightforward. The main drawback is that the singleton which is synonymous to the choice of <code>HitTarget</code> implementation is now stated every time a type is cast into <code>HitTarget</code>. Additionally, this can't be combined with other trait bounds at all.</p>
+<p>In contrast to the above discussed pattern, this one is absolutely tiny and extremely straightforward. The main drawback is that the newtype which is synonymous to the choice of <code>HitTarget</code> implementation is now stated every time a type is cast into <code>HitTarget</code>. Additionally, this can't be combined with other trait bounds at all.</p>
 <p>Where this pattern really shines therefore is if you want to implement a large trait for a large number of first party disjoint groups which together contain many objects, just like the interaction model of a game.</p>
 <h1 id="terminology"><a aria-hidden="true" tabindex="-1" href="#terminology"><i class="linkbtn gg-link"></i></a>Terminology</h1>
 <p>Earlier I mentioned the need to establish vocabulary, and I tried to establish one with the final example. This isn't by any means authoritative, it's what I use for internal consistency in Orchid. To reiterate:</p>

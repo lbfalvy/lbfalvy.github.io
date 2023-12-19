@@ -124,7 +124,7 @@ Modifications and extensions to the trait itself don't affect the indirect imple
 
 The most notable problem is that this selector mechanism is extremely heavy, and it isn't _really_ a blanket implementation, just a sort of shared implementation body. The individual types still need to request the implementation, even if they can be statically forced to do so. The mental overhead of such a system can be daunting in Rust code which already tends to be very concept-heavy.
 
-# Newtype
+## Newtype
 
 The most plausible alternative I could find was to define a generic newtype:
 
@@ -133,7 +133,7 @@ struct EntityHitTarget<T: Entity>(pub T);
 impl<T> HitTarget for EntityHitTarget<T> where T: Entity {}
 ```
 
-In contrast to the above discussed pattern, this one is absolutely tiny and extremely straightforward. The main drawback is that the singleton which is synonymous to the choice of `HitTarget` implementation is now stated every time a type is cast into `HitTarget`. Additionally, this can't be combined with other trait bounds at all.
+In contrast to the above discussed pattern, this one is absolutely tiny and extremely straightforward. The main drawback is that the newtype which is synonymous to the choice of `HitTarget` implementation is now stated every time a type is cast into `HitTarget`. Additionally, this can't be combined with other trait bounds at all.
 
 Where this pattern really shines therefore is if you want to implement a large trait for a large number of first party disjoint groups which together contain many objects, just like the interaction model of a game.
 
