@@ -36,7 +36,7 @@ async function getPuppeteerCrawler(): Promise<Crawler> {
             const page = await browser.newPage();
             try {
                 await page.goto(path, { timeout: 30_000 });
-                await page.waitForNetworkIdle({ idleTime: 500, timeout: 10_000 });
+                await page.waitForNetworkIdle({ idleTime: 1500, timeout: 10_000 });
                 return await page.content()
             } finally {
                 await page.close();
@@ -92,7 +92,7 @@ async function prerender(routes: string[], dir: string, cname?: string) {
             if (!root) throw new Error(`#root not found`)
             return [
                 route,
-                root.toString(),
+                root.innerHTML,
                 head.map(t => t.toString()).join('\n')
             ] as [string, string, string]
         })
