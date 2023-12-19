@@ -1,0 +1,143 @@
+I recently saw a clever techinque [on the Rust forum](https://users.rust-lang.org/t/two-blanket-implementations-for-different-classes-of-objects/100173) which reshaped my understanding of traits. It took me a while to fully understand why this technique works and I found the conclusion very satisfying, so I'll break it down in this article.
+
+Let's suppose that we have the following structure. This is a contrived example vaguely inspired by Minecraft, but the general situation is fairly common.
+
+```rust
+trait Entity {}
+trait Block {}
+
+struct Player;
+impl Entity for Player {}
+struct Enemy;
+impl Entity for Enemy {}
+
+struct Stone;
+impl Block for Stone {}
+struct Ore;
+impl Block for Ore {}
+
+trait HitTarget {}
+```
+
+Now let's suppose that we want to implement `HitTarget` for all blocks and entities.
+
+```rust
+impl<T> HitTarget for T where T: Block {}
+impl<T> HitTarget for T where T: Entity {}
+```
+
+```error
+error[E0119]: conflicting implementations of trait `HitTarget'
+```
+
+The above code doesn't compile, because there could be a type which implements both `Block` and `Entity`. In general, we can't make negative statements (statements about the absence of an implementation) about traits so in order to prove that a trait's implementations never overlap, only one blanket implementation is ever permitted. So how do we proceed?
+
+# Sets of traits
+
+A generic trait or a generic type is an infinite set of traits or types that share some properties and so you can reason about the whole set, or subsets of it, with your logic applying to elements you don't (can't) know about. I used  to think about the generic itself as the trait or type, this was one of my major misconceptions. Think of `Index<T>`, which can invoke entirely different (though logically related) behaviour on the same containers as `Index<usize>` and `Index<Range<usize>>`.
+
+With this in mind, an impl is actually an infinite set of associations, each between a trait and a type. We already covered blanket implementations, but consider the following impl, which actually appears in the source code of Orchid:
+
+```rust
+impl<T: ?Sized> Index<T> for VPath where Vec<Tok<String>>: Index<T> {  }
+```
+
+This asserts, in common English, that `VPath` can be indexed by anything `Vec<Tok<String>>` can be indexed by. Because the set of possible values of `T` is open the only thing this implementation can do with its argument is index a vector, but in this case `VPath` is a thin wrapper around a vector with some convenience features so this works out just fine.
+
+With this in mind, we can try to implement `HitTarget` by using a generic trait to be able to talk about both all of something and one of it:
+
+```rust
+trait HitTargetHelper<T> {}
+
+struct BlockHitHelper;
+struct EntityHitHelper;
+
+impl<T> HitTargetHelper<BlockHitHelper> for T where T: Block {}
+impl<T> HitTargetHelper<EntityHelper> for T where T: Entity {}
+impl<T, U> HitTarget for T where T: HitTargetHelper<U> {}
+```
+
+At a first glance, that's a lot of `*Helper` types, but this can be resolved by establishing clear vocabulary for the pattern. Either way, this doesn't compile either:
+
+```error
+error[E0207]: the type parameter `U` is not constrained by the impl trait, self type, or predicates
+```
+
+The problem with type parameters that don't appear in the trait or type is that this isn't actually a single implementation for each combination of traits and type. We want to use functionality within `HitTargetHelper<U>` to implement `HitTarget`, and when we look at the potential implementations to choose from we bump into the original problem; a type could implement both `HitTargetHelper<BlockHitHelper>` and `HitTargetHelper<EntityHitHelper>`.
+
+We might try to replace `U` with `T`, but then the first two impls become identical again. We need a way to make the value of `U` uniquely dependent on `T` to fix the abovementioned error, and we need to be able to explicitly state mutually exclusive values of `U` for `Block` and `Entity` implementors.
+
+# Unique types
+
+Since constraints are never negative, no two trait expressions can ever be mutually exclusive. Traits are unique to the implementor and parameter values but they aren't disjoint, and types are always disjoint but the implementors and parameters of a trait aren't unique. There's another kind of relation a type can have with a trait, though; associated types are disjoint from each other and unique to the implementation, which is in turn unique to the combination of trait and implementor. Let's define a trait that _uniquely selects one of_ the implementations of `HitTarget` by way of an associated type;
+
+```rust
+// General boilerplate
+trait HitTargetImpl<T> {}
+impl<T> HitTarget for T where T: HitTargetPick + HitTargetImpl<T::Key> {}
+trait HitTargetPick {
+  type Key;
+}
+
+// specific to Block
+struct HitTargetByBlock;
+impl<T> HitTargetImpl<HitTargetByBlock> for T where T: Block + HitTargetPick<Key = HitTargetByBlock> {}
+
+// specific to Entity
+struct HitTargetByEntity;
+impl<T> HitTargetImpl<HitTargetByEntity> for T where T: Entity + HitTargetPick<Key = HitTargetByEntity> {}
+```
+
+This way the two `HitTargetImpl` implementations are mutually exclusive and the `HitTarget` implementation selects one unambiguously.
+
+With this in place, any `Block` or `Entity` can become a `HitTarget` without reimplementing any of the logic by just selecting the correct Key for the implementation:
+
+```rust
+impl HitTargetPick for Enemy {
+  type Key = HitTargetByEntity;
+}
+```
+
+To make more traits "proxy" `HitTarget`, you can define new values of `Key` and implement `HitTargetImpl` for them. These implementations can be defined on their own or in terms of any combination of other traits. You could even define a different implementation that also proxies through `Entity`, with a different `Key` value. Indeed, the `Entity` and `Block` constraints in the `HitTargetImpl` implementations above aren't even really part of the main mechanism.
+
+In Minecraft all blocks are breakable, or at least act like they are breakable even if you never actually finish breaking them. If you want to mandate that all implementors of a certain trait select the same implementation of another, you can add it as a supertrait, which allows you to simply reference `Block` and use `HitTarget` functionality. You can also of course add `HitTarget` as a supertrait directly but this doesn't force a particular implementation.
+
+```rust
+trait Block: HitTargetPick<Key = HitTargetByBlock>;
+```
+
+Don't forget though that blanket impl limitations still apply to `HitTargetPick`, so you can't just implement it once for all types that implement `Block`. Each block will have to implement `HitTargetPick` separately, you just get a handy error reminding you to do it.
+
+It's easy and potentially helpful to qualify valid values of `HitTargetPick::Key`, here `HitTargetByBlock` and `HitTargetByEntity` with another marker trait, eg. `HitTargetChoice`, so that if users accidentally select the wrong struct and don't immediately rely on the `HitTarget` implementation they still get a type error.
+
+# When to use and avoid
+
+Whenever programmers discover a neat gadget like this one, we have a tendency to apply it over-eagerly. Let's consider the strengths, weaknesses, and alternatives of this pattern.
+
+As mentioned above, the set of implementations is extensible by just defining `HitTargetImpl` for new values of `Key`. This of course refers to an internal extension, as blanket implementations of external traits aren't allowed. Importantly, this means that when used in an external interface, this trait creates a divide between first party implementations and third party implementations which need to use a newtype. The newtype pattern iw discussed below as an alternative.
+
+Modifications and extensions to the trait itself don't affect the indirect implementors, so it's much more flexible with respect to the trait itself than, say, exposing the indirect implementations as functions and then having the individual blocks and entities implement `HitTarget` using those functions.
+
+The most notable problem is that this selector mechanism is extremely heavy, and it isn't _really_ a blanket implementation, just a sort of shared implementation body. The individual types still need to request the implementation, even if they can be statically forced to do so. The mental overhead of such a system can be daunting in Rust code which already tends to be very concept-heavy.
+
+# Newtype
+
+The most plausible alternative I could find was to define a generic newtype:
+
+```rust
+struct EntityHitTarget<T: Entity>(pub T);
+impl<T> HitTarget for EntityHitTarget<T> where T: Entity {}
+```
+
+In contrast to the above discussed pattern, this one is absolutely tiny and extremely straightforward. The main drawback is that the singleton which is synonymous to the choice of `HitTarget` implementation is now stated every time a type is cast into `HitTarget`. Additionally, this can't be combined with other trait bounds at all.
+
+Where this pattern really shines therefore is if you want to implement a large trait for a large number of first party disjoint groups which together contain many objects, just like the interaction model of a game.
+
+# Terminology
+
+Earlier I mentioned the need to establish vocabulary, and I tried to establish one with the final example. This isn't by any means authoritative, it's what I use for internal consistency in Orchid. To reiterate:
+
+- The trait which is generic over the choice is simply suffixed `*Impl`. This also pairs well with another much more general trait pattern I call impl/dyn separation which relates to trait objects, I'll venture to describe it once I understand its consequences better.
+- The trait with a single associated type is suffixed `*Pick` and the associated type is `Key`. These are chosen to be as short as possible because the whole trait often appears on one line.
+- The optional marker trait for valid values of `Key` is suffixed `Choice`
+- The pattern itself is called Multiple First-party Blanket Implementations, or MFBI. It sounds nowhere near as nice as CRTP, but unlike CRTP it actually describes what the pattern does succintly and accurately.

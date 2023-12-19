@@ -1,4 +1,5 @@
 @import url('https://unpkg.com/css.gg@2.0.0/icons/css/link.css');
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
 @import '../helpers/shared.module.scss';
 
 $brk: 800px;
@@ -11,6 +12,7 @@ $brk: 800px;
             'author time'
             'title title'
             'summary summary';
+
         @media (min-width: $brk) {
             grid-template-columns: auto auto 1fr;
             grid-template-rows: auto auto;
@@ -18,23 +20,27 @@ $brk: 800px;
                 'title author time'
                 'title summary summary';
         }
+
         h1 {
             grid-area: title;
             font-size: 2em;
             margin: 10px;
         }
+
         address {
             grid-area: author;
             display: flex;
             align-items: flex-end;
             vertical-align: bottom;
         }
+
         time {
             grid-area: time;
             display: flex;
             align-items: flex-end;
             vertical-align: bottom;
         }
+
         summary {
             grid-area: summary;
             color: #ddd;
@@ -43,28 +49,38 @@ $brk: 800px;
             letter-spacing: 3px;
         }
     }
+
     main {
         font-family: 'Roboto', sans-serif;
         font-weight: 300;
         @include side-bar-container();
+
         h2:global(#table-of-contents) {
             display: none;
-            & + ul {
+
+            &+ul {
                 @include side-bar();
-                &, & ul {
+
+                &,
+                & ul {
                     padding-left: 2ch;
                     list-style-type: none;
                 }
+
                 a {
                     color: inherit;
                     text-decoration: none;
+
                     &:hover {
                         color: white;
                     }
                 }
             }
         }
-        h2[id=""] { display: none }
+
+        h2[id=""] {
+            display: none
+        }
 
         // Linked titles
 
@@ -74,7 +90,13 @@ $brk: 800px;
             color: grey;
             // visibility: hidden;
         }
-        h1,h2,h3,h4,h5,h6 {
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
             font-family: 'Montserrat', sans-serif;
             // font-weight: 300;
             // &:hover :global(.linkbtn) {
@@ -97,11 +119,28 @@ $brk: 800px;
         }
 
         code {
-            color: white;
-            background: #0004;
-            padding: 0 5px;
-            border-radius: 5px;
-            border: .5px solid #888;
+            font-family: 'Source Code Pro', monospace;
+            font-size: inherit;
+            // background: #0004;
+            // padding: 0 5px;
+            // border-radius: 5px;
+            // border: .5px solid #888;
+        }
+
+        code:is(:global(.language-rs), :global(.language-rust)) {
+            color: #fff;
+            :global(.hljs-keyword) {
+                color: #39f
+            }:global(.hljs-title) {
+                color: #8f8
+            }:global(.hljs-type) {
+                color: #8e8
+            }
+        }
+
+        // that's a silly hack but it's very ergonomic to use
+        code:is(:global(.language-error)) {
+            color: #fbb;
         }
     }
 }

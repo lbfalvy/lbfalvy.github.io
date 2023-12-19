@@ -21,8 +21,8 @@ const feed = new Rss({
     categories: ['blog', ...new Set(articles.flatMap(art => art.tags))],
     copyright: `${now.year} Lawrence Bethlenfalvy all rights reserved`,
     description: `
-        I often post about my various projects and my experiences with assorted tools.
-        I like a mathematical approach to computer science and an engineer's approach to
+        I often post about various projects and my experiences with assorted tools.
+        I have a mathematical approach to computer science and an engineer's approach to
         mathematics.
     `,
     image_url: 'https://github.com/lbfalvy.png',
@@ -33,8 +33,9 @@ const feed = new Rss({
     webMaster: 'Lawrence Bethlenfalvy <lbfalvy@protonmail.com>'
 })
 for (const article of articles.filter(x => !x.unlisted)) {
+    let time = article.time;
     feed.item({
-        date: article.time.toString(),
+        date: new Date(time.epochMilliseconds),
         description: article.summary,
         title: article.title,
         url: `${baseURL}/blog/${article.url}`,

@@ -23,7 +23,7 @@ export default function ArticlePage(): React.ReactElement {
             <address>{metadata.author}</address>
             <summary>{metadata.summary}</summary>
         </header>
-        <hr/>
+        <hr />
         <main>
             <Await obtainFor={metadata.load} />
         </main>
