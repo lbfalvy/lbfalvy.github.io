@@ -5,6 +5,8 @@ import printTime from "../helpers/printTime";
 import articles from './articles'
 import styles from './Article.module.scss';
 import useMetadata from "../hooks/useMetadata";
+import { SsrReady } from "../components/SsrReady";
+import { ssrReady } from "../helpers/ssrReady";
 
 export default function ArticlePage(): React.ReactElement {
     const { article } = useParams()
@@ -25,7 +27,11 @@ export default function ArticlePage(): React.ReactElement {
         </header>
         <hr />
         <main>
-            <Await obtainFor={metadata.load} />
+            <Await obtainFor={[async () => {
+                const result = await metadata.load();
+                ssrReady();
+                return result;
+            }, metadata.load]} />
         </main>
     </article>
 }

@@ -7,6 +7,7 @@ import useTags from "../hooks/useTags";
 import useSearchTerm from "../hooks/useSearchTerm";
 import { classList } from "@lbfalvy/react-utils";
 import useMetadata from "../hooks/useMetadata";
+import { SsrReady } from "../components/SsrReady";
 
 export default function ProjectsPage() {
     const [filtered, tags, filter, toggleFilter] = useTags(projects, ...useSearchTerm('filter'))
@@ -16,6 +17,7 @@ export default function ProjectsPage() {
         ['portfolio']
     )
     return <div className={classList(styles.main, sstyles.sideBarContainer)}>
+        <SsrReady />
         <h2>Projects</h2>
         <header className={classList(sstyles.sideBar, sstyles.filters)}>
             {tags.map(tag => 

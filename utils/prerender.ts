@@ -16,7 +16,7 @@ async function routes(): Promise<string[]> {
         'projects',
         ...articleFiles
             .filter(x => x.endsWith('.mdx'))
-            .map(x => `blog/${x.slice(0, x.length - '.mdx'.length)}`)    
+            .map(x => `blog/${x.slice(0, x.length - '.mdx'.length)}`)
     ]
 }
 
@@ -29,14 +29,17 @@ type Crawler = {
 };
 
 async function getPuppeteerCrawler(): Promise<Crawler> {
-    const browser = await puppeteer.launch({ product: 'chrome', headless: 'new' });
+    const browser = await puppeteer.launch({ product: 'chrome', headless: "new" });
     return {
         stop: () => browser.close(),
         async get(path) {
             const page = await browser.newPage();
             try {
+                const ssr_ready = new Promise(res => page.exposeFunction("ssrProceed", res));
                 await page.goto(path, { timeout: 30_000 });
+                await ssr_ready;
                 await page.waitForNetworkIdle({ idleTime: 1500, timeout: 10_000 });
+                await new Promise(res => setTimeout(res, 200));
                 return await page.content()
             } finally {
                 await page.close();
@@ -51,12 +54,12 @@ function segmentPath(path: string): string[] {
 
 function getPathForRoute(prefix: string, route: string): string[] {
     if (route.endsWith('.html')) return [
-        ...segmentPath(prefix), 
+        ...segmentPath(prefix),
         ...segmentPath(route)
     ]
     return [
         ...segmentPath(prefix),
-        ...segmentPath(route), 
+        ...segmentPath(route),
         'index.html'
     ]
 }
@@ -68,7 +71,7 @@ async function write(data: string, path: string[]): Promise<void> {
 
 const phComment = '<!-- SSR-placeholder -->';
 const headPhComment = '<!-- SSR-head-placeholder -->';
-async function prerender(routes: string[], dir: string, cname?: string) { 
+async function prerender(routes: string[], dir: string, cname?: string) {
     console.log('Loading template...')
     const template = await fs.readFile(`${dir}/index.html`, { encoding: 'utf-8' })
     if (!template.includes(phComment)) throw new Error(`Template must contain ${phComment}`);
@@ -85,7 +88,14 @@ async function prerender(routes: string[], dir: string, cname?: string) {
     const results = await Promise.all(
         routes.map(async route => {
             console.log(`Rendering /${route}`)
+            const passedFlag = [false];
+            setTimeout(() => {
+                if (!passedFlag[0]) {
+                    console.log(`/${route} isn't rendering, did you add <SsrReady/>?`);
+                }
+            }, 10_000)
             const html = await crawler.get(`http://localhost:${port}/${route}`);
+            passedFlag[0] = true;
             console.log(`Successfully rendered /${route}`)
             const root = parse(html).querySelector('body')
             const head = parse(html).querySelectorAll('[data-ssr], title')

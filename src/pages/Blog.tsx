@@ -9,6 +9,7 @@ import sstyles from '../helpers/shared.module.scss';
 import useSearchTerm from '../hooks/useSearchTerm'
 import useTags from '../hooks/useTags'
 import useMetadata from '../hooks/useMetadata'
+import { SsrReady } from '../components/SsrReady'
 
 export default function BlogPage(): React.ReactElement {
     useMetadata('website',
@@ -43,6 +44,7 @@ export default function BlogPage(): React.ReactElement {
                     </article>
                 </Link>
             )}
+            <SsrReady/>
         </main>
     </div>
 }
