@@ -5,152 +5,152 @@
 $brk: 800px;
 
 .main {
-    header {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        grid-template-areas:
-            'author time'
-            'title title'
-            'summary summary';
+	header {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		grid-template-areas:
+			'author time'
+			'title title'
+			'summary summary';
 
-        @media (min-width: $brk) {
-            grid-template-columns: auto auto minmax(300px, 1fr);
-            grid-template-rows: auto auto;
-            grid-template-areas:
-                'title author time'
-                'title summary summary';
-        }
+		@media (min-width: $brk) {
+			grid-template-columns: auto auto minmax(300px, 1fr);
+			grid-template-rows: auto auto;
+			grid-template-areas:
+				'title author time'
+				'title summary summary';
+		}
 
-        h1 {
-            grid-area: title;
-            font-size: 1.7em;
-            margin: 10px;
-            overflow-x: visible;
-        }
+		h1 {
+			grid-area: title;
+			font-size: 1.7em;
+			margin: 10px;
+			overflow-x: visible;
+		}
 
-        address {
-            grid-area: author;
-            display: flex;
-            align-items: flex-end;
-            vertical-align: bottom;
-        }
+		address {
+			grid-area: author;
+			display: flex;
+			align-items: flex-end;
+			vertical-align: bottom;
+		}
 
-        time {
-            grid-area: time;
-            display: flex;
-            align-items: flex-end;
-            vertical-align: bottom;
-        }
+		time {
+			grid-area: time;
+			display: flex;
+			align-items: flex-end;
+			vertical-align: bottom;
+		}
 
-        summary {
-            grid-area: summary;
-            color: #ddd;
-            font-style: italic;
-            margin: 2px 4px;
-            letter-spacing: 3px;
-        }
-    }
+		summary {
+			grid-area: summary;
+			color: #ddd;
+			font-style: italic;
+			margin: 2px 4px;
+			letter-spacing: 3px;
+		}
+	}
 
-    main {
-        max-width: 100%;
-        font-family: 'Roboto', sans-serif;
-        font-weight: 300;
-        @include side-bar-container();
+	main {
+		max-width: 100%;
+		font-family: 'Roboto', sans-serif;
+		font-weight: 300;
+		@include side-bar-container();
 
-        h2:global(#table-of-contents) {
-            display: none;
+		h2:global(#table-of-contents) {
+			display: none;
 
-            &+ul {
-                @include side-bar();
+			&+ul {
+				@include side-bar();
 
-                &,
-                & ul {
-                    padding-left: 2ch;
-                    list-style-type: none;
-                }
+				&,
+				& ul {
+					padding-left: 2ch;
+					list-style-type: none;
+				}
 
-                a {
-                    color: inherit;
-                    text-decoration: none;
+				a {
+					color: inherit;
+					text-decoration: none;
 
-                    &:hover {
-                        color: white;
-                    }
-                }
-            }
-        }
+					&:hover {
+						color: white;
+					}
+				}
+			}
+		}
 
-        h2[id=""] {
-            display: none
-        }
+		h2[id=""] {
+			display: none
+		}
 
-        // Linked titles
+		// Linked titles
 
-        :global(.linkbtn) {
-            display: inline-block;
-            margin: 5px 10px;
-            color: grey;
-            // visibility: hidden;
-        }
+		:global(.linkbtn) {
+			display: inline-block;
+			margin: 5px 10px;
+			color: grey;
+			// visibility: hidden;
+		}
 
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            font-family: 'Montserrat', sans-serif;
-            // font-weight: 300;
-            // &:hover :global(.linkbtn) {
-            //     visibility: unset;
-            // }
-        }
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
+			font-family: 'Montserrat', sans-serif;
+			// font-weight: 300;
+			// &:hover :global(.linkbtn) {
+			//	 visibility: unset;
+			// }
+		}
 
-        // Basic aesthetics
+		// Basic aesthetics
 
-        p {
-            text-align: justify;
-        }
+		p {
+			text-align: justify;
+		}
 
-        a {
-            @include colored-link();
-        }
+		a {
+			@include colored-link();
+		}
 
-        img {
-            max-width: 100%;
-        }
+		img {
+			max-width: 100%;
+		}
 
-        pre {
-            max-width: 100%;
-            overflow-x: auto;
-            padding: 5px 10px;
-            background-color: #fff1;
-        }
+		pre {
+			max-width: 100%;
+			overflow-x: auto;
+			padding: 5px 10px;
+			background-color: #fff1;
+		}
 
-        code {
-            font-family: 'Source Code Pro', monospace;
-            font-size: inherit;
-            overflow-x: auto;
-            // background: #0004;
-            // padding: 0 5px;
-            // border-radius: 5px;
-            // border: .5px solid #888;
-        }
+		code {
+			font-family: 'Source Code Pro', monospace;
+			font-size: inherit;
+			overflow-x: auto;
+			// background: #0004;
+			// padding: 0 5px;
+			// border-radius: 5px;
+			// border: .5px solid #888;
+		}
 
-        code:is(:global(.language-rs), :global(.language-rust)) {
-            color: #fff;
-            :global(.hljs-keyword) {
-                color: #39f
-            }:global(.hljs-title) {
-                color: #8f8
-            }:global(.hljs-type) {
-                color: #8e8
-            }
-        }
+		code:is(:global(.language-rs), :global(.language-rust)) {
+			color: #fff;
+			:global(.hljs-keyword) {
+				color: #39f
+			}:global(.hljs-title) {
+				color: #8f8
+			}:global(.hljs-type) {
+				color: #8e8
+			}
+		}
 
-        // that's a silly hack but it's very ergonomic to use
-        code:is(:global(.language-error)) {
-            color: #fbb;
-        }
-    }
+		// that's a silly hack but it's very ergonomic to use
+		code:is(:global(.language-error)) {
+			color: #fbb;
+		}
+	}
 }

@@ -10,8 +10,8 @@ const safeTitle = title.replaceAll(/[^a-zA-Z0-9_\- ]/g, '')
 console.log(safeTitle)
 const fileName = `${fileTime}_${safeTitle.toLowerCase().replaceAll(' ', '_')}`
 const componentName = `${safeTitle.replace(
-    /(?:\s|^)([a-zA-Z])/g,
-    (_, letter: string) => letter.toUpperCase()
+	/(?:\s|^)([a-zA-Z])/g,
+	(_, letter: string) => letter.toUpperCase()
 )}Page`
 
 const metadata =
@@ -19,17 +19,17 @@ const metadata =
 import Metadata from "./Metadata";
 
 export default {
-    url: "${fileName}",
-    title: ${JSON.stringify(title)},
-    author: \`Your Name Here\`,
-    tags: [],
-    time: Temporal.ZonedDateTime.from("${now}[UTC]"),
-    image: '',
-    summary: \`
-        Description here
-    \`,
-    unlisted: false,
-    load: () => import(${JSON.stringify(`./${fileName}.mdx`)})
+	url: "${fileName}",
+	title: ${JSON.stringify(title)},
+	author: \`Your Name Here\`,
+	tags: [],
+	time: Temporal.ZonedDateTime.from("${now}[UTC]"),
+	image: '',
+	summary: \`
+		Description here
+	\`,
+	unlisted: false,
+	load: () => import(${JSON.stringify(`./${fileName}.mdx`)})
 } as Metadata
 `
 
