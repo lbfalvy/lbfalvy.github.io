@@ -76,17 +76,17 @@ import std::io::(readln, print)
 import std::string::f
 
 export main := (
-    print "Username: ";
-    username = readln;
-    print(f"Password for {}:" username);
-    -- auth code...
+	print "Username: ";
+	username = readln;
+	print(f"Password for {}:" username);
+	-- auth code...
 )
 
 -------- In prelude --------
 --[ Functions defined:
-    export bind: @M. @:Monad M. @T. @U. (T -> M U) -> M T -> M U
-    export wrap: @M. @:Monad M. @T. T -> M T
-    export put: @M. @:Monad M. @T. @U. M U -> M T -> M U
+	export bind: @M. @:Monad M. @T. @U. (T -> M U) -> M T -> M U
+	export wrap: @M. @:Monad M. @T. T -> M T
+	export put: @M. @:Monad M. @T. @U. M U -> M T -> M U
 ]--
 -- Monads that wrap a value support procedural-like assignment syntax
 $_name = ...$first ; ...$second =2002=> bind (\$_name. ...$second) (...$first)
@@ -97,8 +97,8 @@ export ::(=, ;)
 
 -------- In std::string --------
 --[ Functions defined:
-    export format: String -> Cons String -> String
-    export to_string: @T. @:ToString T. T -> String
+	export format: String -> Cons String -> String
+	export to_string: @T. @:ToString T. T -> String
 ]--
 import std::static::static_map
 -- Transform variadic arguments to conslist of strings
@@ -123,7 +123,7 @@ count_tokens (..$increments) ($next ..$rest) =11_000=> count_tokens (..$incremen
 count_tokens (..$incrememnts) () =11_000=> (0 ..$increments)
 -- traverse a layer up while recording position
 (..$left macro_error ($path) $payload ..$right) =10_000=> macro_error (
-    (count_tokens () (..$left)) $path
+	(count_tokens () (..$left)) $path
 ) $payload
 -- translate any type of brackets into parentheses
 [..$left macro_error ..$right] =10_000=> (..$left macro_error ..$right)

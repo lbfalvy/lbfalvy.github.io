@@ -1,4 +1,4 @@
-import{j as e}from"./jsx-runtime-Rt0QLWW5.js";import{L as r,H as a}from"./LambdaHighlight-2D9M-oTM.js";import"./index-9oc8Fc-3.js";import"./classList-dVscd13K.js";function o(n){const t={a:"a",em:"em",h3:"h3",i:"i",p:"p",...n.components};return e.jsxs(e.Fragment,{children:[e.jsxs(t.h3,{id:"the-story-so-far",children:[e.jsx(t.a,{"aria-hidden":"true",tabIndex:"-1",href:"#the-story-so-far",children:e.jsx(t.i,{className:"linkbtn gg-link"})}),"The story so far"]}),`
+import{j as e}from"./jsx-runtime-aLsvVXUO.js";import{L as r,H as a}from"./LambdaHighlight-rGY_Zoy7.js";import"./index-DfK4NImv.js";import"./classList-dVscd13K.js";function o(n){const t={a:"a",em:"em",h3:"h3",i:"i",p:"p",...n.components};return e.jsxs(e.Fragment,{children:[e.jsxs(t.h3,{id:"the-story-so-far",children:[e.jsx(t.a,{"aria-hidden":"true",tabIndex:"-1",href:"#the-story-so-far",children:e.jsx(t.i,{className:"linkbtn gg-link"})}),"The story so far"]}),`
 `,e.jsxs(t.p,{children:["Almost nine months ago ",e.jsx(t.a,{href:"/blog/2022-02-27T21:25_lambda_calculus_for_practical_use",children:"I wrote an article"})," about a programming language I was working on. In it I avoided naming the language, spoke very vaguely about the motivations behind the project and made several logical errors in my code samples. Since then I've been working a lot on ",e.jsx(t.a,{href:"https://github.com/lbfalvy/orchid",children:"the language now called Orchid"}),". My final year project will be the type system, and I will complete the other parts later."]}),`
 `,e.jsx(t.p,{children:"Orchid is essentially Lambda calculus, with the addition of type annotations. Polymorphism is parametric and typeclasses are somewhat similar to Rust's traits, although they support HKTs and handle incoherence with flexible overrides rather than the rigid orphan rules. I don't want to go into much more detail here because the type system is still under planning, these are essentially the design parameters."}),`
 `,e.jsx(t.p,{children:"The language works with file-based namespaces not unlike Rust."}),`
@@ -44,17 +44,17 @@ import std::io::(readln, print)
 import std::string::f
 
 export main := (
-    print "Username: ";
-    username = readln;
-    print(f"Password for {}:" username);
-    -- auth code...
+	print "Username: ";
+	username = readln;
+	print(f"Password for {}:" username);
+	-- auth code...
 )
 
 -------- In prelude --------
 --[ Functions defined:
-    export bind: @M. @:Monad M. @T. @U. (T -> M U) -> M T -> M U
-    export wrap: @M. @:Monad M. @T. T -> M T
-    export put: @M. @:Monad M. @T. @U. M U -> M T -> M U
+	export bind: @M. @:Monad M. @T. @U. (T -> M U) -> M T -> M U
+	export wrap: @M. @:Monad M. @T. T -> M T
+	export put: @M. @:Monad M. @T. @U. M U -> M T -> M U
 ]--
 -- Monads that wrap a value support procedural-like assignment syntax
 $_name = ...$first ; ...$second =2002=> bind ($_name. ...$second) (...$first)
@@ -65,8 +65,8 @@ export ::(=, ;)
 
 -------- In std::string --------
 --[ Functions defined:
-    export format: String -> Cons String -> String
-    export to_string: @T. @:ToString T. T -> String
+	export format: String -> Cons String -> String
+	export to_string: @T. @:ToString T. T -> String
 ]--
 import std::static::static_map
 -- Transform variadic arguments to conslist of strings
@@ -86,7 +86,7 @@ count_tokens (..$increments) ($next ..$rest) =11_000=> count_tokens (..$incremen
 count_tokens (..$incrememnts) () =11_000=> (0 ..$increments)
 -- traverse a layer up while recording position
 (..$left macro_error ($path) $payload ..$right) =10_000=> macro_error (
-    (count_tokens () (..$left)) $path
+	(count_tokens () (..$left)) $path
 ) $payload
 -- translate any type of brackets into parentheses
 [..$left macro_error ..$right] =10_000=> (..$left macro_error ..$right)

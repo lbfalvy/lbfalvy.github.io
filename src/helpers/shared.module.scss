@@ -1,77 +1,77 @@
 .linkbox {
-    display: block;
-    padding: 5px 10px;
-    text-decoration: none;
-    color: inherit;
-    &[href]:hover {
-        background: #fff1;
-    }
+	display: block;
+	padding: 5px 10px;
+	text-decoration: none;
+	color: inherit;
+	&[href]:hover {
+		background: #fff1;
+	}
 }
 
 @mixin side-bar($right-gutter: 25ch, $right-gutter-break: 4 * $right-gutter) {
-    @media (min-width: calc($right-gutter-break / 2)) {
-        width: calc($right-gutter - 20px);
-        float: right;
-        @media (min-width: $right-gutter-break) {
-            position: sticky;
-            top: 1rem;
-        }
-    }
-    max-height: calc(100vh - 2rem);
-    z-index: 100;
-    background-color: #333;
-    padding: 10px 15px 15px;
-    margin: 0 10px;
+	@media (min-width: calc($right-gutter-break / 2)) {
+		width: calc($right-gutter - 20px);
+		float: right;
+		@media (min-width: $right-gutter-break) {
+			position: sticky;
+			top: 1rem;
+		}
+	}
+	max-height: calc(100vh - 2rem);
+	z-index: 100;
+	background-color: #333;
+	padding: 10px 15px 15px;
+	margin: 0 10px;
 }
 
 @mixin side-bar-container($right-gutter: 25ch, $right-gutter-break: 4 * $right-gutter) {
-    @media (min-width: $right-gutter-break) {
-        & > * {
-            max-width: 100ch;
-            margin-right: $right-gutter;
-            box-sizing: border-box;
-        }
-    }
+	@media (min-width: $right-gutter-break) {
+		& > * {
+			max-width: 100ch;
+			margin-right: $right-gutter;
+			box-sizing: border-box;
+		}
+	}
 }
 
 .sideBarContainer {
-    @include side-bar-container();
-    .sideBar {
-        @include side-bar()
-    }
+	@include side-bar-container();
+	.sideBar {
+		@include side-bar()
+	}
 }
 
 $link-color: #5c2dc8;
 
 @mixin colored-link() {
-    & {
-        text-decoration: none;
-        color: $link-color;
-        &:visited {
-            color: desaturate($color: $link-color, $amount: 50%);
-        }
-    }
+	& {
+		text-decoration: none;
+		color: $link-color;
+		&:visited {
+			color: desaturate($color: $link-color, $amount: 50%);
+		}
+	}
 }
 
 @mixin filters() {
-    a {
-        color: inherit;
-        font-size: .8em;
-        text-decoration: none;
-        padding: 1px .5em;
-        margin: 3px;
-        display: inline-block;
-        border-radius: 10000px;
-        border: 1px solid;
-        &.empty {
-            color: #555;
-        }
-        &.active {
-            color: #88f;
-        }
-    }
+	a {
+		color: inherit;
+		font-size: .8em;
+		text-decoration: none;
+		padding: 1px .5em;
+		margin: 3px;
+		display: inline-block;
+		border-radius: 10000px;
+		border: 1px solid;
+		&.empty {
+			color: #555;
+		}
+		&.active {
+			color: #88f;
+		}
+	}
 }
 
 .filters {
-    @include filters()
+	@include filters()
 }

@@ -1,4 +1,4 @@
-import{j as e}from"./jsx-runtime-Rt0QLWW5.js";import{L as t}from"./LambdaHighlight-2D9M-oTM.js";import"./index-9oc8Fc-3.js";import"./classList-dVscd13K.js";function s(a){const n={a:"a",code:"code",em:"em",h2:"h2",h3:"h3",i:"i",li:"li",p:"p",ul:"ul",...a.components};return e.jsxs(e.Fragment,{children:[e.jsxs(n.h2,{id:"table-of-contents",children:[e.jsx(n.a,{"aria-hidden":"true",tabIndex:"-1",href:"#table-of-contents",children:e.jsx(n.i,{className:"linkbtn gg-link"})}),"Table of contents"]}),`
+import{j as e}from"./jsx-runtime-aLsvVXUO.js";import{L as t}from"./LambdaHighlight-rGY_Zoy7.js";import"./index-DfK4NImv.js";import"./classList-dVscd13K.js";function s(a){const n={a:"a",code:"code",em:"em",h2:"h2",h3:"h3",i:"i",li:"li",p:"p",ul:"ul",...a.components};return e.jsxs(e.Fragment,{children:[e.jsxs(n.h2,{id:"table-of-contents",children:[e.jsx(n.a,{"aria-hidden":"true",tabIndex:"-1",href:"#table-of-contents",children:e.jsx(n.i,{className:"linkbtn gg-link"})}),"Table of contents"]}),`
 `,e.jsxs(n.ul,{children:[`
 `,e.jsxs(n.li,{children:[e.jsx(n.a,{href:"#rules",children:"Rules"}),`
 `,e.jsxs(n.ul,{children:[`
@@ -61,11 +61,11 @@ if $a then $b else $c <=2= ($a $b $c) -- assuming Church booleans
 `,e.jsxs(n.h3,{id:"conclusion",children:[e.jsx(n.a,{"aria-hidden":"true",tabIndex:"-1",href:"#conclusion",children:e.jsx(n.i,{className:"linkbtn gg-link"})}),"Conclusion"]}),`
 `,e.jsx(n.p,{children:"Given the above examples and fairly standard Lambda Calculus constants, the below example is a reasonable guess at what the final code might look like:"}),`
 `,e.jsx(t,{children:`find := \\T. \\predicate:(\\item:T.Bool). \\list:Cons T. (
-    (loop \\repeat. \\sublist:Cons T.
-        if (predicate (head sublist))
-        then (head sublist)
-        else (repeat (tail sublist))
-    ) list
+	(loop \\repeat. \\sublist:Cons T.
+		if (predicate (head sublist))
+		then (head sublist)
+		else (repeat (tail sublist))
+	) list
 )`}),`
 `,e.jsxs(n.p,{children:["Here ",e.jsx(n.code,{children:"loop"})," is a more accessible keyword for the Y combinator and ",e.jsx(n.code,{children:"T"})," is a generic parameter. Also note that the type of sublist is specified even though it can easily be deduced from context because the human reader parsing the code top-down would have to skip to the end of the loop call to see the parameter. This is a good example of a case where adding superfluous type hints improves readability."]}),`
 `,e.jsxs(n.h2,{id:"future",children:[e.jsx(n.a,{"aria-hidden":"true",tabIndex:"-1",href:"#future",children:e.jsx(n.i,{className:"linkbtn gg-link"})}),"Future"]}),`

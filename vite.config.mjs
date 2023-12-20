@@ -7,32 +7,32 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeHighlight from "rehype-highlight"
 
 export default defineConfig({
-    build: {
-        outDir: './docs',
-    },
-    plugins: [
-        reactRefresh(),
-        mdx({
-            useDynamicImport: false,
-            remarkPlugins: [
-                [remarkToc, {
-                    tight: true,
-                    skip: '.{0}' // Nothing
-                }]
-            ],
-            rehypePlugins: [
-                rehypeSlug,
-                rehypeHighlight,
-                [rehypeAutolinkHeadings, {
-                    content: {
-                        type: 'element',
-                        tagName: 'i',
-                        properties: {
-                            className: 'linkbtn gg-link'
-                        }
-                    }
-                }]
-            ]
-        })
-    ]
+	build: {
+		outDir: './docs',
+	},
+	plugins: [
+		reactRefresh(),
+		mdx({
+			useDynamicImport: false,
+			remarkPlugins: [
+				[remarkToc, {
+					tight: true,
+					skip: '.{0}' // Nothing
+				}]
+			],
+			rehypePlugins: [
+				rehypeSlug,
+				rehypeHighlight,
+				[rehypeAutolinkHeadings, {
+					content: {
+						type: 'element',
+						tagName: 'i',
+						properties: {
+							className: 'linkbtn gg-link'
+						}
+					}
+				}]
+			]
+		})
+	]
 })

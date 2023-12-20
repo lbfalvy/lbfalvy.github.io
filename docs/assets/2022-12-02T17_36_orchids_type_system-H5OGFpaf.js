@@ -1,4 +1,4 @@
-import{j as e}from"./jsx-runtime-Rt0QLWW5.js";import"./index-9oc8Fc-3.js";function s(n){const i={a:"a",code:"code",em:"em",h2:"h2",i:"i",li:"li",p:"p",pre:"pre",ul:"ul",...n.components};return e.jsxs(e.Fragment,{children:[e.jsxs(i.h2,{id:"unification-universe-recursion",children:[e.jsx(i.a,{"aria-hidden":"true",tabIndex:"-1",href:"#unification-universe-recursion",children:e.jsx(i.i,{className:"linkbtn gg-link"})}),"Unification, universe recursion"]}),`
+import{j as e}from"./jsx-runtime-aLsvVXUO.js";import"./index-DfK4NImv.js";function s(n){const i={a:"a",code:"code",em:"em",h2:"h2",i:"i",li:"li",p:"p",pre:"pre",ul:"ul",...n.components};return e.jsxs(e.Fragment,{children:[e.jsxs(i.h2,{id:"unification-universe-recursion",children:[e.jsx(i.a,{"aria-hidden":"true",tabIndex:"-1",href:"#unification-universe-recursion",children:e.jsx(i.i,{className:"linkbtn gg-link"})}),"Unification, universe recursion"]}),`
 `,e.jsx(i.p,{children:"Orchid will be a compiled variant of lambda calculus which supports dependent types. Because it's compiled, the type of every value must be known statically, and because it supports dependent types, values can spontaneously appear in type expressions. This makes the type system Turing complete, and introduces the concept of dead branches."}),`
 `,e.jsx(i.p,{children:"As a matter of fact, Orchid's type system is Orchid. During unification, possible reductions of both type expressions are iterated breadth-first, and each of them are unified with each reduction of the opposite type until a match is found, the sequences end or a maximum number of steps is reached. In this way, by adding recognized reduction steps, we can support selected cases of infinite recursion in a manner that is backwards-compatibly extensible."}),`
 `,e.jsx(i.p,{children:"Unfortunately, there's another kind of recursion, one which is much more difficult to detect. Recursion across universes. Through a certain kind of symmetry between values and types, functions and kinds, it's very easy to end up with a value that occurs in a dead branch of its own type. Eagerly type checking this value would reduce to the same problem in the universe of types."}),`
@@ -20,11 +20,11 @@ define Default $T:type as $T
 `,e.jsx(i.p,{children:"Following are some examples of typeclass implementations."}),`
 `,e.jsx(i.pre,{children:e.jsx(i.code,{className:"hljs language-orchid",children:`impl Add string string string via \\a.\\b. strcat a b
 impl @T. -- variables
-    @:Add T T T. @init:Default T. -- preconditions
-    Multiply uint T T -- target
+	@:Add T T T. @init:Default T. -- preconditions
+	Multiply uint T T -- target
 by iterativeMultiply
 via \\n.\\t. (loop \\r. \\i.
-    if i = 0 then init else t + r (i - 1)
+	if i = 0 then init else t + r (i - 1)
 ) n
 `})}),`
 `,e.jsxs(i.p,{children:["Typeclasses are referenced in value-code the same way preconditions are referenced above. These instances are unified with every potential impl. A unifying candidate is accepted if it directly or indirectly overrides every other unifying candidate. ",e.jsx(i.em,{children:"Ambiguity is allowable in conceptual models, but the concrete decisions that influence compiled code always must be based on a traceable sequence of direct commands."})]}),`

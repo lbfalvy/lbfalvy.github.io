@@ -84,11 +84,11 @@ Given the above examples and fairly standard Lambda Calculus constants, the belo
 
 <LambdaHighlight>
 {`find := \\T. \\predicate:(\\item:T.Bool). \\list:Cons T. (
-    (loop \\repeat. \\sublist:Cons T.
-        if (predicate (head sublist))
-        then (head sublist)
-        else (repeat (tail sublist))
-    ) list
+	(loop \\repeat. \\sublist:Cons T.
+		if (predicate (head sublist))
+		then (head sublist)
+		else (repeat (tail sublist))
+	) list
 )`}
 </LambdaHighlight>
 

@@ -1,50 +1,50 @@
 :root {
-    --base-lightness: 40;
+	--base-lightness: 40;
 }
 
 .main {
-    white-space: pre-wrap;
-    padding: unset !important;
-    background: unset !important;
-    border-radius: unset !important;
-    border: unset !important;
-    font-family: "Droid Sans Mono", monospace;
-    font-size: small;
-    .comment {
-        color: #8f8;
-    }
-    .name {
-        color: hsl(
-            calc(170 - var(--level) * 5), 
-            calc(50% + var(--level) * 10%), 
-            calc(70% - var(--level) * 5%)
-        );
-        &.global {
-            color: hsl(30, 50%, 70%)
-        }
-    }
-    .operator {
-        color: white;
-    }
-    .macro {
-        color: #f55;
-    }
-    .placeholder {
-        color: #bb5;
-    }
-    .keyword {
-        color: #39f;
-    }
-    .string {
-        color: #f8b;
-    }
-    .number {
-        color: #afa;
-    }
-    .lambda {
-        .bkslash, .colon, .dot {
-            color: #999;
-        }
-        .param {}
-    }
+	white-space: pre-wrap;
+	padding: unset !important;
+	background: unset !important;
+	border-radius: unset !important;
+	border: unset !important;
+	font-family: "Droid Sans Mono", monospace;
+	font-size: small;
+	.comment {
+		color: #8f8;
+	}
+	.name {
+		color: hsl(
+			calc(170 - var(--level) * 5), 
+			calc(50% + var(--level) * 10%), 
+			calc(70% - var(--level) * 5%)
+		);
+		&.global {
+			color: hsl(30, 50%, 70%)
+		}
+	}
+	.operator {
+		color: white;
+	}
+	.macro {
+		color: #f55;
+	}
+	.placeholder {
+		color: #bb5;
+	}
+	.keyword {
+		color: #39f;
+	}
+	.string {
+		color: #f8b;
+	}
+	.number {
+		color: #afa;
+	}
+	.lambda {
+		.bkslash, .colon, .dot {
+			color: #999;
+		}
+		.param {}
+	}
 }

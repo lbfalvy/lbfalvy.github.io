@@ -31,11 +31,11 @@ Following are some examples of typeclass implementations.
 ```orchid
 impl Add string string string via \a.\b. strcat a b
 impl @T. -- variables
-    @:Add T T T. @init:Default T. -- preconditions
-    Multiply uint T T -- target
+	@:Add T T T. @init:Default T. -- preconditions
+	Multiply uint T T -- target
 by iterativeMultiply
 via \n.\t. (loop \r. \i.
-    if i = 0 then init else t + r (i - 1)
+	if i = 0 then init else t + r (i - 1)
 ) n
 ```
 

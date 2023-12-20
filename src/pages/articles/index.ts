@@ -6,5 +6,5 @@ import Metadata from './Metadata'
 const articles = import.meta.glob('./*.tsx', { eager: true })
 
 export default Object.values(articles).map(x => 
-    (x as { default: Metadata }).default
+	(x as { default: Metadata }).default
 )
