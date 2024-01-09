@@ -27,7 +27,7 @@ export default function ArticlePage(): React.ReactElement {
 		</header>
 		<hr />
 		<main>
-			<Await obtainFor={[async () => {
+			<Await f$Comp={[async () => {
 				const result = await metadata.load();
 				ssrReady();
 				return result;

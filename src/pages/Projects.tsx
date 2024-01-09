@@ -21,7 +21,8 @@ export default function ProjectsPage() {
 		<h2>Projects</h2>
 		<header className={classList(sstyles.sideBar, sstyles.filters)}>
 			{tags.map(tag => 
-				<a href="#" onClick={() => toggleFilter(tag)}
+				<a key={tag} href="#"
+					onClick={() => toggleFilter(tag)}
 					className={classList(
 						filter.includes(tag) && sstyles.active,
 						filtered.every(x => !x.tags.includes(tag)) && sstyles.empty
@@ -31,7 +32,7 @@ export default function ProjectsPage() {
 		</header>
 		<main>
 			{filtered.map(proj =>
-				<Project name={proj.name} url={proj.url}> key={proj.name}
+				<Project name={proj.name} url={proj.url} key={proj.name}>
 					{proj.description}
 				</Project>
 			)}

@@ -12,18 +12,6 @@
 		"plugins": [
 			{ "name": "ts-css-modules-vite-plugin", "root": "./" }
 		],
-		"typeRoots": ["declarations", "./node_modules/@types"]
-	},
-	"ts-node": {
-		"compilerOptions": {
-			"lib": [
-				"ESNext"
-			],
-			"moduleResolution": "Node",
-			"typeRoots": [
-				"./node_modules/@types"
-			],
-			"jsx": "react"
-		}
+		"typeRoots": ["declarations", "./node_modules"]
 	}
 }

@@ -21,10 +21,10 @@ const tree = () =>
 	<BrowserRouter>
 		<Routes>
 			<Route path="/" element={<AppLayout />} >
-				<Route index element={<Await obtainFor={obtainBlogPage} />} />
-				<Route path="blog/:article" element={<Await obtainFor={obtainArticlePage} />} />
-				<Route path="projects" element={<Await obtainFor={obtainProjectsPage} />} />
-				<Route path="about" element={<Await obtainFor={obtainAboutPage} />} />
+				<Route index element={<Await f$Comp={obtainBlogPage} />} />
+				<Route path="blog/:article" element={<Await f$Comp={obtainArticlePage} />} />
+				<Route path="projects" element={<Await f$Comp={obtainProjectsPage} />} />
+				<Route path="about" element={<Await f$Comp={obtainAboutPage} />} />
 			</Route>
 		</Routes>
 	</BrowserRouter>
