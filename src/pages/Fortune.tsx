@@ -75,16 +75,18 @@ function break_lines(input: string, width: number): string {
 export default function Fortune(): React.ReactElement {
   let text = break_lines(messages[Math.floor(Math.random() * messages.length)], 60);
   let width = text.split("\n").map(s => s.length).reduce((acc, l) => Math.max(acc, l))
-  return <pre>
-    {" " + "_".repeat(width + 2) + "\n"}
-    {text.split("\n").map((l, i, a) => {
-      let [s, e] = a.length === 1 ? ["(", ")"]
-        : i === 0 ? ["/", "\\"]
-        : i + 1 === a.length ? ["\\", "/"]
-        : ["|", "|"]
-      return s + " " + l.padEnd(width) + " " + e + "\n"
-    })}
-    {" " + "-".repeat(width + 2)}
+  return <>
+    <SsrReady />
+    <pre>
+      {" " + "_".repeat(width + 2) + "\n"}
+      {text.split("\n").map((l, i, a) => {
+        let [s, e] = a.length === 1 ? ["(", ")"]
+          : i === 0 ? ["/", "\\"]
+          : i + 1 === a.length ? ["\\", "/"]
+          : ["|", "|"]
+        return s + " " + l.padEnd(width) + " " + e + "\n"
+      })}
+      {" " + "-".repeat(width + 2)}
 {`
        l
         l
@@ -96,5 +98,6 @@ export default function Fortune(): React.ReactElement {
     /bl_   _/bl
     l___)=(___/
 `.replaceAll("b", "`").replaceAll("l", "\\")}
-  </pre>
+    </pre>
+  </>
 }
