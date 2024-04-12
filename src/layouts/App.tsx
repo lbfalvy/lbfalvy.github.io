@@ -57,6 +57,7 @@ export function AppLayout(): React.ReactElement {
 				<NavLink to="/" end>Blog</NavLink>
 				<NavLink to="/projects">Projects</NavLink>
 				<NavLink to="/about">About me</NavLink>
+				<NavLink to="/fortune">Fortune</NavLink>
 			</nav>
 		</header>
 		<main className={styles.content} ref={content_ref} onScroll={ev => saveScroll(content_ref.current?.scrollTop)}>

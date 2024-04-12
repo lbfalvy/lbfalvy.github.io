@@ -4,6 +4,7 @@ import './index.scss'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { AppLayout } from './layouts/App'
 import { Await } from '@lbfalvy/react-await'
+import "tiny-track-tracker";
 
 const obtainBlogPage = async () => import('./pages/Blog')
 const obtainProjectsPage = async () => {
@@ -16,6 +17,7 @@ const obtainProjectsPage = async () => {
 }
 const obtainAboutPage = () => import('./pages/about')
 const obtainArticlePage = () => import('./pages/Article')
+const obtainFortunePage = () => import('./pages/Fortune')
 
 const tree = () =>
 	<BrowserRouter>
@@ -25,6 +27,7 @@ const tree = () =>
 				<Route path="blog/:article" element={<Await f$Comp={obtainArticlePage} />} />
 				<Route path="projects" element={<Await f$Comp={obtainProjectsPage} />} />
 				<Route path="about" element={<Await f$Comp={obtainAboutPage} />} />
+				<Route path="fortune" element={<Await f$Comp={obtainFortunePage} />} />
 			</Route>
 		</Routes>
 	</BrowserRouter>
