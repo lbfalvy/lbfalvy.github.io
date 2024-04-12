@@ -19,7 +19,7 @@
 <meta data-ssr="data-ssr" name="twitter:title" content="Hello World!">
 <meta data-ssr="data-ssr" name="twitter:description" content="How I wrote a backend-free blog using React">
 <meta data-ssr="data-ssr" name="twitter:image" content="https://www.fox46.com/wp-content/uploads/sites/109/2018/04/92a7b31a-FD_409A20Space20Shuttle20Anniversary20RECT0_1523400530953.jpg_5314903_ver1.0.jpg?w=1280&amp;h=720&amp;crop=1">
-  <script type="module" crossorigin src="/assets/index-DfK4NImv.js"></script>
+  <script type="module" crossorigin src="/assets/index-L6re6fKW.js"></script>
   <link rel="stylesheet" crossorigin href="/assets/index-HUclQR_7.css">
 </head>
 <body>
@@ -27,13 +27,10 @@
 	
 	<script src="/src/index.tsx" type="module"></script>
 
-<div id="root"><div class="_main_wdin1_2"><header class="_pagehead_wdin1_15"><h1>Lawrence Bet…</h1><nav><a class="" href="/">Blog</a><a class="" href="/projects">Projects</a><a class="" href="/about">About me</a></nav></header><main class="_content_wdin1_57"><article class="_main_not8y_57"><header><h1>Hello World!</h1><time>2022-02-26 20:21</time><address>lbfalvy</address><summary>
+<div id="root"><div class="_main_wdin1_2"><header class="_pagehead_wdin1_15"><h1>Lawrence Bet…</h1><nav><a class="" href="/">Blog</a><a class="" href="/projects">Projects</a><a class="" href="/about">About me</a><a class="" href="/fortune">Fortune</a></nav></header><main class="_content_wdin1_57"><article class="_main_not8y_57"><header><h1>Hello World!</h1><time>2022-02-26 20:21</time><address>lbfalvy</address><summary>
 		How I wrote a backend-free blog using React
 	</summary></header><hr><main><p><img src="https://www.fox46.com/wp-content/uploads/sites/109/2018/04/92a7b31a-FD_409A20Space20Shuttle20Anniversary20RECT0_1523400530953.jpg_5314903_ver1.0.jpg?w=1280&amp;h=720&amp;crop=1" alt="Space shuttle taking off"></p>
 <p>When one thinks about starting a blog, the first go-to solution is probably WordPress. Unfortunately (or fortunately) I'm a web developer, so the inefficiency, inconvenience and general quality of WordPress bother me a lot, not to mention that it's a server-side system and my deployment target is Github Pages, which only accepts static files.</p>
-<code class="_main_q1j86_5"><span>
-</span><span class="_name_q1j86_17 _global_q1j86_20">foo</span><span> </span><span class="_macro_q1j86_26">:=</span><span> </span><span class="_name_q1j86_17 _global_q1j86_20">bar</span><span>
-</span></code>
 <h3 id="why"><a aria-hidden="true" tabindex="-1" href="#why"><i class="linkbtn gg-link"></i></a>Why?</h3>
 <p>You may think that this entire endeavor is stupid and I wasted my time. And you would have a point, it was certainly a huge effort, and there are certainly existing solutions for static-site blogging, probably even better than I can afford to make this. But here's the thing: <em>I really like React.</em> To be precise, I really like how the entire ecosystem is composed of small and flexible programs that do one thing and do it well. This is the same principle, popularised by UNIX, that enables Bash together with the GNU coreutils to do everything from <a href="https://gist.github.com/lbfalvy/676e7f31dc55b8e2ff71d4b9c639dfd3">collecting the news</a> through various minor automation tasks all the way to container orchestration as seen in Docker Compose.</p>
 <p>The entire project is built in this spirit. I use Typescript and Scss for most of the work and Vite bundles everything. Articles are written in MDX, which is a variant of Markdown with React component support and itself connects Remark and Rehype to turn markdown into HTML. The result is unparallelled flexibility, since I can add plugins separately to my bundler and markdown parser and nothing has to know about anything else.</p>

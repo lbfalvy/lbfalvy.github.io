@@ -13,7 +13,7 @@ import { SsrReady } from '../components/SsrReady'
 
 export default function BlogPage(): React.ReactElement {
 	useMetadata('website',
-		`Lawrence's Blug`,
+		`Lawrence's Blog`,
 		'I sometimes write about my projects or my experience with technologies',
 		['blog']
 	)

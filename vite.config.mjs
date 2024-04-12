@@ -10,6 +10,9 @@ export default defineConfig({
 	build: {
 		outDir: './docs',
 	},
+	optimizeDeps: {
+		exclude: ["react-await"]
+	},
 	plugins: [
 		reactRefresh(),
 		mdx({
