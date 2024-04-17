@@ -15,6 +15,7 @@ async function routes(): Promise<string[]> {
 		'about',
 		'projects',
 		'fortune',
+		"embed",
 		...articleFiles
 			.filter(x => x.endsWith('.mdx'))
 			.map(x => `blog/${x.slice(0, x.length - '.mdx'.length)}`)

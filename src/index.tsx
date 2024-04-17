@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { AppLayout } from './layouts/App'
 import { Await } from '@lbfalvy/react-await'
 import "tiny-track-tracker";
+import EmbedPort from './pages/EmbedPort'
 
 const obtainBlogPage = async () => import('./pages/Blog')
 const obtainProjectsPage = async () => {
@@ -28,6 +29,7 @@ const tree = () =>
 				<Route path="projects" element={<Await f$Comp={obtainProjectsPage} />} />
 				<Route path="about" element={<Await f$Comp={obtainAboutPage} />} />
 				<Route path="fortune" element={<Await f$Comp={obtainFortunePage} />} />
+				<Route path="embed" element={<EmbedPort />} />
 			</Route>
 		</Routes>
 	</BrowserRouter>
