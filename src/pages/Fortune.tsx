@@ -48,8 +48,28 @@ this coalescence led to the destruction of everything. \
 
 "The quickest way to oust yourself as a foreigner in England is to mention a place.",
 
-
+"My informant at https://martinteoharov.com/ has an important message for you",
 ]
+
+// call this with
+// ```
+// const channel = new MessageChannel();
+// iframe.contentWindow.postMessage({
+//     command: "wasMartinRefShown",
+//     replyPort: chan.port1
+// }, "*", [chan.port1]);
+// const wasMartinRefShownAtLorinc = await new Promise(r => channel.port2.onmessage = r);
+// ```
+window.addEventListener("message", ev => {
+  const command: string = ev.data.command;
+  const replyPort: MessagePort = ev.data.replyPort;
+  if (command === "wasMartinRefShown") {
+    const result = window.localStorage.getItem("martinRefShown") !== null;
+    replyPort.postMessage({ result });
+  } else {
+    replyPort.postMessage({ error: "Unrecognized command" });
+  }
+})
 
 function break_lines(input: string, width: number): string {
   return input
@@ -73,8 +93,12 @@ function break_lines(input: string, width: number): string {
 }
 
 export default function Fortune(): React.ReactElement {
-  let text = break_lines(messages[Math.floor(Math.random() * messages.length)], 60);
-  let width = text.split("\n").map(s => s.length).reduce((acc, l) => Math.max(acc, l))
+  const id = Math.floor(Math.random() * messages.length);
+  if (id === 7) {
+    if (window?.localStorage) window.localStorage.setItem("martinRefShown", "yes");
+  }
+  const text = break_lines(messages[id], 60);
+  const width = text.split("\n").map(s => s.length).reduce((acc, l) => Math.max(acc, l))
   return <>
     <SsrReady />
     <pre>
