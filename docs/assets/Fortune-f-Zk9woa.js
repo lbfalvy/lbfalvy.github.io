@@ -1,4 +1,4 @@
-import{R as s}from"./index-fv8DnjBE.js";import{S as h}from"./SsrReady-3bjqsBLM.js";import"./ssrReady--xosRwNU.js";const a=["Test message, please ignore",`Often when people ask difficult questions they don't actually need the answer but rather fail to fully understand their situation, take one too many steps in imitating familiar solutions, and end up asking the wrong question. This is known as the X/Y problem. 
+import{R as s}from"./index-gZTrJf74.js";import{S as u}from"./SsrReady-O-a9cTrh.js";import"./ssrReady--xosRwNU.js";const r=["Test message, please ignore",`Often when people ask difficult questions they don't actually need the answer but rather fail to fully understand their situation, take one too many steps in imitating familiar solutions, and end up asking the wrong question. This is known as the X/Y problem. 
 
 On the other hand, just blurting "X/Y!" in response to any difficult question is less useful than direct answers to the bad question. In remembering my learning journey, when I'm posed a difficult technical question I like to ask back:
 
@@ -7,13 +7,13 @@ On the other hand, just blurting "X/Y!" in response to any difficult question is
 
 There once was a way for all the world to unify into one space, this coalescence led to the destruction of everything. 
 
-@pukicho`,"The quickest way to oust yourself as a foreigner in England is to mention a place."];function u(i,n){return i.split(`
+@pukicho`,"The quickest way to oust yourself as a foreigner in England is to mention a place.","My informant at https://martinteoharov.com/ has an important message for you"];window.addEventListener("message",i=>{const n=i.data.command,e=i.data.replyPort;if(n==="wasMartinRefShown"){const t=window.localStorage.getItem("martinRefShown")!==null;e.postMessage({result:t})}else e.postMessage({error:"Unrecognized command"})});function c(i,n){return i.split(`
 `).flatMap(e=>{let t=[];for(;n<e.length;){let o=e.lastIndexOf(" ",n);o<0?(t.push(e.slice(0,n)),e=e.slice(n)):(t.push(e.slice(0,o)),e=e.slice(o+1))}return t.push(e),t}).join(`
-`)}function f(){let i=u(a[Math.floor(Math.random()*a.length)],60),n=i.split(`
-`).map(e=>e.length).reduce((e,t)=>Math.max(e,t));return s.createElement(s.Fragment,null,s.createElement(h,null),s.createElement("pre",null," "+"_".repeat(n+2)+`
-`,i.split(`
-`).map((e,t,o)=>{let[l,r]=o.length===1?["(",")"]:t===0?["/","\\"]:t+1===o.length?["\\","/"]:["|","|"];return l+" "+e.padEnd(n)+" "+r+`
-`})," "+"-".repeat(n+2),`
+`)}function m(){const i=Math.floor(Math.random()*r.length);i===7&&window!=null&&window.localStorage&&window.localStorage.setItem("martinRefShown","yes");const n=c(r[i],60),e=n.split(`
+`).map(t=>t.length).reduce((t,o)=>Math.max(t,o));return s.createElement(s.Fragment,null,s.createElement(u,null),s.createElement("pre",null," "+"_".repeat(e+2)+`
+`,n.split(`
+`).map((t,o,a)=>{let[l,h]=a.length===1?["(",")"]:o===0?["/","\\"]:o+1===a.length?["\\","/"]:["|","|"];return l+" "+t.padEnd(e)+" "+h+`
+`})," "+"-".repeat(e+2),`
        l
         l
         .--.
@@ -23,4 +23,4 @@ There once was a way for all the world to unify into one space, this coalescence
      (|     | )
     /bl_   _/bl
     l___)=(___/
-`.replaceAll("b","`").replaceAll("l","\\")))}export{f as default};
+`.replaceAll("b","`").replaceAll("l","\\")))}export{m as default};
