@@ -74,9 +74,7 @@ function break_lines(input: string, width: number): string {
 
 export default function Fortune(): React.ReactElement {
   const id = Math.floor(Math.random() * messages.length);
-  if (id === 6) {
-    window.localStorage.setItem("martinRefShown", "yes");
-  }
+  window.localStorage.setItem("martinRefShown", id === 6 ? "yes" : "no");
   const text = break_lines(messages[id], 60);
   const width = text.split("\n").map(s => s.length).reduce((acc, l) => Math.max(acc, l))
   return <>

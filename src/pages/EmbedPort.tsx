@@ -14,7 +14,7 @@ window.addEventListener("message", ev => {
   const command: string = ev.data.command;
   const replyPort: MessagePort = ev.data.replyPort;
   if (command === "wasMartinRefShown") {
-    const result = window.localStorage.getItem("martinRefShown") !== null;
+    const result = window.localStorage.getItem("martinRefShown") === "yes";
     replyPort.postMessage({ result });
   } else {
     replyPort.postMessage({ error: "Unrecognized command" });
